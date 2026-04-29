@@ -127,6 +127,29 @@ body {
 .upload-zone:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
 .upload-zone input { display: none; }
 
+.demo-banner {
+  margin: 6px 8px 0;
+  padding: 7px 10px;
+  background: var(--warn-bg);
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  font-size: 10px;
+  color: var(--warn);
+  display: flex; align-items: flex-start; gap: 6px;
+}
+.demo-banner-text { flex: 1; line-height: 1.5; }
+.demo-banner button {
+  background: none; border: none; cursor: pointer;
+  color: var(--warn); font-size: 11px; padding: 0;
+  text-decoration: underline; white-space: nowrap;
+  font-family: var(--sans);
+}
+.demo-tag {
+  font-size: 9px; padding: 1px 6px; border-radius: 3px;
+  background: var(--warn-bg); color: var(--warn);
+  border: 1px solid #fde68a; display: inline-block; margin-top: 2px;
+}
+
 /* ── Center: workspace ── */
 .workspace { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
@@ -495,6 +518,203 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 
 <script>
 // ═══════════════════════════════════════════════════
+// EMBEDDED SAMPLE DATA
+// ═══════════════════════════════════════════════════
+const SAMPLE_TRANSACTIONS_CSV = `transaction_id,date,customer_id,customer_name,region,category,product,units,unit_price,discount_pct,revenue,cost,status,sales_rep
+T001,2023-01-05,C042,Acme Corp,North,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Won,Sarah Chen
+T002,2023-01-07,C108,Beta Ltd,South,Furniture,Office Chair,5,180.00,0,900.00,450.00,Won,James Okafor
+T003,2023-01-09,C042,Acme Corp,North,Software,Analytics Suite,1,4500.00,15,3825.00,500.00,Won,Sarah Chen
+T004,2023-01-12,C217,Gamma Inc,East,Electronics,Monitor 27",3,350.00,5,997.50,630.00,Won,Priya Sharma
+T005,2023-01-15,C055,Delta Co,West,Software,CRM Basic,2,1200.00,0,2400.00,240.00,Won,Tom Walsh
+T006,2023-01-18,C301,Epsilon LLC,North,Furniture,Standing Desk,1,650.00,0,650.00,390.00,Lost,Sarah Chen
+T007,2023-01-20,C108,Beta Ltd,South,Electronics,Laptop Pro,1,1200.00,10,1080.00,800.00,Won,James Okafor
+T008,2023-01-22,C412,Zeta Corp,East,Software,Analytics Suite,3,4500.00,20,10800.00,1500.00,Won,Priya Sharma
+T009,2023-01-25,C055,Delta Co,West,Electronics,Keyboard,10,85.00,0,850.00,340.00,Won,Tom Walsh
+T010,2023-01-28,C042,Acme Corp,North,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,Sarah Chen
+T011,2023-02-02,C217,Gamma Inc,East,Furniture,Conference Table,1,1200.00,10,1080.00,720.00,Won,Priya Sharma
+T012,2023-02-05,C520,Eta Partners,South,Electronics,Monitor 27",2,350.00,0,700.00,420.00,Won,James Okafor
+T013,2023-02-07,C301,Epsilon LLC,North,Software,Analytics Suite,1,4500.00,25,3375.00,500.00,Won,Sarah Chen
+T014,2023-02-10,C412,Zeta Corp,East,Electronics,Laptop Pro,4,1200.00,15,4080.00,3200.00,Won,Priya Sharma
+T015,2023-02-14,C055,Delta Co,West,Furniture,Office Chair,8,180.00,10,1296.00,720.00,Won,Tom Walsh
+T016,2023-02-17,C630,Theta Inc,North,Software,CRM Basic,3,1200.00,0,3600.00,360.00,Won,Sarah Chen
+T017,2023-02-20,C108,Beta Ltd,South,Electronics,Keyboard,20,85.00,5,1615.00,680.00,Won,James Okafor
+T018,2023-02-22,C042,Acme Corp,North,Electronics,Monitor 27",1,350.00,0,350.00,210.00,Lost,Sarah Chen
+T019,2023-02-25,C217,Gamma Inc,East,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,Priya Sharma
+T020,2023-02-28,C520,Eta Partners,South,Furniture,Standing Desk,3,650.00,5,1852.50,1170.00,Won,James Okafor
+T021,2023-03-03,C412,Zeta Corp,East,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Priya Sharma
+T022,2023-03-06,C055,Delta Co,West,Electronics,Laptop Pro,2,1200.00,0,2400.00,1600.00,Won,Tom Walsh
+T023,2023-03-09,C301,Epsilon LLC,North,Furniture,Conference Table,2,1200.00,0,2400.00,1440.00,Won,Sarah Chen
+T024,2023-03-12,C630,Theta Inc,North,Electronics,Monitor 27",5,350.00,10,1575.00,1050.00,Won,Sarah Chen
+T025,2023-03-15,C108,Beta Ltd,South,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,James Okafor
+T026,2023-03-18,C042,Acme Corp,North,Electronics,Keyboard,15,85.00,5,1211.25,510.00,Won,Sarah Chen
+T027,2023-03-21,C217,Gamma Inc,East,Furniture,Office Chair,10,180.00,15,1530.00,900.00,Won,Priya Sharma
+T028,2023-03-24,C520,Eta Partners,South,Software,CRM Basic,2,1200.00,0,2400.00,240.00,Lost,James Okafor
+T029,2023-03-27,C412,Zeta Corp,East,Electronics,Laptop Pro,3,1200.00,20,2880.00,2400.00,Won,Priya Sharma
+T030,2023-03-30,C055,Delta Co,West,Software,CRM Pro,1,3600.00,5,3420.00,360.00,Won,Tom Walsh
+T031,2023-04-04,C301,Epsilon LLC,North,Electronics,Monitor 27",4,350.00,0,1400.00,840.00,Won,Sarah Chen
+T032,2023-04-07,C630,Theta Inc,North,Software,Analytics Suite,2,4500.00,15,7650.00,1000.00,Won,Sarah Chen
+T033,2023-04-10,C108,Beta Ltd,South,Furniture,Standing Desk,2,650.00,10,1170.00,780.00,Won,James Okafor
+T034,2023-04-13,C042,Acme Corp,North,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Sarah Chen
+T035,2023-04-16,C217,Gamma Inc,East,Electronics,Keyboard,25,85.00,0,2125.00,850.00,Won,Priya Sharma
+T036,2023-04-19,C520,Eta Partners,South,Electronics,Laptop Pro,1,1200.00,0,1200.00,800.00,Won,James Okafor
+T037,2023-04-22,C412,Zeta Corp,East,Furniture,Conference Table,1,1200.00,5,1140.00,720.00,Won,Priya Sharma
+T038,2023-04-25,C055,Delta Co,West,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,Tom Walsh
+T039,2023-04-28,C301,Epsilon LLC,North,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Lost,Sarah Chen
+T040,2023-04-30,C630,Theta Inc,North,Furniture,Office Chair,6,180.00,0,1080.00,540.00,Won,Sarah Chen
+T041,2023-05-03,C108,Beta Ltd,South,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,James Okafor
+T042,2023-05-06,C042,Acme Corp,North,Electronics,Monitor 27",3,350.00,5,997.50,630.00,Won,Sarah Chen
+T043,2023-05-09,C217,Gamma Inc,East,Software,Analytics Suite,4,4500.00,20,14400.00,2000.00,Won,Priya Sharma
+T044,2023-05-12,C520,Eta Partners,South,Furniture,Standing Desk,1,650.00,0,650.00,390.00,Won,James Okafor
+T045,2023-05-15,C412,Zeta Corp,East,Electronics,Keyboard,30,85.00,10,2295.00,1020.00,Won,Priya Sharma
+T046,2023-05-18,C055,Delta Co,West,Electronics,Laptop Pro,1,1200.00,0,1200.00,800.00,Won,Tom Walsh
+T047,2023-05-21,C301,Epsilon LLC,North,Software,CRM Basic,4,1200.00,5,4560.00,480.00,Won,Sarah Chen
+T048,2023-05-24,C630,Theta Inc,North,Furniture,Conference Table,1,1200.00,0,1200.00,720.00,Won,Sarah Chen
+T049,2023-05-27,C108,Beta Ltd,South,Electronics,Monitor 27",3,350.00,0,1050.00,630.00,Won,James Okafor
+T050,2023-05-30,C042,Acme Corp,North,Software,Analytics Suite,1,4500.00,10,4050.00,500.00,Won,Sarah Chen
+T051,2023-06-02,C217,Gamma Inc,East,Electronics,Laptop Pro,2,1200.00,5,2280.00,1600.00,Won,Priya Sharma
+T052,2023-06-05,C520,Eta Partners,South,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,James Okafor
+T053,2023-06-08,C412,Zeta Corp,East,Furniture,Office Chair,12,180.00,15,1836.00,1080.00,Won,Priya Sharma
+T054,2023-06-11,C055,Delta Co,West,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,Tom Walsh
+T055,2023-06-14,C301,Epsilon LLC,North,Electronics,Keyboard,20,85.00,0,1700.00,680.00,Won,Sarah Chen
+T056,2023-06-17,C630,Theta Inc,North,Electronics,Monitor 27",2,350.00,10,630.00,420.00,Lost,Sarah Chen
+T057,2023-06-20,C108,Beta Ltd,South,Software,CRM Basic,5,1200.00,10,5400.00,600.00,Won,James Okafor
+T058,2023-06-23,C042,Acme Corp,North,Furniture,Standing Desk,2,650.00,5,1235.00,780.00,Won,Sarah Chen
+T059,2023-06-26,C217,Gamma Inc,East,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,Priya Sharma
+T060,2023-06-29,C520,Eta Partners,South,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Won,James Okafor
+T061,2023-07-03,C412,Zeta Corp,East,Furniture,Conference Table,3,1200.00,10,3240.00,2160.00,Won,Priya Sharma
+T062,2023-07-06,C055,Delta Co,West,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,Tom Walsh
+T063,2023-07-09,C301,Epsilon LLC,North,Electronics,Laptop Pro,3,1200.00,15,3060.00,2400.00,Won,Sarah Chen
+T064,2023-07-12,C630,Theta Inc,North,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Sarah Chen
+T065,2023-07-15,C108,Beta Ltd,South,Furniture,Office Chair,4,180.00,0,720.00,360.00,Won,James Okafor
+T066,2023-07-18,C042,Acme Corp,North,Electronics,Monitor 27",4,350.00,5,1330.00,840.00,Won,Sarah Chen
+T067,2023-07-21,C217,Gamma Inc,East,Software,CRM Basic,6,1200.00,10,6480.00,720.00,Won,Priya Sharma
+T068,2023-07-24,C520,Eta Partners,South,Electronics,Keyboard,15,85.00,0,1275.00,510.00,Won,James Okafor
+T069,2023-07-27,C412,Zeta Corp,East,Software,Analytics Suite,2,4500.00,15,7650.00,1000.00,Won,Priya Sharma
+T070,2023-07-30,C055,Delta Co,West,Furniture,Standing Desk,2,650.00,0,1300.00,780.00,Won,Tom Walsh
+T071,2023-08-02,C301,Epsilon LLC,North,Electronics,Laptop Pro,1,1200.00,0,1200.00,800.00,Won,Sarah Chen
+T072,2023-08-05,C630,Theta Inc,North,Software,Analytics Suite,3,4500.00,20,10800.00,1500.00,Won,Sarah Chen
+T073,2023-08-08,C108,Beta Ltd,South,Furniture,Conference Table,1,1200.00,5,1140.00,720.00,Won,James Okafor
+T074,2023-08-11,C042,Acme Corp,North,Software,CRM Basic,2,1200.00,0,2400.00,240.00,Won,Sarah Chen
+T075,2023-08-14,C217,Gamma Inc,East,Electronics,Monitor 27",6,350.00,10,1890.00,1260.00,Won,Priya Sharma
+T076,2023-08-17,C520,Eta Partners,South,Software,CRM Pro,2,3600.00,5,6840.00,720.00,Won,James Okafor
+T077,2023-08-20,C412,Zeta Corp,East,Electronics,Laptop Pro,5,1200.00,20,4800.00,4000.00,Won,Priya Sharma
+T078,2023-08-23,C055,Delta Co,West,Furniture,Office Chair,3,180.00,0,540.00,270.00,Won,Tom Walsh
+T079,2023-08-26,C301,Epsilon LLC,North,Software,CRM Pro,1,3600.00,10,3240.00,360.00,Lost,Sarah Chen
+T080,2023-08-29,C630,Theta Inc,North,Electronics,Keyboard,25,85.00,5,2018.75,850.00,Won,Sarah Chen
+T081,2023-09-01,C108,Beta Ltd,South,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,James Okafor
+T082,2023-09-04,C042,Acme Corp,North,Furniture,Standing Desk,3,650.00,10,1755.00,1170.00,Won,Sarah Chen
+T083,2023-09-07,C217,Gamma Inc,East,Electronics,Laptop Pro,3,1200.00,10,3240.00,2400.00,Won,Priya Sharma
+T084,2023-09-10,C520,Eta Partners,South,Software,CRM Basic,4,1200.00,0,4800.00,480.00,Won,James Okafor
+T085,2023-09-13,C412,Zeta Corp,East,Furniture,Conference Table,2,1200.00,0,2400.00,1440.00,Won,Priya Sharma
+T086,2023-09-16,C055,Delta Co,West,Electronics,Monitor 27",2,350.00,0,700.00,420.00,Won,Tom Walsh
+T087,2023-09-19,C301,Epsilon LLC,North,Software,Analytics Suite,1,4500.00,5,4275.00,500.00,Won,Sarah Chen
+T088,2023-09-22,C630,Theta Inc,North,Furniture,Office Chair,4,180.00,10,648.00,360.00,Won,Sarah Chen
+T089,2023-09-25,C108,Beta Ltd,South,Electronics,Laptop Pro,2,1200.00,0,2400.00,1600.00,Won,James Okafor
+T090,2023-09-28,C042,Acme Corp,North,Software,CRM Pro,3,3600.00,15,9180.00,1080.00,Won,Sarah Chen
+T091,2023-10-01,C217,Gamma Inc,East,Electronics,Keyboard,20,85.00,5,1615.00,680.00,Won,Priya Sharma
+T092,2023-10-04,C520,Eta Partners,South,Furniture,Standing Desk,4,650.00,10,2340.00,1560.00,Won,James Okafor
+T093,2023-10-07,C412,Zeta Corp,East,Software,Analytics Suite,3,4500.00,15,11475.00,1500.00,Won,Priya Sharma
+T094,2023-10-10,C055,Delta Co,West,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Won,Tom Walsh
+T095,2023-10-13,C301,Epsilon LLC,North,Furniture,Conference Table,1,1200.00,0,1200.00,720.00,Won,Sarah Chen
+T096,2023-10-16,C630,Theta Inc,North,Software,CRM Basic,3,1200.00,5,3420.00,360.00,Won,Sarah Chen
+T097,2023-10-19,C108,Beta Ltd,South,Electronics,Monitor 27",4,350.00,10,1260.00,840.00,Won,James Okafor
+T098,2023-10-22,C042,Acme Corp,North,Furniture,Office Chair,7,180.00,0,1260.00,630.00,Won,Sarah Chen
+T099,2023-10-25,C217,Gamma Inc,East,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Priya Sharma
+T100,2023-10-28,C520,Eta Partners,South,Electronics,Laptop Pro,3,1200.00,5,3420.00,2400.00,Lost,James Okafor
+T101,2023-11-01,C412,Zeta Corp,East,Software,CRM Basic,5,1200.00,10,5400.00,600.00,Won,Priya Sharma
+T102,2023-11-04,C055,Delta Co,West,Furniture,Standing Desk,1,650.00,0,650.00,390.00,Won,Tom Walsh
+T103,2023-11-07,C301,Epsilon LLC,North,Electronics,Keyboard,30,85.00,5,2422.50,1020.00,Won,Sarah Chen
+T104,2023-11-10,C630,Theta Inc,North,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,Sarah Chen
+T105,2023-11-13,C108,Beta Ltd,South,Furniture,Office Chair,5,180.00,10,810.00,450.00,Won,James Okafor
+T106,2023-11-16,C042,Acme Corp,North,Electronics,Laptop Pro,3,1200.00,15,3060.00,2400.00,Won,Sarah Chen
+T107,2023-11-19,C217,Gamma Inc,East,Furniture,Conference Table,2,1200.00,5,2280.00,1440.00,Won,Priya Sharma
+T108,2023-11-22,C520,Eta Partners,South,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,James Okafor
+T109,2023-11-25,C412,Zeta Corp,East,Electronics,Monitor 27",5,350.00,10,1575.00,1050.00,Won,Priya Sharma
+T110,2023-11-28,C055,Delta Co,West,Software,Analytics Suite,2,4500.00,20,7200.00,1000.00,Won,Tom Walsh
+T111,2023-12-01,C301,Epsilon LLC,North,Electronics,Laptop Pro,4,1200.00,10,4320.00,3200.00,Won,Sarah Chen
+T112,2023-12-04,C630,Theta Inc,North,Furniture,Standing Desk,2,650.00,5,1235.00,780.00,Won,Sarah Chen
+T113,2023-12-07,C108,Beta Ltd,South,Software,CRM Basic,6,1200.00,15,6120.00,720.00,Won,James Okafor
+T114,2023-12-10,C042,Acme Corp,North,Electronics,Keyboard,20,85.00,0,1700.00,680.00,Won,Sarah Chen
+T115,2023-12-13,C217,Gamma Inc,East,Software,Analytics Suite,5,4500.00,20,18000.00,2500.00,Won,Priya Sharma
+T116,2023-12-16,C520,Eta Partners,South,Furniture,Office Chair,6,180.00,10,972.00,540.00,Won,James Okafor
+T117,2023-12-19,C412,Zeta Corp,East,Electronics,Laptop Pro,4,1200.00,15,4080.00,3200.00,Won,Priya Sharma
+T118,2023-12-22,C055,Delta Co,West,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Tom Walsh
+T119,2023-12-26,C301,Epsilon LLC,North,Furniture,Conference Table,1,1200.00,0,1200.00,720.00,Won,Sarah Chen
+T120,2023-12-29,C630,Theta Inc,North,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,Sarah Chen
+`;
+
+const SAMPLE_CUSTOMER_CSV = `customer_id,customer_name,industry,tier,account_manager,country,annual_contract_value,onboarded_date
+C042,Acme Corp,Manufacturing,Enterprise,Sarah Chen,USA,45000,2021-03-15
+C055,Delta Co,Retail,Mid-Market,Tom Walsh,USA,18000,2022-01-10
+C108,Beta Ltd,Financial Services,Enterprise,James Okafor,UK,32000,2020-11-20
+C217,Gamma Inc,Technology,Enterprise,Priya Sharma,USA,55000,2019-06-05
+C301,Epsilon LLC,Healthcare,Mid-Market,Sarah Chen,USA,22000,2022-08-14
+C412,Zeta Corp,Technology,Enterprise,Priya Sharma,Singapore,67000,2018-04-22
+C520,Eta Partners,Consulting,Mid-Market,James Okafor,UK,15000,2023-02-01
+C630,Theta Inc,Manufacturing,Enterprise,Sarah Chen,USA,38000,2021-09-30
+C750,Iota Systems,Retail,SMB,Tom Walsh,USA,8000,2023-05-12
+C810,Kappa Group,Financial Services,Mid-Market,James Okafor,Australia,19500,2022-11-08
+`;
+
+function loadSampleData() {
+  const txnResult = Papa.parse(SAMPLE_TRANSACTIONS_CSV.trim(), {
+    header: true, skipEmptyLines: true, dynamicTyping: true
+  });
+  const custResult = Papa.parse(SAMPLE_CUSTOMER_CSV.trim(), {
+    header: true, skipEmptyLines: true, dynamicTyping: true
+  });
+
+  tables['transactions_2023'] = txnResult.data;
+  tablesMeta['transactions_2023'] = {
+    ...buildMeta(txnResult.data, 'transactions_2023.csv'),
+    isDemo: true
+  };
+
+  tables['customer_master'] = custResult.data;
+  tablesMeta['customer_master'] = {
+    ...buildMeta(custResult.data, 'customer_master.csv'),
+    isDemo: true
+  };
+
+  renderTableList();
+  setActiveTable('transactions_2023');
+  showDemoBanner(true);
+  addAudit('Demo data loaded', '2 sample tables: transactions_2023 (120 rows) · customer_master (10 rows)', 'Load your own data to replace');
+}
+
+function clearDemoData() {
+  Object.keys(tablesMeta).filter(n => tablesMeta[n].isDemo || tablesMeta[n].isResult).forEach(n => {
+    delete tables[n];
+    delete tablesMeta[n];
+  });
+  activeTable = null;
+  currentData = [];
+  pipeline = [];
+  history = [];
+  showDemoBanner(false);
+  renderTableList();
+  renderPipeline();
+  showEmptyPreview();
+  document.getElementById('stats-bar').style.display = 'none';
+  showToast('Demo data cleared — load your own CSV or Excel file', '');
+}
+
+function showDemoBanner(show) {
+  const existing = document.getElementById('demo-banner');
+  if (existing) existing.remove();
+  if (!show) return;
+  const sidebar = document.querySelector('.sidebar');
+  const banner = document.createElement('div');
+  banner.id = 'demo-banner';
+  banner.className = 'demo-banner';
+  banner.innerHTML = `<span>⚠</span><div class="demo-banner-text">
+    <strong>Demo data loaded.</strong> Two sample tables are pre-loaded so you can explore operations immediately.
+    <br><button onclick="clearDemoData()">Clear demo data</button> when ready to load your own files.
+  </div>`;
+  sidebar.insertBefore(banner, sidebar.querySelector('.upload-zone'));
+}
+
+// ═══════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════
 let tables = {};          // name → [{col: val}, ...]
@@ -678,12 +898,14 @@ function renderTableList() {
   const makeItem = n => {
     const m = tablesMeta[n];
     const isResult = m.isResult;
+    const isDemo = m.isDemo;
     return `<div class="table-item ${n===activeTable?'active':''} ${isResult?'result':''}" onclick="setActiveTable('${n}')">
       <div class="table-icon">${isResult?'⊞':'📋'}</div>
       <div class="table-info">
         <div class="table-name" title="${n}">${n}</div>
         <div class="table-meta">${m.rows.toLocaleString()} rows · ${m.cols} cols</div>
         ${isResult?`<span class="result-badge">result</span>`:''}
+        ${isDemo?`<span class="demo-tag">demo</span>`:''}
       </div>
       ${isResult?`<button class="del-btn" onclick="event.stopPropagation();deleteTable('${n}')" title="Delete">✕</button>`:''}
     </div>`;
@@ -2026,6 +2248,8 @@ document.getElementById('modal-overlay').addEventListener('click', e => {
 
 // Init
 renderOps();
+// Load sample data so the tool opens ready to use
+loadSampleData();
 </script>
 </body>
 </html>
