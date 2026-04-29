@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataBridge — No-Code Data Workbench</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #f4f3ef;
+  --surface: #ffffff;
+  --surface2: #f9f8f5;
+  --border: #e4e2db;
+  --border2: #d0cdc4;
+  --text: #1c1b18;
+  --text2: #6b6860;
+  --text3: #9b9890;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --accent-border: #bfdbfe;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --warn: #d97706;
+  --warn-bg: #fffbeb;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── Layout ── */
+.app { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.logo { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.logo-mark { width: 28px; height: 28px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; }
+.logo-mark svg { width: 16px; height: 16px; fill: white; }
+.logo-sub { font-size: 11px; font-weight: 400; color: var(--text3); margin-left: 2px; }
+
+.topbar-center { flex: 1; display: flex; align-items: center; gap: 8px; overflow-x: auto; padding: 0 8px; }
+
+.tab-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent; color: var(--text2);
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  cursor: pointer; white-space: nowrap; transition: all 0.12s;
+  flex-shrink: 0;
+}
+.tab-btn:hover { background: var(--surface2); border-color: var(--border); }
+.tab-btn.active { background: var(--accent-bg); border-color: var(--accent-border); color: var(--accent); }
+.tab-btn .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+.tab-btn.active .dot { background: var(--accent); }
+
+.topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+.main { display: flex; flex: 1; overflow: hidden; }
+
+/* ── Left panel: tables ── */
+.sidebar {
+  width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 12px 14px 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.table-list { flex: 1; overflow-y: auto; padding: 6px; }
+
+.table-item {
+  padding: 8px 10px; border-radius: 6px;
+  cursor: pointer; display: flex; align-items: flex-start; gap: 8px;
+  border: 1px solid transparent; margin-bottom: 2px; transition: all 0.1s;
+}
+.table-item:hover { background: var(--surface2); border-color: var(--border); }
+.table-item.active { background: var(--accent-bg); border-color: var(--accent-border); }
+.table-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.table-info { flex: 1; min-width: 0; }
+.table-name { font-weight: 500; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.table-meta { font-size: 10px; color: var(--text3); margin-top: 1px; }
+
+.upload-zone {
+  margin: 8px; border: 1.5px dashed var(--border2);
+  border-radius: var(--radius); padding: 14px 10px;
+  text-align: center; cursor: pointer; transition: all 0.15s;
+  color: var(--text3); font-size: 11px;
+}
+.upload-zone:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.upload-zone input { display: none; }
+
+/* ── Center: workspace ── */
+.workspace { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+/* ── Pipeline steps ── */
+.pipeline-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0; overflow-x: auto;
+}
+
+.step-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--surface2);
+  font-size: 11px; color: var(--text2); cursor: pointer;
+  white-space: nowrap; flex-shrink: 0; transition: all 0.1s;
+}
+.step-chip:hover { border-color: var(--border2); }
+.step-chip.active { background: var(--accent-bg); border-color: var(--accent-border); color: var(--accent); }
+.step-chip.error { background: var(--danger-bg); border-color: #fca5a5; color: var(--danger); }
+.step-chip .remove { width: 14px; height: 14px; border-radius: 50%; background: var(--border2);
+  display: flex; align-items: center; justify-content: center; font-size: 9px; cursor: pointer; }
+.step-chip .remove:hover { background: var(--danger); color: white; }
+.step-arrow { color: var(--text3); font-size: 12px; flex-shrink: 0; }
+
+.pipeline-empty { font-size: 11px; color: var(--text3); font-style: italic; }
+
+/* ── Data preview ── */
+.preview-area { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+.preview-toolbar {
+  padding: 8px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface); flex-shrink: 0;
+}
+
+.preview-info { font-size: 11px; color: var(--text2); }
+.preview-info strong { color: var(--text); }
+
+.search-box {
+  display: flex; align-items: center; gap: 6px;
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 4px 10px; background: var(--surface2);
+}
+.search-box input {
+  border: none; background: transparent; font-family: var(--sans);
+  font-size: 12px; color: var(--text); outline: none; width: 160px;
+}
+.search-box input::placeholder { color: var(--text3); }
+
+.table-wrap { flex: 1; overflow: auto; }
+
+table.data-table {
+  border-collapse: collapse; width: 100%;
+  font-size: 12px; font-family: var(--sans);
+}
+table.data-table th {
+  background: var(--surface2); position: sticky; top: 0; z-index: 2;
+  padding: 8px 12px; text-align: left;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  font-weight: 600; font-size: 11px; white-space: nowrap;
+  cursor: pointer; user-select: none;
+}
+table.data-table th:hover { background: var(--border); }
+table.data-table th .col-type { font-family: var(--mono); font-size: 9px; font-weight: 400; color: var(--text3); display: block; }
+table.data-table td {
+  padding: 6px 12px; border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-family: var(--mono); font-size: 11px;
+}
+table.data-table tr:hover td { background: var(--surface2); }
+table.data-table td.null-val { color: var(--text3); font-style: italic; }
+table.data-table td.num-val { color: #1d4ed8; text-align: right; }
+
+/* ── Right panel: operations ── */
+.ops-panel {
+  width: 300px; background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  flex-shrink: 0; overflow: hidden;
+}
+
+.ops-header {
+  padding: 12px 14px 8px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.ops-header-title { font-size: 12px; font-weight: 600; flex: 1; }
+
+.ops-cats { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.cat-btn {
+  padding: 3px 9px; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text2);
+  font-family: var(--sans); font-size: 10px; font-weight: 500;
+  cursor: pointer; transition: all 0.1s;
+}
+.cat-btn:hover { border-color: var(--border2); }
+.cat-btn.active { background: var(--text); color: white; border-color: var(--text); }
+
+.ops-list { flex: 1; overflow-y: auto; padding: 8px; }
+
+.op-btn {
+  width: 100%; text-align: left; padding: 9px 12px;
+  border-radius: 7px; border: 1px solid transparent;
+  background: transparent; cursor: pointer;
+  font-family: var(--sans); transition: all 0.1s; margin-bottom: 2px;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.op-btn:hover { background: var(--surface2); border-color: var(--border); }
+.op-btn .op-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.op-btn .op-text { flex: 1; }
+.op-btn .op-name { font-size: 12px; font-weight: 500; color: var(--text); display: block; }
+.op-btn .op-desc { font-size: 10px; color: var(--text3); display: block; margin-top: 1px; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.15s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surface); border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  width: 100%; max-width: 560px;
+  max-height: 85vh; overflow-y: auto;
+  transform: translateY(8px); transition: transform 0.15s;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.modal-icon { font-size: 20px; flex-shrink: 0; }
+.modal-title { font-size: 14px; font-weight: 600; }
+.modal-subtitle { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.modal-close { margin-left: auto; width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border);
+  background: transparent; cursor: pointer; font-size: 14px; color: var(--text2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.modal-close:hover { background: var(--surface2); }
+.modal-body { padding: 16px 20px; }
+.modal-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+
+/* ── Form elements ── */
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 11px; font-weight: 600; color: var(--text2); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--surface2);
+  font-family: var(--sans); font-size: 12px; color: var(--text);
+  outline: none; transition: border-color 0.1s;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: var(--surface); }
+.field textarea { resize: vertical; min-height: 60px; font-family: var(--mono); font-size: 11px; }
+.field .hint { font-size: 10px; color: var(--text3); margin-top: 4px; }
+.field-row { display: flex; gap: 10px; }
+.field-row .field { flex: 1; }
+
+.cols-checkboxes { display: flex; flex-wrap: wrap; gap: 6px; max-height: 160px; overflow-y: auto; padding: 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface2); }
+.col-check { display: flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-size: 11px; font-family: var(--mono); }
+.col-check:hover { border-color: var(--accent-border); background: var(--accent-bg); }
+.col-check input { cursor: pointer; }
+
+.btn {
+  padding: 8px 16px; border-radius: var(--radius); border: 1px solid;
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all 0.1s; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-secondary { background: var(--surface); border-color: var(--border); color: var(--text); }
+.btn-secondary:hover { background: var(--surface2); }
+.btn-danger { background: var(--danger-bg); border-color: #fca5a5; color: var(--danger); }
+.btn-danger:hover { background: #fee2e2; }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
+.btn-xs { padding: 3px 8px; font-size: 10px; }
+
+/* ── Audit log ── */
+.audit-panel {
+  position: fixed; bottom: 0; right: 0; width: 340px;
+  background: var(--surface); border-top: 1px solid var(--border); border-left: 1px solid var(--border);
+  max-height: 240px; overflow-y: auto; z-index: 50;
+  display: none;
+}
+.audit-panel.open { display: block; }
+.audit-header { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; background: var(--surface2); }
+.audit-entry { padding: 6px 12px; border-bottom: 1px solid var(--border); font-size: 11px; }
+.audit-entry .audit-op { font-weight: 500; color: var(--accent); }
+.audit-entry .audit-detail { color: var(--text2); font-family: var(--mono); font-size: 10px; }
+.audit-entry .audit-time { color: var(--text3); font-size: 10px; float: right; }
+
+/* ── Stats bar ── */
+.stats-bar {
+  background: var(--surface2); border-top: 1px solid var(--border);
+  padding: 5px 16px; display: flex; gap: 16px; align-items: center;
+  flex-shrink: 0; font-size: 10px; color: var(--text3);
+}
+.stats-bar strong { color: var(--text2); }
+
+/* ── Empty state ── */
+.empty-state {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px; padding: 40px; text-align: center;
+}
+.empty-icon { font-size: 40px; opacity: 0.4; }
+.empty-title { font-size: 14px; font-weight: 500; color: var(--text2); }
+.empty-sub { font-size: 12px; color: var(--text3); max-width: 260px; line-height: 1.6; }
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+/* ── Toast ── */
+.toast {
+  position: fixed; top: 60px; right: 16px; z-index: 200;
+  background: var(--text); color: white; padding: 10px 16px;
+  border-radius: var(--radius); font-size: 12px; font-weight: 500;
+  opacity: 0; transform: translateY(-8px); transition: all 0.2s;
+  pointer-events: none; max-width: 300px;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+
+.tag { display: inline-block; padding: 1px 7px; border-radius: 20px; font-size: 10px; font-weight: 500; }
+.tag-blue { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-border); }
+.tag-green { background: var(--success-bg); color: var(--success); border: 1px solid #bbf7d0; }
+.tag-warn { background: var(--warn-bg); color: var(--warn); border: 1px solid #fde68a; }
+
+.divider { height: 1px; background: var(--border); margin: 10px 0; }
+.section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); margin-bottom: 6px; padding: 0 4px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 16 16"><path d="M2 3h5v4H2zm7 0h5v4H9zM2 9h5v4H2zm7 0h5v4H9z"/></svg>
+    </div>
+    DataBridge
+    <span class="logo-sub">No-code data workbench</span>
+  </div>
+
+  <div class="topbar-center" id="pipeline-bar">
+    <div class="pipeline-empty">Load a dataset to begin — then add operations from the right panel</div>
+  </div>
+
+  <div class="topbar-right">
+    <button class="btn btn-secondary btn-sm" onclick="toggleAudit()">📋 Audit log</button>
+    <button class="btn btn-secondary btn-sm" onclick="undoStep()" id="undo-btn" disabled>↩ Undo</button>
+    <button class="btn btn-primary btn-sm" onclick="exportData()">⬇ Export</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Sidebar: loaded tables -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      Tables
+      <span id="table-count" class="tag tag-blue">0</span>
+    </div>
+    <div class="table-list" id="table-list"></div>
+    <label class="upload-zone" id="upload-zone">
+      <input type="file" id="file-input" accept=".csv,.tsv,.xlsx,.xls" multiple onchange="handleFiles(this.files)">
+      <div style="font-size:20px;margin-bottom:4px">⊕</div>
+      <div style="font-weight:500;font-size:12px;color:var(--text2)">Load dataset</div>
+      <div style="margin-top:2px">CSV · TSV · XLSX</div>
+    </label>
+  </div>
+
+  <!-- Workspace -->
+  <div class="workspace">
+    <div class="preview-area" id="preview-area">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">⬡</div>
+        <div class="empty-title">No data loaded yet</div>
+        <div class="empty-sub">Load a CSV, TSV, or Excel file from the left panel to get started. Large files (1M+ rows) are supported.</div>
+      </div>
+    </div>
+    <div class="stats-bar" id="stats-bar" style="display:none">
+      <span>Rows: <strong id="stat-rows">—</strong></span>
+      <span>Columns: <strong id="stat-cols">—</strong></span>
+      <span>Showing: <strong id="stat-showing">—</strong></span>
+      <span>Source: <strong id="stat-source">—</strong></span>
+    </div>
+  </div>
+
+  <!-- Ops panel -->
+  <div class="ops-panel">
+    <div class="ops-header">
+      <span class="ops-header-title">Operations</span>
+    </div>
+    <div class="ops-cats">
+      <button class="cat-btn active" onclick="filterOps('all',this)">All</button>
+      <button class="cat-btn" onclick="filterOps('join',this)">Join</button>
+      <button class="cat-btn" onclick="filterOps('filter',this)">Filter</button>
+      <button class="cat-btn" onclick="filterOps('aggregate',this)">Aggregate</button>
+      <button class="cat-btn" onclick="filterOps('transform',this)">Transform</button>
+      <button class="cat-btn" onclick="filterOps('inspect',this)">Inspect</button>
+      <button class="cat-btn" onclick="filterOps('segment',this)">Segment</button>
+      <button class="cat-btn" onclick="filterOps('time',this)">Time</button>
+    </div>
+    <div class="ops-list" id="ops-list"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- Audit log -->
+<div class="audit-panel" id="audit-panel">
+  <div class="audit-header">
+    Pipeline audit log
+    <button class="btn btn-xs btn-secondary" onclick="toggleAudit()">✕</button>
+  </div>
+  <div id="audit-entries"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="e=>e.target===this&&closeModal()">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-icon" id="modal-icon">⚙</div>
+      <div>
+        <div class="modal-title" id="modal-title">Operation</div>
+        <div class="modal-subtitle" id="modal-subtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" id="modal-apply" onclick="applyOperation()">Apply</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let tables = {};          // name → [{col: val}, ...]
+let tablesMeta = {};      // name → {rows, cols, types}
+let activeTable = null;
+let currentData = [];
+let displayData = [];
+let pipeline = [];        // [{op, params, label, icon}]
+let history = [];         // snapshots for undo
+let sortCol = null, sortDir = 1;
+let searchQuery = '';
+let currentOp = null;
+let auditLog = [];
+const PAGE = 500;
+let displayPage = 0;
+
+// ═══════════════════════════════════════════════════
+// OPERATIONS REGISTRY
+// ═══════════════════════════════════════════════════
+const OPS = [
+  // JOINS
+  { id:'join',       cat:'join',      icon:'⟕', name:'Join tables',        desc:'Inner, left, right, full outer join on a key column' },
+  { id:'antijoin',   cat:'join',      icon:'⊄', name:'Anti-join',          desc:'Find rows in this table with no match in another' },
+  { id:'union',      cat:'join',      icon:'∪', name:'Union / Append',     desc:'Stack two tables vertically (same columns)' },
+  { id:'lookup',     cat:'join',      icon:'🔍', name:'Lookup / VLOOKUP',   desc:'Bring a single column from another table by key' },
+  // FILTER
+  { id:'filter',     cat:'filter',    icon:'⊡', name:'Filter rows',        desc:'Keep rows matching conditions (AND/OR, IN lists)' },
+  { id:'selectcols', cat:'filter',    icon:'⬜', name:'Select / drop columns', desc:'Choose which columns to keep or remove' },
+  { id:'dedup',      cat:'filter',    icon:'◈', name:'Deduplicate',        desc:'Remove duplicate rows, optionally by key columns' },
+  { id:'topn',       cat:'filter',    icon:'↑N', name:'Top / Bottom N',    desc:'Get top or bottom N rows, overall or per group' },
+  { id:'sample',     cat:'filter',    icon:'⊞', name:'Random sample',      desc:'Sample a percentage or fixed number of rows' },
+  // AGGREGATE
+  { id:'groupby',    cat:'aggregate', icon:'Σ', name:'Group by & summarise', desc:'Sum, count, avg, min, max, median, count distinct' },
+  { id:'pivot',      cat:'aggregate', icon:'⊞', name:'Pivot',              desc:'Turn row values into columns' },
+  { id:'unpivot',    cat:'aggregate', icon:'⊟', name:'Unpivot / Melt',     desc:'Turn columns into rows' },
+  { id:'runningtot', cat:'aggregate', icon:'∫', name:'Running total',       desc:'Cumulative sum within a group, sorted by a column' },
+  { id:'pctotal',    cat:'aggregate', icon:'%', name:'Percent of total',    desc:'Each row as % of group total or grand total' },
+  // TRANSFORM
+  { id:'calcol',     cat:'transform', icon:'ƒ', name:'Calculated column',  desc:'Add a column using arithmetic, IF/THEN, or formula' },
+  { id:'datepart',   cat:'transform', icon:'📅', name:'Date parts',         desc:'Extract year, month, quarter, week, day, weekday' },
+  { id:'datediff',   cat:'transform', icon:'Δt', name:'Date difference',   desc:'Days, months, or years between two date columns' },
+  { id:'textops',    cat:'transform', icon:'Aa', name:'Text operations',   desc:'Trim, upper/lower, concat, split, left/right/mid' },
+  { id:'findreplace',cat:'transform', icon:'↔', name:'Find & replace',     desc:'Replace values in a column (plain text or regex)' },
+  { id:'bin',        cat:'transform', icon:'⊟', name:'Bin / bucket',       desc:'Turn a numeric column into range buckets' },
+  { id:'rank',       cat:'transform', icon:'#', name:'Rank',               desc:'Rank, dense rank, or row number within a group' },
+  { id:'laglead',    cat:'transform', icon:'↕', name:'Lag / Lead',         desc:'Previous or next row value within a group' },
+  { id:'fillnull',   cat:'transform', icon:'∅', name:'Fill nulls',         desc:'Replace missing values with a default or statistic' },
+  { id:'rename',     cat:'transform', icon:'✏', name:'Rename columns',     desc:'Rename one or more columns' },
+  { id:'changetype', cat:'transform', icon:'⇄', name:'Change data type',   desc:'Cast a column to number, text, or date' },
+  // INSPECT
+  { id:'summary',    cat:'inspect',   icon:'≡', name:'Column summary',     desc:'Min, max, mean, median, distinct count, % null' },
+  { id:'nullaudit',  cat:'inspect',   icon:'∅', name:'Null audit',         desc:'Count and % of missing values per column' },
+  { id:'dupfinder',  cat:'inspect',   icon:'◈', name:'Duplicate finder',   desc:'Show which rows are duplicates' },
+  { id:'freqdist',   cat:'inspect',   icon:'≈', name:'Value frequencies',  desc:'Top N most common values in a column' },
+  { id:'crosstab',   cat:'inspect',   icon:'⊞', name:'Crosstab',           desc:'Two-way frequency table between two columns' },
+  { id:'corr',       cat:'inspect',   icon:'∿', name:'Correlation matrix', desc:'Pairwise correlation between numeric columns' },
+  { id:'pareto',     cat:'inspect',   icon:'⌇', name:'Pareto / 80-20',     desc:'Cumulative % of total sorted descending' },
+  // SEGMENT
+  { id:'condtag',    cat:'segment',   icon:'🏷', name:'Conditional tagging', desc:'Assign segment labels based on IF/THEN rules' },
+  { id:'percentile', cat:'segment',   icon:'⊠', name:'Percentile / decile', desc:'Assign quartile, decile, or custom percentile buckets' },
+  { id:'firstlast',  cat:'segment',   icon:'⊣', name:'Flag first / last',  desc:'Flag first or last occurrence per group' },
+  // TIME
+  { id:'periodcomp', cat:'time',      icon:'⟳', name:'Period comparison',  desc:'YoY, MoM, WoW — add prior period value column' },
+  { id:'rolling',    cat:'time',      icon:'〜', name:'Rolling average',    desc:'Trailing N-period average or sum' },
+  { id:'fiscal',     cat:'time',      icon:'📆', name:'Fiscal calendar',    desc:'Map dates to a fiscal year/quarter starting any month' },
+];
+
+// ═══════════════════════════════════════════════════
+// RENDER OPS LIST
+// ═══════════════════════════════════════════════════
+function renderOps(cat='all') {
+  const list = document.getElementById('ops-list');
+  const filtered = cat === 'all' ? OPS : OPS.filter(o => o.cat === cat);
+  const cats = ['join','filter','aggregate','transform','inspect','segment','time'];
+  let html = '';
+  if(cat === 'all') {
+    cats.forEach(c => {
+      const group = filtered.filter(o => o.cat === c);
+      if(!group.length) return;
+      html += `<div class="section-label">${c.charAt(0).toUpperCase()+c.slice(1)}</div>`;
+      group.forEach(op => html += opBtnHtml(op));
+    });
+  } else {
+    filtered.forEach(op => html += opBtnHtml(op));
+  }
+  list.innerHTML = html;
+}
+
+function opBtnHtml(op) {
+  return `<button class="op-btn" onclick="openOp('${op.id}')">
+    <span class="op-icon">${op.icon}</span>
+    <span class="op-text">
+      <span class="op-name">${op.name}</span>
+      <span class="op-desc">${op.desc}</span>
+    </span>
+  </button>`;
+}
+
+function filterOps(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderOps(cat);
+}
+
+// ═══════════════════════════════════════════════════
+// FILE LOADING
+// ═══════════════════════════════════════════════════
+function handleFiles(files) {
+  Array.from(files).forEach(f => loadFile(f));
+}
+
+function loadFile(file) {
+  const name = file.name.replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9_]/g,'_').slice(0,30);
+  const ext = file.name.split('.').pop().toLowerCase();
+
+  showToast(`Loading ${file.name}...`);
+
+  if(ext === 'csv' || ext === 'tsv') {
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      dynamicTyping: true,
+      worker: false,
+      complete: res => {
+        registerTable(name, res.data, file.name);
+        showToast(`Loaded ${res.data.length.toLocaleString()} rows`, 'success');
+      },
+      error: e => showToast('Parse error: ' + e.message, 'error')
+    });
+  } else if(ext === 'xlsx' || ext === 'xls') {
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const wb = XLSX.read(e.target.result, {type:'array'});
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const data = XLSX.utils.sheet_to_json(ws, {defval: null});
+        registerTable(name, data, file.name);
+        showToast(`Loaded ${data.length.toLocaleString()} rows`, 'success');
+      } catch(err) { showToast('Excel error: '+err.message, 'error'); }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+}
+
+function registerTable(name, data, filename) {
+  // Ensure unique name
+  let finalName = name;
+  let i = 2;
+  while(tables[finalName]) { finalName = name + '_' + i++; }
+
+  tables[finalName] = data;
+  tablesMeta[finalName] = buildMeta(data, filename);
+
+  renderTableList();
+  setActiveTable(finalName);
+  addAudit('Load', `"${filename}" → table "${finalName}"`, `${data.length.toLocaleString()} rows, ${Object.keys(data[0]||{}).length} columns`);
+}
+
+function buildMeta(data, filename='') {
+  if(!data.length) return {rows:0, cols:0, types:{}, filename};
+  const cols = Object.keys(data[0]);
+  const types = {};
+  cols.forEach(c => {
+    const vals = data.slice(0,200).map(r=>r[c]).filter(v=>v!=null);
+    const nums = vals.filter(v=>typeof v === 'number' || (typeof v==='string' && !isNaN(+v) && v.trim()!==''));
+    const dates = vals.filter(v => typeof v === 'string' && !isNaN(Date.parse(v)) && v.length >= 8);
+    if(nums.length > vals.length * 0.8) types[c] = 'num';
+    else if(dates.length > vals.length * 0.7) types[c] = 'date';
+    else types[c] = 'str';
+  });
+  return {rows: data.length, cols: cols.length, types, filename};
+}
+
+function renderTableList() {
+  const list = document.getElementById('table-list');
+  const names = Object.keys(tables);
+  document.getElementById('table-count').textContent = names.length;
+  list.innerHTML = names.map(n => {
+    const m = tablesMeta[n];
+    return `<div class="table-item ${n===activeTable?'active':''}" onclick="setActiveTable('${n}')">
+      <div class="table-icon">📋</div>
+      <div class="table-info">
+        <div class="table-name" title="${n}">${n}</div>
+        <div class="table-meta">${m.rows.toLocaleString()} rows · ${m.cols} cols</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setActiveTable(name) {
+  activeTable = name;
+  pipeline = [];
+  history = [];
+  currentData = [...tables[name]];
+  displayPage = 0;
+  renderTableList();
+  renderPipeline();
+  renderPreview();
+  document.getElementById('undo-btn').disabled = true;
+}
+
+// ═══════════════════════════════════════════════════
+// PREVIEW RENDER
+// ═══════════════════════════════════════════════════
+function renderPreview(data=null) {
+  if(data !== null) currentData = data;
+  if(!currentData || !currentData.length) {
+    showEmptyPreview(); return;
+  }
+
+  const area = document.getElementById('preview-area');
+  const cols = Object.keys(currentData[0]);
+  const meta = activeTable ? tablesMeta[activeTable] : {};
+
+  // Apply search filter for display
+  let filtered = currentData;
+  if(searchQuery) {
+    const q = searchQuery.toLowerCase();
+    filtered = currentData.filter(row =>
+      Object.values(row).some(v => v != null && String(v).toLowerCase().includes(q))
+    );
+  }
+
+  // Sort
+  if(sortCol) {
+    filtered = [...filtered].sort((a,b) => {
+      const av = a[sortCol], bv = b[sortCol];
+      if(av == null) return 1; if(bv == null) return -1;
+      return (av < bv ? -1 : av > bv ? 1 : 0) * sortDir;
+    });
+  }
+
+  displayData = filtered;
+  const pageData = filtered.slice(0, PAGE * (displayPage+1));
+
+  const types = meta.types || {};
+
+  let html = `
+    <div class="preview-toolbar">
+      <div class="preview-info"><strong>${filtered.length.toLocaleString()}</strong> rows · <strong>${cols.length}</strong> columns</div>
+      <div class="search-box">
+        🔍 <input type="text" placeholder="Search all columns..." value="${searchQuery}"
+          oninput="searchQuery=this.value;renderPreview()" />
+      </div>
+      ${filtered.length > PAGE*(displayPage+1) ? `<button class="btn btn-secondary btn-xs" onclick="displayPage++;renderPreview()">Load more</button>` : ''}
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr>
+          ${cols.map(c => `<th onclick="toggleSort('${c}')" title="Click to sort">
+            ${c} ${sortCol===c?(sortDir===1?'↑':'↓'):''}
+            <span class="col-type">${types[c]||'str'}</span>
+          </th>`).join('')}
+        </tr></thead>
+        <tbody>
+          ${pageData.map(row => `<tr>${cols.map(c => {
+            const v = row[c];
+            const isNull = v == null || v === '';
+            const isNum = !isNull && (typeof v === 'number' || (types[c]==='num' && !isNaN(+v)));
+            return `<td class="${isNull?'null-val':isNum?'num-val':''}">${
+              isNull ? 'null' : isNum ? (+v).toLocaleString() : String(v).slice(0,120)
+            }</td>`;
+          }).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+
+  area.innerHTML = html;
+
+  // stats
+  document.getElementById('stats-bar').style.display = 'flex';
+  document.getElementById('stat-rows').textContent = currentData.length.toLocaleString();
+  document.getElementById('stat-cols').textContent = cols.length;
+  document.getElementById('stat-showing').textContent = Math.min(filtered.length, PAGE*(displayPage+1)).toLocaleString();
+  document.getElementById('stat-source').textContent = activeTable || '—';
+}
+
+function showEmptyPreview() {
+  const area = document.getElementById('preview-area');
+  area.innerHTML = `<div class="empty-state"><div class="empty-icon">⬡</div>
+    <div class="empty-title">No data loaded</div>
+    <div class="empty-sub">Load a CSV or Excel file from the left panel</div></div>`;
+  document.getElementById('stats-bar').style.display = 'none';
+}
+
+function toggleSort(col) {
+  if(sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+  renderPreview();
+}
+
+// ═══════════════════════════════════════════════════
+// PIPELINE
+// ═══════════════════════════════════════════════════
+function renderPipeline() {
+  const bar = document.getElementById('pipeline-bar');
+  if(!pipeline.length) {
+    bar.innerHTML = `<div class="pipeline-empty">No operations applied yet — add from the right panel</div>`;
+    return;
+  }
+  bar.innerHTML = pipeline.map((s,i) =>
+    `<div class="step-chip ${i===pipeline.length-1?'active':''}">
+      <span>${s.icon}</span> ${s.label}
+      <span class="remove" onclick="removeStep(${i})">✕</span>
+    </div>${i<pipeline.length-1?'<span class="step-arrow">›</span>':''}`
+  ).join('');
+}
+
+function removeStep(idx) {
+  pipeline.splice(idx);
+  rebuildFromPipeline();
+}
+
+function undoStep() {
+  if(!history.length) return;
+  const prev = history.pop();
+  currentData = prev.data;
+  pipeline = prev.pipeline;
+  renderPipeline();
+  renderPreview();
+  document.getElementById('undo-btn').disabled = history.length === 0;
+  showToast('Step undone');
+}
+
+function pushHistory() {
+  history.push({ data: [...currentData], pipeline: pipeline.slice(0,-1) });
+  document.getElementById('undo-btn').disabled = false;
+}
+
+function rebuildFromPipeline() {
+  let data = [...tables[activeTable]];
+  pipeline.forEach(step => { data = applyStep(step, data); });
+  currentData = data;
+  renderPipeline();
+  renderPreview();
+}
+
+function applyStep(step, data) {
+  try { return step.fn(data); }
+  catch(e) { showToast('Error: '+e.message,'error'); return data; }
+}
+
+// ═══════════════════════════════════════════════════
+// MODAL SYSTEM
+// ═══════════════════════════════════════════════════
+function openOp(opId) {
+  if(!activeTable && !['summary','nullaudit','dupfinder','freqdist','corr','pareto','crosstab'].includes(opId)) {
+    showToast('Load a dataset first', 'error'); return;
+  }
+  currentOp = opId;
+  const op = OPS.find(o => o.id === opId);
+  document.getElementById('modal-icon').textContent = op.icon;
+  document.getElementById('modal-title').textContent = op.name;
+  document.getElementById('modal-subtitle').textContent = op.desc;
+  document.getElementById('modal-body').innerHTML = buildModalBody(opId);
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  currentOp = null;
+}
+
+function cols(data=currentData) {
+  if(!data || !data.length) return [];
+  return Object.keys(data[0]);
+}
+
+function numCols(data=currentData) {
+  if(!data || !data.length) return [];
+  const meta = activeTable ? tablesMeta[activeTable] : buildMeta(data);
+  return cols(data).filter(c => meta.types && meta.types[c]==='num');
+}
+
+function colSelect(id, label, multi=false, dataSrc=null) {
+  const c = cols(dataSrc || currentData);
+  if(multi) {
+    return `<div class="field"><label>${label}</label>
+      <div class="cols-checkboxes">${c.map(col =>
+        `<label class="col-check"><input type="checkbox" name="${id}" value="${col}"> ${col}</label>`
+      ).join('')}</div></div>`;
+  }
+  return `<div class="field"><label>${label}</label>
+    <select id="${id}"><option value="">— select —</option>${c.map(col=>`<option>${col}</option>`).join('')}</select></div>`;
+}
+
+function tableSelect(id, label) {
+  const names = Object.keys(tables).filter(n => n !== activeTable);
+  return `<div class="field"><label>${label}</label>
+    <select id="${id}"><option value="">— select table —</option>${names.map(n=>`<option>${n}</option>`).join('')}</select></div>`;
+}
+
+function getChecked(name) {
+  return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(el=>el.value);
+}
+
+function buildModalBody(opId) {
+  const c = cols();
+  const nc = numCols();
+  switch(opId) {
+
+    case 'join': return `
+      ${tableSelect('join-table','Join with table')}
+      ${colSelect('join-left','Left key (this table)')}
+      <div class="field"><label>Right key (other table)</label>
+        <select id="join-right"><option value="">— select after choosing table —</option></select></div>
+      <div class="field"><label>Join type</label>
+        <select id="join-type">
+          <option value="inner">Inner — only matching rows</option>
+          <option value="left">Left — all rows from this table</option>
+          <option value="right">Right — all rows from other table</option>
+          <option value="full">Full outer — all rows from both</option>
+        </select></div>
+      <script>document.getElementById('join-table').onchange=function(){
+        const t=tables[this.value];if(!t||!t.length)return;
+        const sel=document.getElementById('join-right');
+        sel.innerHTML=Object.keys(t[0]).map(c=>'<option>'+c+'</option>').join('');
+      }<\/script>`;
+
+    case 'antijoin': return `
+      ${tableSelect('aj-table','Find rows NOT in table')}
+      ${colSelect('aj-left','Key column (this table)')}
+      <div class="field"><label>Key column (other table)</label>
+        <select id="aj-right"><option value="">— select after choosing table —</option></select></div>
+      <script>document.getElementById('aj-table').onchange=function(){
+        const t=tables[this.value];if(!t||!t.length)return;
+        const sel=document.getElementById('aj-right');
+        sel.innerHTML=Object.keys(t[0]).map(c=>'<option>'+c+'</option>').join('');
+      }<\/script>`;
+
+    case 'union': return `
+      ${tableSelect('union-table','Append table')}
+      <div class="field"><label>Mismatch handling</label>
+        <select id="union-mismatch">
+          <option value="nullfill">Fill missing columns with null</option>
+          <option value="common">Keep only common columns</option>
+        </select></div>`;
+
+    case 'lookup': return `
+      ${tableSelect('lkp-table','Lookup from table')}
+      ${colSelect('lkp-left','Match key (this table)')}
+      <div class="field"><label>Match key (other table)</label>
+        <select id="lkp-right"><option>—</option></select></div>
+      <div class="field"><label>Column to bring in</label>
+        <select id="lkp-col"><option>—</option></select></div>
+      <div class="field"><label>New column name</label><input id="lkp-name" placeholder="e.g. Product_Name"/></div>
+      <script>document.getElementById('lkp-table').onchange=function(){
+        const t=tables[this.value];if(!t||!t.length)return;
+        const cc=Object.keys(t[0]);
+        document.getElementById('lkp-right').innerHTML=cc.map(c=>'<option>'+c+'</option>').join('');
+        document.getElementById('lkp-col').innerHTML=cc.map(c=>'<option>'+c+'</option>').join('');
+      }<\/script>`;
+
+    case 'filter': return `
+      <div class="field"><label>Filter expression</label>
+        <textarea id="filter-expr" rows="3" placeholder="Examples:&#10;Revenue > 1000&#10;Region == 'North' AND Status != 'Closed'&#10;Category IN ['A','B','C']&#10;Name.contains('Smith')"></textarea>
+        <div class="hint">Columns: ${c.slice(0,8).join(', ')}${c.length>8?', ...':''}<br>Operators: ==  !=  >  >=  <  <=  IN [...]  .contains()  AND  OR  NOT</div>
+      </div>`;
+
+    case 'selectcols': return `
+      <div class="field"><label>Action</label>
+        <select id="sc-action"><option value="keep">Keep selected columns</option><option value="drop">Drop selected columns</option></select></div>
+      ${colSelect('sc-cols','Columns', true)}`;
+
+    case 'dedup': return `
+      <div class="field"><label>Deduplicate on</label>
+        <select id="dedup-mode"><option value="all">All columns (exact row duplicates)</option><option value="key">Specific key columns</option></select></div>
+      ${colSelect('dedup-cols','Key columns (if above = specific)', true)}
+      <div class="field"><label>Keep which occurrence</label>
+        <select id="dedup-keep"><option value="first">First</option><option value="last">Last</option><option value="flag">Flag all duplicates (add column)</option></select></div>`;
+
+    case 'topn': return `
+      <div class="field"><label>Direction</label>
+        <select id="topn-dir"><option value="top">Top N</option><option value="bottom">Bottom N</option></select></div>
+      <div class="field-row">
+        <div class="field"><label>N (rows)</label><input id="topn-n" type="number" value="10" min="1"/></div>
+        ${colSelect('topn-sortcol','Sort by column')}
+      </div>
+      <div class="field"><label>Within group (optional)</label>
+        <select id="topn-group"><option value="">No grouping</option>${c.map(col=>`<option>${col}</option>`).join('')}</select></div>`;
+
+    case 'sample': return `
+      <div class="field"><label>Sample method</label>
+        <select id="samp-method"><option value="pct">Percentage of rows</option><option value="n">Fixed number of rows</option></select></div>
+      <div class="field"><label>Value</label><input id="samp-val" type="number" value="10" min="1"/><div class="hint">Enter % (1-100) or number of rows</div></div>
+      <div class="field"><label>Random seed (for reproducibility)</label><input id="samp-seed" type="number" value="42"/></div>`;
+
+    case 'groupby': return `
+      ${colSelect('gb-cols','Group by columns', true)}
+      <div class="field"><label>Aggregations (one per line: ColumnName AggFunc NewName)</label>
+        <textarea id="gb-aggs" rows="5" placeholder="Revenue SUM Total_Revenue&#10;CustomerID COUNT_DISTINCT Unique_Customers&#10;Units AVG Avg_Units&#10;Price MIN Min_Price&#10;Price MAX Max_Price&#10;Discount MEDIAN Median_Discount"></textarea>
+        <div class="hint">Functions: SUM COUNT COUNT_DISTINCT AVG MIN MAX MEDIAN</div>
+      </div>`;
+
+    case 'pivot': return `
+      ${colSelect('piv-rows','Row (index) column')}
+      ${colSelect('piv-cols','Pivot column (values become headers)')}
+      ${colSelect('piv-vals','Value column')}
+      <div class="field"><label>Aggregation</label>
+        <select id="piv-agg"><option>SUM</option><option>COUNT</option><option>AVG</option><option>MIN</option><option>MAX</option></select></div>`;
+
+    case 'unpivot': return `
+      ${colSelect('upiv-id','ID columns to keep', true)}
+      <div class="field"><label>Name for the new "variable" column</label><input id="upiv-varname" value="variable"/></div>
+      <div class="field"><label>Name for the new "value" column</label><input id="upiv-valname" value="value"/></div>`;
+
+    case 'runningtot': return `
+      ${colSelect('rt-val','Value column to accumulate')}
+      ${colSelect('rt-group','Within group (optional, leave blank for overall)')}
+      ${colSelect('rt-sort','Sort by column')}
+      <div class="field"><label>New column name</label><input id="rt-name" value="Running_Total"/></div>`;
+
+    case 'pctotal': return `
+      ${colSelect('pct-val','Value column')}
+      <div class="field"><label>% of</label>
+        <select id="pct-scope"><option value="total">Grand total</option><option value="group">Group total</option></select></div>
+      <div class="field" id="pct-group-wrap">${colSelect('pct-group','Group column')}</div>
+      <div class="field"><label>New column name</label><input id="pct-name" value="Pct_of_Total"/></div>`;
+
+    case 'calcol': return `
+      <div class="field"><label>New column name</label><input id="cc-name" placeholder="e.g. Revenue_per_Unit"/></div>
+      <div class="field"><label>Formula</label>
+        <textarea id="cc-formula" rows="3" placeholder="Examples:&#10;[Revenue] / [Units]&#10;[Price] * (1 - [Discount])&#10;IF [Status] == 'Won' THEN 1 ELSE 0&#10;CASE WHEN [Score] > 80 THEN 'High' WHEN [Score] > 50 THEN 'Mid' ELSE 'Low'"></textarea>
+        <div class="hint">Use [ColumnName] for column references. Supports +−×÷, IF/THEN/ELSE, CASE/WHEN.</div>
+      </div>`;
+
+    case 'datepart': return `
+      ${colSelect('dp-col','Date column')}
+      <div class="field"><label>Parts to extract (tick all you want)</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+          ${['Year','Quarter','Month','Month_Name','Week','Day','Weekday','Weekday_Name'].map(p=>
+            `<label style="display:flex;align-items:center;gap:4px;font-size:12px"><input type="checkbox" name="dp-part" value="${p}" checked> ${p}</label>`
+          ).join('')}
+        </div>
+      </div>`;
+
+    case 'datediff': return `
+      <div class="field-row">
+        ${colSelect('dd-start','Start date column')}
+        ${colSelect('dd-end','End date column')}
+      </div>
+      <div class="field"><label>Unit</label>
+        <select id="dd-unit"><option value="days">Days</option><option value="months">Months</option><option value="years">Years</option></select></div>
+      <div class="field"><label>New column name</label><input id="dd-name" value="Date_Diff"/></div>`;
+
+    case 'textops': return `
+      ${colSelect('txt-col','Column')}
+      <div class="field"><label>Operation</label>
+        <select id="txt-op" onchange="updateTextOpUI()">
+          <option value="trim">Trim whitespace</option>
+          <option value="upper">UPPER CASE</option>
+          <option value="lower">lower case</option>
+          <option value="title">Title Case</option>
+          <option value="concat">Concatenate with another column</option>
+          <option value="split">Split by delimiter → new columns</option>
+          <option value="left">Left N characters</option>
+          <option value="right">Right N characters</option>
+          <option value="mid">Mid (start pos, length)</option>
+          <option value="extract_num">Extract numbers from text</option>
+          <option value="remove_special">Remove special characters</option>
+        </select></div>
+      <div id="txt-extra"></div>
+      <div class="field"><label>Output column name</label><input id="txt-outname" placeholder="Leave blank to overwrite"/></div>
+      <script>function updateTextOpUI(){
+        const op=document.getElementById('txt-op').value;
+        const ex=document.getElementById('txt-extra');
+        if(op==='concat') ex.innerHTML='<div class="field"><label>Concatenate with column</label><select id="txt-col2">'+cols().map(c=>'<option>'+c+'</option>').join('')+'</select></div><div class="field"><label>Separator</label><input id="txt-sep" value=" "/></div>';
+        else if(op==='split') ex.innerHTML='<div class="field"><label>Delimiter</label><input id="txt-delim" value=","/></div><div class="field"><label>Max splits (0 = all)</label><input id="txt-maxsplit" type="number" value="0"/></div>';
+        else if(op==='left'||op==='right') ex.innerHTML='<div class="field"><label>N characters</label><input id="txt-n" type="number" value="3"/></div>';
+        else if(op==='mid') ex.innerHTML='<div class="field-row"><div class="field"><label>Start (0-based)</label><input id="txt-start" type="number" value="0"/></div><div class="field"><label>Length</label><input id="txt-len" type="number" value="5"/></div></div>';
+        else ex.innerHTML='';
+      }<\/script>`;
+
+    case 'findreplace': return `
+      ${colSelect('fr-col','Column')}
+      <div class="field-row">
+        <div class="field"><label>Find</label><input id="fr-find" placeholder="value or /regex/"/></div>
+        <div class="field"><label>Replace with</label><input id="fr-rep" placeholder="replacement"/></div>
+      </div>
+      <div class="field"><label><input type="checkbox" id="fr-regex"> Use regex</label></div>
+      <div class="field"><label><input type="checkbox" id="fr-case" checked> Case sensitive</label></div>`;
+
+    case 'bin': return `
+      ${colSelect('bin-col','Numeric column to bin')}
+      <div class="field"><label>Binning method</label>
+        <select id="bin-method">
+          <option value="equal">Equal width (N bins of equal range)</option>
+          <option value="quantile">Quantile (N bins of equal count)</option>
+          <option value="custom">Custom breakpoints (comma-separated)</option>
+        </select></div>
+      <div class="field"><label>N bins (or enter breakpoints below)</label><input id="bin-n" type="number" value="5" min="2"/></div>
+      <div class="field"><label>Custom breakpoints</label><input id="bin-breaks" placeholder="0, 100, 500, 1000, 5000"/></div>
+      <div class="field"><label>New column name</label><input id="bin-name" value="Bin"/></div>`;
+
+    case 'rank': return `
+      ${colSelect('rank-sortcol','Sort / rank by column')}
+      <div class="field"><label>Rank type</label>
+        <select id="rank-type"><option value="rank">Rank (ties get avg rank)</option><option value="dense">Dense rank (no gaps)</option><option value="row">Row number (no ties)</option></select></div>
+      <div class="field"><label>Direction</label>
+        <select id="rank-dir"><option value="desc">Descending (1 = highest)</option><option value="asc">Ascending (1 = lowest)</option></select></div>
+      <div class="field"><label>Within group (optional)</label>
+        <select id="rank-group"><option value="">No grouping</option>${c.map(col=>`<option>${col}</option>`).join('')}</select></div>
+      <div class="field"><label>New column name</label><input id="rank-name" value="Rank"/></div>`;
+
+    case 'laglead': return `
+      ${colSelect('ll-val','Value column')}
+      ${colSelect('ll-sort','Sort by (time/order column)')}
+      <div class="field"><label>Within group (optional)</label>
+        <select id="ll-group"><option value="">No grouping</option>${c.map(col=>`<option>${col}</option>`).join('')}</select></div>
+      <div class="field-row">
+        <div class="field"><label>Type</label>
+          <select id="ll-type"><option value="lag">Lag (previous row)</option><option value="lead">Lead (next row)</option></select></div>
+        <div class="field"><label>Offset (N rows)</label><input id="ll-n" type="number" value="1" min="1"/></div>
+      </div>
+      <div class="field"><label>New column name</label><input id="ll-name" value="Prev_Value"/></div>`;
+
+    case 'fillnull': return `
+      ${colSelect('fn-col','Column with nulls')}
+      <div class="field"><label>Fill with</label>
+        <select id="fn-method">
+          <option value="const">Constant value</option>
+          <option value="mean">Column mean</option>
+          <option value="median">Column median</option>
+          <option value="mode">Most frequent value</option>
+          <option value="forward">Forward fill (previous non-null)</option>
+          <option value="backward">Backward fill (next non-null)</option>
+        </select></div>
+      <div class="field"><label>Constant value (if above = constant)</label><input id="fn-val" placeholder="0 or N/A or Unknown"/></div>`;
+
+    case 'rename': return `
+      <div class="field"><label>Rename columns (one per line: OldName → NewName)</label>
+        <textarea id="ren-map" rows="6" placeholder="${c.slice(0,4).map(col=>`${col} → ${col}`).join('\n')}"></textarea>
+        <div class="hint">Format: OldName → NewName</div>
+      </div>`;
+
+    case 'changetype': return `
+      ${colSelect('ct-col','Column')}
+      <div class="field"><label>Convert to</label>
+        <select id="ct-type"><option value="num">Number</option><option value="str">Text</option><option value="date">Date</option></select></div>`;
+
+    case 'summary': return `
+      <div class="field"><label>Columns to summarise</label>
+        <div class="field"><label><input type="radio" name="sum-scope" value="all" checked> All columns</label></div>
+        <div class="field"><label><input type="radio" name="sum-scope" value="sel"> Select columns</label></div>
+      </div>
+      ${colSelect('sum-cols','Columns (if select above)', true)}`;
+
+    case 'nullaudit': return `<p style="font-size:12px;color:var(--text2)">Shows count and % of null/empty values for every column. No parameters needed.</p>`;
+
+    case 'dupfinder': return `
+      <div class="field"><label>Find duplicates based on</label>
+        <select id="df-mode"><option value="all">All columns</option><option value="key">Key columns only</option></select></div>
+      ${colSelect('df-cols','Key columns', true)}`;
+
+    case 'freqdist': return `
+      ${colSelect('fd-col','Column')}
+      <div class="field"><label>Top N values</label><input id="fd-n" type="number" value="20" min="1"/></div>`;
+
+    case 'crosstab': return `
+      ${colSelect('ct2-row','Row variable')}
+      ${colSelect('ct2-col','Column variable')}
+      <div class="field"><label>Values</label>
+        <select id="ct2-vals"><option value="count">Count</option><option value="pct_row">% of row</option><option value="pct_col">% of column</option><option value="pct_total">% of total</option></select></div>`;
+
+    case 'corr': return `
+      <div class="field"><label>Numeric columns to include</label>
+        <div class="cols-checkboxes">${nc.map(col=>
+          `<label class="col-check"><input type="checkbox" name="corr-cols" value="${col}" checked> ${col}</label>`
+        ).join('')}</div>
+      </div>`;
+
+    case 'pareto': return `
+      ${colSelect('par-cat','Category column')}
+      ${colSelect('par-val','Value column (to sum)')}
+      <div class="field"><label>Sort</label>
+        <select id="par-sort"><option value="desc">Descending (standard Pareto)</option><option value="asc">Ascending</option></select></div>`;
+
+    case 'condtag': return `
+      <div class="field"><label>New tag column name</label><input id="ctag-name" value="Segment"/></div>
+      <div class="field"><label>Tagging rules (one per line: Condition → Label)</label>
+        <textarea id="ctag-rules" rows="5" placeholder="[Revenue] > 100000 → High Value&#10;[Revenue] > 10000 → Medium Value&#10;[Region] == 'North' AND [Category] == 'A' → Priority North-A&#10;→ Other"></textarea>
+        <div class="hint">Last line with blank condition (→ Label) is the default/else. Use [ColumnName] references.</div>
+      </div>`;
+
+    case 'percentile': return `
+      ${colSelect('pct2-col','Value column')}
+      <div class="field"><label>Assignment type</label>
+        <select id="pct2-type"><option value="quartile">Quartile (Q1–Q4)</option><option value="decile">Decile (D1–D10)</option><option value="custom">Custom percentiles</option></select></div>
+      <div class="field"><label>Custom percentiles (comma-separated, e.g. 20,40,60,80)</label><input id="pct2-custom" placeholder="20,40,60,80"/></div>
+      <div class="field"><label>New column name</label><input id="pct2-name" value="Percentile_Bucket"/></div>`;
+
+    case 'firstlast': return `
+      ${colSelect('fl-group','Group by column')}
+      ${colSelect('fl-sort','Sort by (determines order)')}
+      <div class="field"><label>Flag</label>
+        <select id="fl-type"><option value="first">First occurrence</option><option value="last">Last occurrence</option><option value="both">Both</option></select></div>
+      <div class="field"><label>New column name</label><input id="fl-name" value="Is_First"/></div>`;
+
+    case 'periodcomp': return `
+      ${colSelect('pc-date','Date column')}
+      ${colSelect('pc-val','Value column')}
+      <div class="field"><label>Comparison period</label>
+        <select id="pc-period"><option value="yoy">Year-over-Year (YoY)</option><option value="mom">Month-over-Month (MoM)</option><option value="wow">Week-over-Week (WoW)</option><option value="qoq">Quarter-over-Quarter (QoQ)</option></select></div>
+      <div class="field"><label>Within group (optional)</label>
+        <select id="pc-group"><option value="">No grouping</option>${c.map(col=>`<option>${col}</option>`).join('')}</select></div>`;
+
+    case 'rolling': return `
+      ${colSelect('roll-val','Value column')}
+      ${colSelect('roll-sort','Sort / order by column')}
+      <div class="field"><label>Within group (optional)</label>
+        <select id="roll-group"><option value="">No grouping</option>${c.map(col=>`<option>${col}</option>`).join('')}</select></div>
+      <div class="field-row">
+        <div class="field"><label>Window (N periods)</label><input id="roll-n" type="number" value="3" min="1"/></div>
+        <div class="field"><label>Function</label>
+          <select id="roll-fn"><option>AVG</option><option>SUM</option><option>MIN</option><option>MAX</option></select></div>
+      </div>
+      <div class="field"><label>New column name</label><input id="roll-name" value="Rolling_Avg"/></div>`;
+
+    case 'fiscal': return `
+      ${colSelect('fisc-col','Date column')}
+      <div class="field"><label>Fiscal year start month</label>
+        <select id="fisc-month">${['January','February','March','April','May','June','July','August','September','October','November','December'].map((m,i)=>`<option value="${i+1}"${i===3?' selected':''}>${m}</option>`).join('')}</select></div>
+      <div class="field"><label>Outputs to add (tick all)</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+          ${['Fiscal_Year','Fiscal_Quarter','Fiscal_Month','Fiscal_Period_Label'].map(p=>
+            `<label style="display:flex;align-items:center;gap:4px;font-size:12px"><input type="checkbox" name="fisc-part" value="${p}" checked> ${p}</label>`
+          ).join('')}
+        </div>
+      </div>`;
+
+    default: return `<p style="color:var(--text2)">Operation: ${opId}</p>`;
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// APPLY OPERATIONS
+// ═══════════════════════════════════════════════════
+function applyOperation() {
+  if(!currentOp) return;
+  const op = OPS.find(o => o.id === currentOp);
+
+  let fn, label, params = {};
+
+  try {
+    switch(currentOp) {
+
+      case 'join': {
+        const tbl = document.getElementById('join-table').value;
+        const lk = document.getElementById('join-left').value;
+        const rk = document.getElementById('join-right').value;
+        const jt = document.getElementById('join-type').value;
+        if(!tbl||!lk||!rk) { showToast('Fill in all join fields','error'); return; }
+        label = `${jt} join ↔ ${tbl}`;
+        fn = data => {
+          const right = tables[tbl];
+          const rMap = new Map(right.map(r => [r[rk], r]));
+          const lSet = new Set(data.map(r => r[lk]));
+          const rCols = Object.keys(right[0]||{}).filter(c=>c!==rk);
+          let result = [];
+          if(jt==='inner'||jt==='left') {
+            data.forEach(lr => {
+              const rr = rMap.get(lr[lk]);
+              if(rr) { const row=Object.assign({},lr); rCols.forEach(c=>row[c]=rr[c]); result.push(row); }
+              else if(jt==='left') { const row=Object.assign({},lr); rCols.forEach(c=>row[c]=null); result.push(row); }
+            });
+          } else if(jt==='right') {
+            right.forEach(rr => {
+              const lr = data.find(r=>r[lk]===rr[rk]);
+              const row=Object.assign({},lr||{}); rCols.forEach(c=>row[c]=rr[c]); result.push(row);
+            });
+          } else { // full
+            const done = new Set();
+            data.forEach(lr=>{const rr=rMap.get(lr[lk]);const row=Object.assign({},lr);rCols.forEach(c=>row[c]=rr?rr[c]:null);result.push(row);if(rr)done.add(lr[lk]);});
+            right.filter(rr=>!done.has(rr[rk])).forEach(rr=>{const row={};rCols.forEach(c=>row[c]=rr[c]);result.push(row);});
+          }
+          return result;
+        }; break; }
+
+      case 'antijoin': {
+        const tbl=document.getElementById('aj-table').value;
+        const lk=document.getElementById('aj-left').value;
+        const rk=document.getElementById('aj-right').value;
+        if(!tbl||!lk||!rk){showToast('Fill all fields','error');return;}
+        label=`Anti-join vs ${tbl}`;
+        fn=data=>{const keys=new Set(tables[tbl].map(r=>r[rk]));return data.filter(r=>!keys.has(r[lk]));};break;}
+
+      case 'union': {
+        const tbl=document.getElementById('union-table').value;
+        const mis=document.getElementById('union-mismatch').value;
+        if(!tbl){showToast('Select a table','error');return;}
+        label=`Union with ${tbl}`;
+        fn=data=>{
+          const other=tables[tbl];
+          if(mis==='common'){const cc=cols(data).filter(c=>Object.keys(other[0]||{}).includes(c));return [...data,...other].map(r=>{const o={};cc.forEach(c=>o[c]=r[c]??null);return o;});}
+          const allc=[...new Set([...cols(data),...Object.keys(other[0]||{})])];
+          return [...data,...other].map(r=>{const o={};allc.forEach(c=>o[c]=r[c]??null);return o;});
+        };break;}
+
+      case 'lookup': {
+        const tbl=document.getElementById('lkp-table').value;
+        const lk=document.getElementById('lkp-left').value;
+        const rk=document.getElementById('lkp-right').value;
+        const vc=document.getElementById('lkp-col').value;
+        const nn=document.getElementById('lkp-name').value||vc;
+        if(!tbl||!lk||!rk||!vc){showToast('Fill all fields','error');return;}
+        label=`Lookup ${vc} from ${tbl}`;
+        fn=data=>{const mp=new Map(tables[tbl].map(r=>[r[rk],r[vc]]));return data.map(r=>Object.assign({},r,{[nn]:mp.get(r[lk])??null}));};break;}
+
+      case 'filter': {
+        const expr=document.getElementById('filter-expr').value.trim();
+        if(!expr){showToast('Enter a filter expression','error');return;}
+        label=`Filter: ${expr.slice(0,30)}`;
+        fn=data=>data.filter(row=>evalFilter(expr,row));break;}
+
+      case 'selectcols': {
+        const action=document.getElementById('sc-action').value;
+        const sel=getChecked('sc-cols');
+        if(!sel.length){showToast('Select at least one column','error');return;}
+        label=`${action==='keep'?'Keep':'Drop'} ${sel.length} col(s)`;
+        fn=data=>{const keep=action==='keep'?sel:cols(data).filter(c=>!sel.includes(c));return data.map(r=>{const o={};keep.forEach(c=>o[c]=r[c]);return o;});};break;}
+
+      case 'dedup': {
+        const mode=document.getElementById('dedup-mode').value;
+        const keycols=mode==='key'?getChecked('dedup-cols'):null;
+        const keep=document.getElementById('dedup-keep').value;
+        label=`Deduplicate${keycols?` on ${keycols.join(',')}`:' (all cols)'}`;
+        fn=data=>{
+          const getKey=row=>(keycols||cols(data)).map(c=>row[c]).join('|||');
+          if(keep==='flag'){const seen=new Map();data.forEach(r=>{const k=getKey(r);seen.set(k,(seen.get(k)||0)+1);});const cnt=new Map();return data.map(r=>{const k=getKey(r);cnt.set(k,(cnt.get(k)||0)+1);return Object.assign({},r,{is_duplicate:seen.get(k)>1?'Yes':'No'});});}
+          const seen=new Set();const result=[];
+          if(keep==='last')data=[...data].reverse();
+          data.forEach(r=>{const k=getKey(r);if(!seen.has(k)){seen.add(k);result.push(r);}});
+          return keep==='last'?result.reverse():result;
+        };break;}
+
+      case 'topn': {
+        const n=+document.getElementById('topn-n').value;
+        const sc=document.getElementById('topn-sortcol').value;
+        const dir=document.getElementById('topn-dir').value;
+        const grp=document.getElementById('topn-group').value;
+        label=`${dir==='top'?'Top':'Bottom'} ${n} by ${sc}`;
+        fn=data=>{
+          const sortFn=(a,b)=>{const av=a[sc],bv=b[sc];return(av<bv?-1:av>bv?1:0)*(dir==='top'?-1:1);};
+          if(!grp)return [...data].sort(sortFn).slice(0,n);
+          const groups={};data.forEach(r=>{const k=r[grp];(groups[k]=groups[k]||[]).push(r);});
+          return Object.values(groups).flatMap(g=>g.sort(sortFn).slice(0,n));
+        };break;}
+
+      case 'sample': {
+        const method=document.getElementById('samp-method').value;
+        const val=+document.getElementById('samp-val').value;
+        const seed=+document.getElementById('samp-seed').value;
+        label=`Sample ${method==='pct'?val+'%':val+' rows'}`;
+        fn=data=>{
+          const n=method==='pct'?Math.floor(data.length*val/100):Math.min(val,data.length);
+          const arr=[...data];let s=seed;
+          const rand=()=>{s=(s*1664525+1013904223)&0xFFFFFFFF;return(s>>>0)/0xFFFFFFFF;};
+          for(let i=arr.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+          return arr.slice(0,n);
+        };break;}
+
+      case 'groupby': {
+        const gcols=getChecked('gb-cols');
+        const aggText=document.getElementById('gb-aggs').value.trim();
+        if(!gcols.length||!aggText){showToast('Select group columns and aggregations','error');return;}
+        const aggs=aggText.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const p=l.split(/\s+/);return{col:p[0],fn:p[1]?.toUpperCase(),name:p[2]||p[0]+'_'+p[1]};});
+        label=`Group by ${gcols.join(',')}`;
+        fn=data=>{
+          const groups=new Map();
+          data.forEach(row=>{
+            const key=gcols.map(c=>row[c]).join('|||');
+            if(!groups.has(key)){const o={};gcols.forEach(c=>o[c]=row[c]);groups.set(key,{key:o,rows:[]});}
+            groups.get(key).rows.push(row);
+          });
+          return Array.from(groups.values()).map(({key,rows})=>{
+            const out=Object.assign({},key);
+            aggs.forEach(a=>{
+              const vals=rows.map(r=>r[a.col]).filter(v=>v!=null);
+              const nums=vals.map(Number).filter(v=>!isNaN(v));
+              switch(a.fn){
+                case 'SUM':out[a.name]=nums.reduce((s,v)=>s+v,0);break;
+                case 'COUNT':out[a.name]=rows.length;break;
+                case 'COUNT_DISTINCT':out[a.name]=new Set(vals).size;break;
+                case 'AVG':out[a.name]=nums.length?nums.reduce((s,v)=>s+v,0)/nums.length:null;break;
+                case 'MIN':out[a.name]=nums.length?Math.min(...nums):null;break;
+                case 'MAX':out[a.name]=nums.length?Math.max(...nums):null;break;
+                case 'MEDIAN':{const s=[...nums].sort((a,b)=>a-b);const m=Math.floor(s.length/2);out[a.name]=s.length?s.length%2?s[m]:(s[m-1]+s[m])/2:null;break;}
+                default:out[a.name]=null;
+              }
+            });
+            return out;
+          });
+        };break;}
+
+      case 'pivot': {
+        const rk2=document.getElementById('piv-rows').value;
+        const ck=document.getElementById('piv-cols').value;
+        const vk=document.getElementById('piv-vals').value;
+        const agg=document.getElementById('piv-agg').value;
+        label=`Pivot ${vk} by ${ck}`;
+        fn=data=>{
+          const pivVals=[...new Set(data.map(r=>r[ck]))].sort();
+          const groups=new Map();
+          data.forEach(row=>{const k=row[rk2];if(!groups.has(k))groups.set(k,{[rk2]:k});const g=groups.get(k);const col=String(row[ck]);g[col]=(g[col]||[]);g[col].push(+row[vk]||0);});
+          return Array.from(groups.values()).map(row=>{const out={[rk2]:row[rk2]};pivVals.forEach(pv=>{const arr=row[String(pv)]||[];out[pv]=agg==='SUM'?arr.reduce((s,v)=>s+v,0):agg==='COUNT'?arr.length:agg==='AVG'?(arr.length?arr.reduce((s,v)=>s+v,0)/arr.length:0):agg==='MIN'?Math.min(...arr):Math.max(...arr);});return out;});
+        };break;}
+
+      case 'unpivot': {
+        const idcols=getChecked('upiv-id');
+        const varname=document.getElementById('upiv-varname').value||'variable';
+        const valname=document.getElementById('upiv-valname').value||'value';
+        label=`Unpivot (${idcols.join(',')})`;
+        fn=data=>{
+          const valcols=cols(data).filter(c=>!idcols.includes(c));
+          return data.flatMap(row=>valcols.map(vc=>{const o={};idcols.forEach(c=>o[c]=row[c]);o[varname]=vc;o[valname]=row[vc];return o;}));
+        };break;}
+
+      case 'runningtot': {
+        const vc=document.getElementById('rt-val').value;
+        const sc2=document.getElementById('rt-sort').value;
+        const grp=document.getElementById('rt-group').value;
+        const nn=document.getElementById('rt-name').value||'Running_Total';
+        label=`Running total of ${vc}`;
+        fn=data=>{
+          const sorted=[...data].sort((a,b)=>{const av=a[sc2],bv=b[sc2];return av<bv?-1:av>bv?1:0;});
+          const acc=new Map();
+          return sorted.map(row=>{const k=grp?row[grp]:'__all__';acc.set(k,(acc.get(k)||0)+(+row[vc]||0));return Object.assign({},row,{[nn]:acc.get(k)});});
+        };break;}
+
+      case 'pctotal': {
+        const vc=document.getElementById('pct-val').value;
+        const scope=document.getElementById('pct-scope').value;
+        const grp=scope==='group'?document.getElementById('pct-group')?.value||'':'';
+        const nn=document.getElementById('pct-name').value||'Pct_of_Total';
+        label=`% of ${scope==='group'?grp+' ':''}total for ${vc}`;
+        fn=data=>{
+          const totals=new Map();
+          if(scope==='group'&&grp){data.forEach(r=>totals.set(r[grp],(totals.get(r[grp])||0)+(+r[vc]||0)));}
+          else{const t=data.reduce((s,r)=>s+(+r[vc]||0),0);totals.set('__all__',t);}
+          return data.map(r=>{const k=scope==='group'&&grp?r[grp]:'__all__';const t=totals.get(k)||1;return Object.assign({},r,{[nn]:Math.round((+r[vc]||0)/t*10000)/100});});
+        };break;}
+
+      case 'calcol': {
+        const nn=document.getElementById('cc-name').value;
+        const formula=document.getElementById('cc-formula').value.trim();
+        if(!nn||!formula){showToast('Enter column name and formula','error');return;}
+        label=`Calc: ${nn}`;
+        fn=data=>data.map(row=>Object.assign({},row,{[nn]:evalFormula(formula,row)}));break;}
+
+      case 'datepart': {
+        const dc=document.getElementById('dp-col').value;
+        const parts=getChecked('dp-part');
+        label=`Date parts from ${dc}`;
+        fn=data=>data.map(row=>{
+          const out=Object.assign({},row);
+          const d=new Date(row[dc]);
+          if(isNaN(d))return out;
+          parts.forEach(p=>{
+            switch(p){
+              case 'Year':out[dc+'_Year']=d.getFullYear();break;
+              case 'Quarter':out[dc+'_Quarter']='Q'+(Math.floor(d.getMonth()/3)+1);break;
+              case 'Month':out[dc+'_Month']=d.getMonth()+1;break;
+              case 'Month_Name':out[dc+'_Month_Name']=d.toLocaleString('default',{month:'long'});break;
+              case 'Week':out[dc+'_Week']=Math.ceil((d-new Date(d.getFullYear(),0,1))/(7*86400000));break;
+              case 'Day':out[dc+'_Day']=d.getDate();break;
+              case 'Weekday':out[dc+'_Weekday']=d.getDay();break;
+              case 'Weekday_Name':out[dc+'_Weekday_Name']=d.toLocaleString('default',{weekday:'long'});break;
+            }
+          });
+          return out;
+        });break;}
+
+      case 'datediff': {
+        const s=document.getElementById('dd-start').value;
+        const e2=document.getElementById('dd-end').value;
+        const unit=document.getElementById('dd-unit').value;
+        const nn=document.getElementById('dd-name').value||'Date_Diff';
+        label=`Date diff (${s} → ${e2}, ${unit})`;
+        fn=data=>data.map(row=>{
+          const sd=new Date(row[s]),ed=new Date(row[e2]);
+          if(isNaN(sd)||isNaN(ed))return Object.assign({},row,{[nn]:null});
+          const ms=ed-sd;
+          let val;
+          switch(unit){case 'days':val=Math.round(ms/86400000);break;case 'months':val=Math.round(ms/(86400000*30.44));break;case 'years':val=Math.round(ms/(86400000*365.25));break;}
+          return Object.assign({},row,{[nn]:val});
+        });break;}
+
+      case 'textops': {
+        const tc=document.getElementById('txt-col').value;
+        const top=document.getElementById('txt-op').value;
+        const on=document.getElementById('txt-outname').value||tc;
+        label=`Text: ${top} on ${tc}`;
+        fn=data=>data.map(row=>{
+          const v=String(row[tc]??'');let res;
+          switch(top){
+            case 'trim':res=v.trim();break;
+            case 'upper':res=v.toUpperCase();break;
+            case 'lower':res=v.toLowerCase();break;
+            case 'title':res=v.replace(/\b\w/g,c=>c.toUpperCase());break;
+            case 'concat':{const c2=document.getElementById('txt-col2')?.value;const sep=document.getElementById('txt-sep')?.value||' ';res=v+sep+String(row[c2]??'');}break;
+            case 'split':{const delim=document.getElementById('txt-delim')?.value||',';const parts=v.split(delim);const out=Object.assign({},row);parts.forEach((p,i)=>out[tc+'_'+i]=p);return out;}
+            case 'left':{const n=+document.getElementById('txt-n')?.value||3;res=v.slice(0,n);}break;
+            case 'right':{const n=+document.getElementById('txt-n')?.value||3;res=v.slice(-n);}break;
+            case 'mid':{const st=+document.getElementById('txt-start')?.value||0;const ln=+document.getElementById('txt-len')?.value||5;res=v.slice(st,st+ln);}break;
+            case 'extract_num':res=parseFloat(v.replace(/[^\d.]/g,''))||null;break;
+            case 'remove_special':res=v.replace(/[^a-zA-Z0-9\s]/g,'');break;
+            default:res=v;
+          }
+          return Object.assign({},row,{[on]:res});
+        });break;}
+
+      case 'findreplace': {
+        const fc=document.getElementById('fr-col').value;
+        const find=document.getElementById('fr-find').value;
+        const rep=document.getElementById('fr-rep').value;
+        const useRx=document.getElementById('fr-regex').checked;
+        const cs=document.getElementById('fr-case').checked;
+        label=`Replace "${find.slice(0,15)}" in ${fc}`;
+        fn=data=>data.map(row=>{
+          const v=String(row[fc]??'');
+          let rx;
+          if(useRx){try{rx=new RegExp(find,cs?'g':'gi');}catch(e){showToast('Invalid regex','error');throw e;}}
+          else rx=new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),cs?'g':'gi');
+          return Object.assign({},row,{[fc]:v.replace(rx,rep)});
+        });break;}
+
+      case 'bin': {
+        const bc=document.getElementById('bin-col').value;
+        const method=document.getElementById('bin-method').value;
+        const n=+document.getElementById('bin-n').value||5;
+        const nn=document.getElementById('bin-name').value||'Bin';
+        label=`Bin ${bc} (${method})`;
+        fn=data=>{
+          const vals=data.map(r=>+r[bc]).filter(v=>!isNaN(v)).sort((a,b)=>a-b);
+          let breaks;
+          if(method==='custom'){breaks=document.getElementById('bin-breaks').value.split(',').map(Number).filter(v=>!isNaN(v));}
+          else if(method==='quantile'){breaks=[];for(let i=0;i<=n;i++){breaks.push(vals[Math.floor(i*(vals.length-1)/n)]);}}
+          else{const mn=Math.min(...vals),mx=Math.max(...vals);breaks=[];for(let i=0;i<=n;i++)breaks.push(mn+i*(mx-mn)/n);}
+          return data.map(row=>{
+            const v=+row[bc];let bin='Other';
+            for(let i=0;i<breaks.length-1;i++){if(v>=breaks[i]&&(v<breaks[i+1]||i===breaks.length-2)){bin=`${breaks[i].toLocaleString()}–${breaks[i+1].toLocaleString()}`;break;}}
+            return Object.assign({},row,{[nn]:bin});
+          });
+        };break;}
+
+      case 'rank': {
+        const sc3=document.getElementById('rank-sortcol').value;
+        const rt=document.getElementById('rank-type').value;
+        const rd=document.getElementById('rank-dir').value;
+        const rg=document.getElementById('rank-group').value;
+        const nn=document.getElementById('rank-name').value||'Rank';
+        label=`Rank by ${sc3}`;
+        fn=data=>{
+          const rankGroup=rows=>{
+            const sorted=[...rows].sort((a,b)=>{const av=+a[sc3],bv=+b[sc3];return rd==='desc'?bv-av:av-bv;});
+            const rankMap=new Map();
+            if(rt==='row'){sorted.forEach((r,i)=>rankMap.set(r,i+1));}
+            else if(rt==='dense'){const uvals=[...new Set(sorted.map(r=>r[sc3]))];rows.forEach(r=>rankMap.set(r,uvals.indexOf(r[sc3])+1));}
+            else{const valRanks=new Map();let i=0;while(i<sorted.length){let j=i;while(j<sorted.length&&sorted[j][sc3]===sorted[i][sc3])j++;const avg=(i+j+1)/2;for(let k=i;k<j;k++)valRanks.set(sorted[k][sc3],avg);i=j;}rows.forEach(r=>rankMap.set(r,valRanks.get(r[sc3])));}
+            return rows.map(r=>Object.assign({},r,{[nn]:rankMap.get(r)}));
+          };
+          if(!rg)return rankGroup(data);
+          const groups={};data.forEach(r=>(groups[r[rg]]=groups[r[rg]]||[]).push(r));
+          return Object.values(groups).flatMap(rankGroup);
+        };break;}
+
+      case 'laglead': {
+        const vc2=document.getElementById('ll-val').value;
+        const sc4=document.getElementById('ll-sort').value;
+        const grp2=document.getElementById('ll-group').value;
+        const type2=document.getElementById('ll-type').value;
+        const n2=+document.getElementById('ll-n').value||1;
+        const nn=document.getElementById('ll-name').value||'Prev_Value';
+        label=`${type2==='lag'?'Lag':'Lead'} ${vc2} by ${n2}`;
+        fn=data=>{
+          const doLL=rows=>{
+            const sorted=[...rows].sort((a,b)=>{const av=a[sc4],bv=b[sc4];return av<bv?-1:av>bv?1:0;});
+            return sorted.map((row,i)=>{
+              const oi=type2==='lag'?i-n2:i+n2;
+              return Object.assign({},row,{[nn]:oi>=0&&oi<sorted.length?sorted[oi][vc2]:null});
+            });
+          };
+          if(!grp2)return doLL(data);
+          const groups={};data.forEach(r=>(groups[r[grp2]]=groups[r[grp2]]||[]).push(r));
+          return Object.values(groups).flatMap(doLL);
+        };break;}
+
+      case 'fillnull': {
+        const fc2=document.getElementById('fn-col').value;
+        const method=document.getElementById('fn-method').value;
+        const cv=document.getElementById('fn-val').value;
+        label=`Fill nulls in ${fc2} (${method})`;
+        fn=data=>{
+          let fillVal;
+          if(method==='mean'){const nums=data.map(r=>+r[fc2]).filter(v=>!isNaN(v));fillVal=nums.reduce((s,v)=>s+v,0)/nums.length;}
+          else if(method==='median'){const s=[...data.map(r=>+r[fc2]).filter(v=>!isNaN(v))].sort((a,b)=>a-b);fillVal=s.length%2?s[Math.floor(s.length/2)]:(s[s.length/2-1]+s[s.length/2])/2;}
+          else if(method==='mode'){const cnt={};data.forEach(r=>{if(r[fc2]!=null)cnt[r[fc2]]=(cnt[r[fc2]]||0)+1;});fillVal=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0]?.[0];}
+          if(method==='forward'){let last=null;return data.map(r=>{if(r[fc2]!=null)last=r[fc2];return Object.assign({},r,{[fc2]:r[fc2]??last});});}
+          if(method==='backward'){let last=null;return [...data].reverse().map(r=>{if(r[fc2]!=null)last=r[fc2];return Object.assign({},r,{[fc2]:r[fc2]??last});}).reverse();}
+          return data.map(r=>Object.assign({},r,{[fc2]:r[fc2]??((method==='const')?cv:fillVal)}));
+        };break;}
+
+      case 'rename': {
+        const mapText=document.getElementById('ren-map').value.trim();
+        const mp={};mapText.split('\n').forEach(l=>{const [a,,b]=l.split(' ');if(a&&b)mp[a.trim()]=b.trim();});
+        label=`Rename ${Object.keys(mp).length} column(s)`;
+        fn=data=>data.map(row=>{const o={};Object.entries(row).forEach(([k,v])=>o[mp[k]||k]=v);return o;});break;}
+
+      case 'changetype': {
+        const cc2=document.getElementById('ct-col').value;
+        const type3=document.getElementById('ct-type').value;
+        label=`Cast ${cc2} to ${type3}`;
+        fn=data=>data.map(row=>{let v=row[cc2];if(type3==='num')v=+v||null;else if(type3==='str')v=v!=null?String(v):null;else if(type3==='date')v=new Date(v).toISOString().split('T')[0];return Object.assign({},row,{[cc2]:v});});break;}
+
+      case 'summary': {
+        label='Column summary stats';
+        fn=data=>{
+          const c2=cols(data);
+          return c2.map(col=>{
+            const vals=data.map(r=>r[col]).filter(v=>v!=null);
+            const nums=vals.map(Number).filter(v=>!isNaN(v));
+            const nulls=data.length-vals.length;
+            const sorted=[...nums].sort((a,b)=>a-b);
+            const median=sorted.length?sorted.length%2?sorted[Math.floor(sorted.length/2)]:(sorted[sorted.length/2-1]+sorted[sorted.length/2])/2:null;
+            return{Column:col,Type:tablesMeta[activeTable]?.types?.[col]||'str',Count:data.length,'Null %':Math.round(nulls/data.length*100)+'%','Distinct':new Set(vals).size,Min:nums.length?Math.min(...nums):null,Max:nums.length?Math.max(...nums):null,Mean:nums.length?Math.round(nums.reduce((s,v)=>s+v,0)/nums.length*100)/100:null,Median:median!=null?Math.round(median*100)/100:null};
+          });
+        };break;}
+
+      case 'nullaudit': {
+        label='Null audit';
+        fn=data=>cols(data).map(col=>{const nulls=data.filter(r=>r[col]==null||r[col]==='').length;return{Column:col,'Null Count':nulls,'Null %':Math.round(nulls/data.length*100)+'%','Non-null':data.length-nulls};});break;}
+
+      case 'dupfinder': {
+        const mode2=document.getElementById('df-mode').value;
+        const kc=mode2==='key'?getChecked('df-cols'):null;
+        label='Duplicate finder';
+        fn=data=>{
+          const getK=row=>(kc||cols(data)).map(c=>row[c]).join('|||');
+          const cnt=new Map();data.forEach(r=>cnt.set(getK(r),(cnt.get(getK(r))||0)+1));
+          return data.filter(r=>cnt.get(getK(r))>1).map(r=>Object.assign({},r,{duplicate_count:cnt.get(getK(r))}));
+        };break;}
+
+      case 'freqdist': {
+        const fc3=document.getElementById('fd-col').value;
+        const n3=+document.getElementById('fd-n').value||20;
+        label=`Value freq: ${fc3}`;
+        fn=data=>{
+          const cnt=new Map();data.forEach(r=>cnt.set(r[fc3],(cnt.get(r[fc3])||0)+1));
+          const total=data.length;
+          return [...cnt.entries()].sort((a,b)=>b[1]-a[1]).slice(0,n3).map(([val,count])=>({Value:val,Count:count,'% Total':Math.round(count/total*10000)/100}));
+        };break;}
+
+      case 'crosstab': {
+        const rc=document.getElementById('ct2-row').value;
+        const cc3=document.getElementById('ct2-col').value;
+        const vt=document.getElementById('ct2-vals').value;
+        label=`Crosstab ${rc} × ${cc3}`;
+        fn=data=>{
+          const rvals=[...new Set(data.map(r=>r[rc]))].sort();
+          const cvals=[...new Set(data.map(r=>r[cc3]))].sort();
+          const cnt=new Map();data.forEach(r=>{const k=r[rc]+'|||'+r[cc3];cnt.set(k,(cnt.get(k)||0)+1);});
+          const rTotals=new Map();rvals.forEach(rv=>rTotals.set(rv,cvals.reduce((s,cv)=>s+(cnt.get(rv+'|||'+cv)||0),0)));
+          const cTotals=new Map();cvals.forEach(cv=>cTotals.set(cv,rvals.reduce((s,rv)=>s+(cnt.get(rv+'|||'+cv)||0),0)));
+          const total=data.length;
+          return rvals.map(rv=>{const row={[rc]:rv};cvals.forEach(cv=>{const n4=cnt.get(rv+'|||'+cv)||0;row[cv]=vt==='count'?n4:vt==='pct_row'?Math.round(n4/(rTotals.get(rv)||1)*10000)/100:vt==='pct_col'?Math.round(n4/(cTotals.get(cv)||1)*10000)/100:Math.round(n4/total*10000)/100;});return row;});
+        };break;}
+
+      case 'corr': {
+        const cc4=getChecked('corr-cols');
+        label='Correlation matrix';
+        fn=data=>{
+          const mean=arr=>arr.reduce((s,v)=>s+v,0)/arr.length;
+          const corr=(a,b)=>{const ma=mean(a),mb=mean(b);const num=a.reduce((s,v,i)=>s+(v-ma)*(b[i]-mb),0);const da=Math.sqrt(a.reduce((s,v)=>s+(v-ma)**2,0)),db=Math.sqrt(b.reduce((s,v)=>s+(v-mb)**2,0));return da&&db?Math.round(num/(da*db)*1000)/1000:null;};
+          const vecs=cc4.reduce((o,c)=>{o[c]=data.map(r=>+r[c]).filter(v=>!isNaN(v));return o;},{});
+          return cc4.map(c=>{const row={Column:c};cc4.forEach(c2=>row[c2]=corr(vecs[c],vecs[c2]));return row;});
+        };break;}
+
+      case 'pareto': {
+        const pc=document.getElementById('par-cat').value;
+        const pv=document.getElementById('par-val').value;
+        const ps=document.getElementById('par-sort').value;
+        label=`Pareto: ${pv} by ${pc}`;
+        fn=data=>{
+          const agg=new Map();data.forEach(r=>agg.set(r[pc],(agg.get(r[pc])||0)+(+r[pv]||0)));
+          const sorted=[...agg.entries()].sort((a,b)=>ps==='desc'?b[1]-a[1]:a[1]-b[1]);
+          const total=sorted.reduce((s,[,v])=>s+v,0);let cum=0;
+          return sorted.map(([cat,val])=>{cum+=val;return{[pc]:cat,[pv]:Math.round(val*100)/100,'Cumulative %':Math.round(cum/total*10000)/100};});
+        };break;}
+
+      case 'condtag': {
+        const tn=document.getElementById('ctag-name').value||'Segment';
+        const rules=document.getElementById('ctag-rules').value.trim().split('\n').map(l=>{const parts=l.split('→');return{cond:parts[0].trim(),label:(parts[1]||'').trim()};}).filter(r=>r.label);
+        label=`Tag: ${tn}`;
+        fn=data=>data.map(row=>{let tag=null;for(const rule of rules){if(!rule.cond||evalFilter(rule.cond,row)){tag=rule.label;break;}}return Object.assign({},row,{[tn]:tag});});break;}
+
+      case 'percentile': {
+        const pc2=document.getElementById('pct2-col').value;
+        const pt=document.getElementById('pct2-type').value;
+        const nn=document.getElementById('pct2-name').value||'Bucket';
+        label=`${pt} bucket: ${pc2}`;
+        fn=data=>{
+          const vals=data.map(r=>+r[pc2]).filter(v=>!isNaN(v)).sort((a,b)=>a-b);
+          const n5=pt==='quartile'?4:pt==='decile'?10:document.getElementById('pct2-custom').value.split(',').length;
+          const getQ=v=>{const pct=vals.filter(vv=>vv<=v).length/vals.length;return Math.min(n5,Math.ceil(pct*n5));};
+          const pfx=pt==='quartile'?'Q':pt==='decile'?'D':'P';
+          return data.map(row=>Object.assign({},row,{[nn]:pfx+getQ(+row[pc2])}));
+        };break;}
+
+      case 'firstlast': {
+        const fg=document.getElementById('fl-group').value;
+        const fs=document.getElementById('fl-sort').value;
+        const ft=document.getElementById('fl-type').value;
+        const fn2=document.getElementById('fl-name').value||'Is_First';
+        label=`Flag ${ft} per ${fg}`;
+        fn=data=>{
+          const groups=new Map();
+          data.forEach(r=>(groups.get(r[fg])||groups.set(r[fg],[])&&groups.get(r[fg])).push(r));
+          return [...groups.values()].flatMap(rows=>{
+            const sorted=[...rows].sort((a,b)=>{const av=a[fs],bv=b[fs];return av<bv?-1:av>bv?1:0;});
+            return sorted.map((row,i)=>{
+              let flag=false;
+              if(ft==='first')flag=i===0;
+              else if(ft==='last')flag=i===sorted.length-1;
+              else flag=i===0||i===sorted.length-1;
+              return Object.assign({},row,{[fn2]:flag?'Yes':'No'});
+            });
+          });
+        };break;}
+
+      case 'periodcomp': {
+        const pd=document.getElementById('pc-date').value;
+        const pv2=document.getElementById('pc-val').value;
+        const period=document.getElementById('pc-period').value;
+        const pg=document.getElementById('pc-group').value;
+        label=`${period.toUpperCase()} comparison: ${pv2}`;
+        fn=data=>{
+          const getKey=row=>{const d=new Date(row[pd]);const g=pg?row[pg]:'';switch(period){case'yoy':return d.getFullYear()+'|'+g;case'mom':return d.getFullYear()+'-'+(d.getMonth()+1)+'|'+g;case'wow':{const wk=Math.ceil((d-new Date(d.getFullYear(),0,1))/(7*86400000));return d.getFullYear()+'-W'+wk+'|'+g;}case'qoq':return d.getFullYear()+'-Q'+(Math.floor(d.getMonth()/3)+1)+'|'+g;}};
+          const getPrior=row=>{const d=new Date(row[pd]);const g=pg?row[pg]:'';switch(period){case'yoy':return(d.getFullYear()-1)+'|'+g;case'mom':{const pm=d.getMonth()===0?11:d.getMonth()-1;const py=d.getMonth()===0?d.getFullYear()-1:d.getFullYear();return py+'-'+(pm+1)+'|'+g;}case'wow':{const wk=Math.ceil((d-new Date(d.getFullYear(),0,1))/(7*86400000));return wk>1?d.getFullYear()+'-W'+(wk-1)+'|'+g:(d.getFullYear()-1)+'-W52|'+g;}case'qoq':{const q=Math.floor(d.getMonth()/3);return q>0?d.getFullYear()+'-Q'+q+'|'+g:(d.getFullYear()-1)+'-Q4|'+g;}}};
+          const totals=new Map();data.forEach(r=>{const k=getKey(r);totals.set(k,(totals.get(k)||0)+(+r[pv2]||0));});
+          return data.map(row=>{const prior=totals.get(getPrior(row))??null;const curr=+row[pv2]||0;const delta=prior!=null?Math.round((curr-prior)*100)/100:null;const pct=prior!=null&&prior!==0?Math.round((curr-prior)/Math.abs(prior)*10000)/100:null;return Object.assign({},row,{Prior_Period_Val:prior,[period.toUpperCase()+'_Delta']:delta,[period.toUpperCase()+'_Pct_Chg']:pct});});
+        };break;}
+
+      case 'rolling': {
+        const rv=document.getElementById('roll-val').value;
+        const rs=document.getElementById('roll-sort').value;
+        const rg2=document.getElementById('roll-group').value;
+        const rn=+document.getElementById('roll-n').value||3;
+        const rfn=document.getElementById('roll-fn').value;
+        const rname=document.getElementById('roll-name').value||'Rolling';
+        label=`Rolling ${rfn}(${rn}) of ${rv}`;
+        fn=data=>{
+          const doRoll=rows=>{
+            const sorted=[...rows].sort((a,b)=>{const av=a[rs],bv=b[rs];return av<bv?-1:av>bv?1:0;});
+            return sorted.map((row,i)=>{
+              const window=sorted.slice(Math.max(0,i-rn+1),i+1).map(r=>+r[rv]).filter(v=>!isNaN(v));
+              let val;
+              switch(rfn){case'AVG':val=window.reduce((s,v)=>s+v,0)/window.length;break;case'SUM':val=window.reduce((s,v)=>s+v,0);break;case'MIN':val=Math.min(...window);break;case'MAX':val=Math.max(...window);break;}
+              return Object.assign({},row,{[rname]:Math.round(val*100)/100});
+            });
+          };
+          if(!rg2)return doRoll(data);
+          const groups={};data.forEach(r=>(groups[r[rg2]]=groups[r[rg2]]||[]).push(r));
+          return Object.values(groups).flatMap(doRoll);
+        };break;}
+
+      case 'fiscal': {
+        const fc4=document.getElementById('fisc-col').value;
+        const fm=+document.getElementById('fisc-month').value;
+        const parts2=getChecked('fisc-part');
+        label=`Fiscal calendar from ${fc4}`;
+        fn=data=>data.map(row=>{
+          const d=new Date(row[fc4]);if(isNaN(d))return row;
+          const out=Object.assign({},row);
+          const cm=d.getMonth()+1;const cy=d.getFullYear();
+          const fy=cm>=fm?cy:cy-1;
+          const fq=Math.floor(((cm-fm+12)%12)/3)+1;
+          const fp=(cm-fm+12)%12+1;
+          if(parts2.includes('Fiscal_Year'))out['Fiscal_Year']=fy+'-'+(fy+1);
+          if(parts2.includes('Fiscal_Quarter'))out['Fiscal_Quarter']='Q'+fq;
+          if(parts2.includes('Fiscal_Month'))out['Fiscal_Month']=fp;
+          if(parts2.includes('Fiscal_Period_Label'))out['Fiscal_Period_Label']=`FY${fy}-Q${fq}-M${fp}`;
+          return out;
+        });break;}
+
+      default: showToast('Operation not yet implemented','error'); return;
+    }
+
+    // Push to pipeline
+    pushHistory();
+    pipeline.push({id:currentOp, fn, label, icon: OPS.find(o=>o.id===currentOp)?.icon||'⚙'});
+    const newData = applyStep({fn}, currentData);
+    currentData = newData;
+
+    // Update table meta
+    if(currentData.length && activeTable) {
+      tablesMeta[activeTable] = {...tablesMeta[activeTable], rows: currentData.length, cols: Object.keys(currentData[0]).length, types: buildMeta(currentData).types};
+    }
+
+    addAudit(label, `Input: ${history[history.length-1]?.data.length.toLocaleString()||'?'} rows → Output: ${currentData.length.toLocaleString()} rows`, '');
+    renderPipeline();
+    renderPreview();
+    closeModal();
+    showToast(`Applied: ${label}`, 'success');
+
+  } catch(e) {
+    showToast('Error: ' + e.message, 'error');
+    console.error(e);
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// EXPRESSION EVALUATOR
+// ═══════════════════════════════════════════════════
+function evalFilter(expr, row) {
+  try {
+    let e = expr
+      .replace(/\bIN\b\s*\[([^\]]*)\]/gi, (m,list)=>`[${list}].includes(__val__)`)
+      .replace(/\bAND\b/gi,'&&').replace(/\bOR\b/gi,'||').replace(/\bNOT\b/gi,'!')
+      .replace(/\.contains\((['"])(.*?)\1\)/gi, `.includes($1$2$1)`);
+
+    // Replace [ColName] references
+    const colRefs = e.match(/\[([^\]]+)\]/g) || [];
+    let js = e;
+    colRefs.forEach(ref => {
+      const col = ref.slice(1,-1);
+      const val = row[col];
+      js = js.replace(ref, JSON.stringify(val ?? null));
+    });
+    js = js.replace(/__val__/g, js.match(/\.includes\(/)?js:'');
+    return !!eval(js);
+  } catch(e2) { return false; }
+}
+
+function evalFormula(formula, row) {
+  try {
+    // Replace [ColName] with values
+    let js = formula;
+    const colRefs = js.match(/\[([^\]]+)\]/g) || [];
+    colRefs.forEach(ref => {
+      const col = ref.slice(1,-1);
+      const val = row[col];
+      js = js.replace(ref, JSON.stringify(val ?? null));
+    });
+
+    // Handle IF/THEN/ELSE
+    js = js.replace(/\bIF\b\s*(.*?)\s*\bTHEN\b\s*(.*?)\s*\bELSE\b\s*(.*?)$/i, '($1)?($2):($3)');
+
+    // Handle CASE WHEN
+    js = js.replace(/\bCASE\b(.*?)\bEND\b/is, (m,body)=>{
+      const whens = [...body.matchAll(/\bWHEN\b\s*(.*?)\s*\bTHEN\b\s*(.*?)(?=\bWHEN\b|\bELSE\b|$)/gis)];
+      const elseMatch = body.match(/\bELSE\b\s*(.*?)$/is);
+      let ternary = whens.map(([,cond,val])=>`(${cond})?${val}`).join(':');
+      ternary += ':' + (elseMatch?elseMatch[1]:'null');
+      return ternary;
+    });
+
+    return eval(js);
+  } catch(e2) { return null; }
+}
+
+// ═══════════════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════════════
+function exportData() {
+  if(!currentData.length){showToast('No data to export','error');return;}
+  const choice = confirm('Click OK for CSV, Cancel for Excel (.xlsx)');
+  if(choice) {
+    const csv = Papa.unparse(currentData);
+    download(csv, 'databridge_export.csv', 'text/csv');
+  } else {
+    const ws = XLSX.utils.json_to_sheet(currentData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'DataBridge');
+    XLSX.writeFile(wb, 'databridge_export.xlsx');
+  }
+  showToast('Exported!','success');
+}
+
+function download(content, filename, type) {
+  const blob = new Blob([content], {type});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
+
+// Also expose clipboard copy
+function copyToClipboard() {
+  if(!currentData.length)return;
+  const tsv = [Object.keys(currentData[0]).join('\t'), ...currentData.slice(0,1000).map(r=>Object.values(r).join('\t'))].join('\n');
+  navigator.clipboard.writeText(tsv).then(()=>showToast('Copied to clipboard (1000 rows max)','success'));
+}
+
+// ═══════════════════════════════════════════════════
+// AUDIT
+// ═══════════════════════════════════════════════════
+function addAudit(op, detail, extra) {
+  const time = new Date().toLocaleTimeString();
+  auditLog.push({op, detail, extra, time});
+  const container = document.getElementById('audit-entries');
+  container.innerHTML = [...auditLog].reverse().map(e => `
+    <div class="audit-entry">
+      <span class="audit-time">${e.time}</span>
+      <div class="audit-op">${e.op}</div>
+      <div class="audit-detail">${e.detail}</div>
+      ${e.extra?`<div class="audit-detail">${e.extra}</div>`:''}
+    </div>`).join('');
+}
+
+function toggleAudit() {
+  document.getElementById('audit-panel').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════
+let toastTimer;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type?' '+type:'');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════════
+// DRAG & DROP
+// ═══════════════════════════════════════════════════
+document.addEventListener('dragover', e => { e.preventDefault(); document.getElementById('upload-zone').style.borderColor='var(--accent)'; });
+document.addEventListener('dragleave', () => { document.getElementById('upload-zone').style.borderColor=''; });
+document.addEventListener('drop', e => {
+  e.preventDefault();
+  document.getElementById('upload-zone').style.borderColor='';
+  handleFiles(e.dataTransfer.files);
+});
+
+// Close modal on overlay click
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if(e.target === document.getElementById('modal-overlay')) closeModal();
+});
+
+// Init
+renderOps();
+</script>
+</body>
+</html>
