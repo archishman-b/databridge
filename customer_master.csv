@@ -1,0 +1,11 @@
+customer_id,customer_name,industry,tier,account_manager,country,annual_contract_value,onboarded_date
+C042,Acme Corp,Manufacturing,Enterprise,Sarah Chen,USA,45000,2021-03-15
+C055,Delta Co,Retail,Mid-Market,Tom Walsh,USA,18000,2022-01-10
+C108,Beta Ltd,Financial Services,Enterprise,James Okafor,UK,32000,2020-11-20
+C217,Gamma Inc,Technology,Enterprise,Priya Sharma,USA,55000,2019-06-05
+C301,Epsilon LLC,Healthcare,Mid-Market,Sarah Chen,USA,22000,2022-08-14
+C412,Zeta Corp,Technology,Enterprise,Priya Sharma,Singapore,67000,2018-04-22
+C520,Eta Partners,Consulting,Mid-Market,James Okafor,UK,15000,2023-02-01
+C630,Theta Inc,Manufacturing,Enterprise,Sarah Chen,USA,38000,2021-09-30
+C750,Iota Systems,Retail,SMB,Tom Walsh,USA,8000,2023-05-12
+C810,Kappa Group,Financial Services,Mid-Market,James Okafor,Australia,19500,2022-11-08
