@@ -365,6 +365,20 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 .tag-green { background: var(--success-bg); color: var(--success); border: 1px solid #bbf7d0; }
 .tag-warn { background: var(--warn-bg); color: var(--warn); border: 1px solid #fde68a; }
 
+.sidebar-section { padding: 6px 8px 2px; font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3);
+  display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+.table-item.result { border-left: 2px solid var(--accent); }
+.table-item.result .table-icon-wrap { position: relative; }
+.result-badge { font-size: 9px; padding: 1px 5px; border-radius: 3px;
+  background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-border);
+  margin-top: 2px; display: inline-block; }
+.table-item .del-btn { opacity: 0; font-size: 11px; color: var(--text3);
+  background: none; border: none; cursor: pointer; padding: 2px 4px; border-radius: 3px;
+  transition: all 0.1s; flex-shrink: 0; }
+.table-item:hover .del-btn { opacity: 1; }
+.table-item .del-btn:hover { background: var(--danger-bg); color: var(--danger); }
+
 .divider { height: 1px; background: var(--border); margin: 10px 0; }
 .section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); margin-bottom: 6px; padding: 0 4px; }
 </style>
@@ -657,29 +671,70 @@ function buildMeta(data, filename='') {
 function renderTableList() {
   const list = document.getElementById('table-list');
   const names = Object.keys(tables);
+  const sourceNames = names.filter(n => !tablesMeta[n].isResult);
+  const resultNames = names.filter(n => tablesMeta[n].isResult);
   document.getElementById('table-count').textContent = names.length;
-  list.innerHTML = names.map(n => {
+
+  const makeItem = n => {
     const m = tablesMeta[n];
-    return `<div class="table-item ${n===activeTable?'active':''}" onclick="setActiveTable('${n}')">
-      <div class="table-icon">📋</div>
+    const isResult = m.isResult;
+    return `<div class="table-item ${n===activeTable?'active':''} ${isResult?'result':''}" onclick="setActiveTable('${n}')">
+      <div class="table-icon">${isResult?'⊞':'📋'}</div>
       <div class="table-info">
         <div class="table-name" title="${n}">${n}</div>
         <div class="table-meta">${m.rows.toLocaleString()} rows · ${m.cols} cols</div>
+        ${isResult?`<span class="result-badge">result</span>`:''}
       </div>
+      ${isResult?`<button class="del-btn" onclick="event.stopPropagation();deleteTable('${n}')" title="Delete">✕</button>`:''}
     </div>`;
-  }).join('');
+  };
+
+  let html = '';
+  if(sourceNames.length) {
+    html += `<div class="sidebar-section">Source tables</div>`;
+    html += sourceNames.map(makeItem).join('');
+  }
+  if(resultNames.length) {
+    html += `<div class="sidebar-section">Results <button onclick="clearAllResults()" style="font-size:9px;background:none;border:none;color:var(--text3);cursor:pointer;text-transform:none;letter-spacing:0;font-weight:400;padding:0 2px">clear all</button></div>`;
+    html += resultNames.map(makeItem).join('');
+  }
+  list.innerHTML = html;
+}
+
+function deleteTable(name) {
+  delete tables[name];
+  delete tablesMeta[name];
+  if(activeTable === name) {
+    const remaining = Object.keys(tables);
+    if(remaining.length) setActiveTable(remaining[remaining.length-1]);
+    else { activeTable=null; currentData=[]; pipeline=[]; renderPipeline(); showEmptyPreview(); }
+  }
+  renderTableList();
+}
+
+function clearAllResults() {
+  Object.keys(tablesMeta).filter(n=>tablesMeta[n].isResult).forEach(n=>{delete tables[n];delete tablesMeta[n];});
+  const sources = Object.keys(tables);
+  if(activeTable && !tables[activeTable]) {
+    if(sources.length) setActiveTable(sources[0]);
+    else { activeTable=null; currentData=[]; renderPipeline(); showEmptyPreview(); }
+  }
+  renderTableList();
 }
 
 function setActiveTable(name) {
   activeTable = name;
-  pipeline = [];
-  history = [];
   currentData = [...tables[name]];
-  displayPage = 0;
+  sortCol = null; sortDir = 1; searchQuery = ''; displayPage = 0;
+  // Only reset pipeline if switching to a source table
+  if(!tablesMeta[name]?.isResult) {
+    pipeline = [];
+    history = [];
+    document.getElementById('undo-btn').disabled = true;
+  }
   renderTableList();
   renderPipeline();
   renderPreview();
-  document.getElementById('undo-btn').disabled = true;
 }
 
 // ═══════════════════════════════════════════════════
@@ -690,8 +745,10 @@ function renderPreview(data=null) {
   if(!currentData || !currentData.length) {
     showEmptyPreview(); return;
   }
+  if(!activeTable) { showEmptyPreview(); return; }
 
   const area = document.getElementById('preview-area');
+  area.innerHTML = '';   // always clear first
   const cols = Object.keys(currentData[0]);
   const meta = activeTable ? tablesMeta[activeTable] : {};
 
@@ -837,6 +894,53 @@ function openOp(opId) {
   document.getElementById('modal-subtitle').textContent = op.desc;
   document.getElementById('modal-body').innerHTML = buildModalBody(opId);
   document.getElementById('modal-overlay').classList.add('open');
+
+  // Bind dynamic dropdowns AFTER modal HTML is in the DOM
+  function bindTableDropdown(tableSelId, rightSelIds) {
+    const tableSel = document.getElementById(tableSelId);
+    if (!tableSel) return;
+    const populate = () => {
+      const t = tables[tableSel.value];
+      if (!t || !t.length) return;
+      const cc = Object.keys(t[0]);
+      rightSelIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = cc.map(c => '<option>' + c + '</option>').join('');
+      });
+    };
+    tableSel.addEventListener('change', populate);
+    // If only one other table exists, auto-select and populate immediately
+    const otherTables = Object.keys(tables).filter(n => n !== activeTable);
+    if (otherTables.length === 1) {
+      tableSel.value = otherTables[0];
+      populate();
+    }
+  }
+
+  if (opId === 'join')     bindTableDropdown('join-table', ['join-right']);
+  if (opId === 'antijoin') bindTableDropdown('aj-table',   ['aj-right']);
+  if (opId === 'lookup')   bindTableDropdown('lkp-table',  ['lkp-right', 'lkp-col']);
+  if (opId === 'textops') {
+    const txtSel = document.getElementById('txt-op');
+    if (txtSel) txtSel.addEventListener('change', updateTextOpUI);
+  }
+}
+
+function updateTextOpUI() {
+  const op = document.getElementById('txt-op')?.value;
+  const ex = document.getElementById('txt-extra');
+  if (!ex) return;
+  const c = cols();
+  if (op === 'concat')
+    ex.innerHTML = '<div class="field"><label>Concatenate with column</label><select id="txt-col2">' + c.map(col => '<option>' + col + '</option>').join('') + '</select></div><div class="field"><label>Separator</label><input id="txt-sep" value=" "/></div>';
+  else if (op === 'split')
+    ex.innerHTML = '<div class="field"><label>Delimiter</label><input id="txt-delim" value=","/></div><div class="field"><label>Max splits (0 = all)</label><input id="txt-maxsplit" type="number" value="0"/></div>';
+  else if (op === 'left' || op === 'right')
+    ex.innerHTML = '<div class="field"><label>N characters</label><input id="txt-n" type="number" value="3"/></div>';
+  else if (op === 'mid')
+    ex.innerHTML = '<div class="field-row"><div class="field"><label>Start (0-based)</label><input id="txt-start" type="number" value="0"/></div><div class="field"><label>Length</label><input id="txt-len" type="number" value="5"/></div></div>';
+  else
+    ex.innerHTML = '';
 }
 
 function closeModal() {
@@ -893,23 +997,13 @@ function buildModalBody(opId) {
           <option value="left">Left — all rows from this table</option>
           <option value="right">Right — all rows from other table</option>
           <option value="full">Full outer — all rows from both</option>
-        </select></div>
-      <script>document.getElementById('join-table').onchange=function(){
-        const t=tables[this.value];if(!t||!t.length)return;
-        const sel=document.getElementById('join-right');
-        sel.innerHTML=Object.keys(t[0]).map(c=>'<option>'+c+'</option>').join('');
-      }<\/script>`;
+        </select></div>`;
 
     case 'antijoin': return `
       ${tableSelect('aj-table','Find rows NOT in table')}
       ${colSelect('aj-left','Key column (this table)')}
       <div class="field"><label>Key column (other table)</label>
-        <select id="aj-right"><option value="">— select after choosing table —</option></select></div>
-      <script>document.getElementById('aj-table').onchange=function(){
-        const t=tables[this.value];if(!t||!t.length)return;
-        const sel=document.getElementById('aj-right');
-        sel.innerHTML=Object.keys(t[0]).map(c=>'<option>'+c+'</option>').join('');
-      }<\/script>`;
+        <select id="aj-right"><option value="">— select after choosing table —</option></select></div>`;
 
     case 'union': return `
       ${tableSelect('union-table','Append table')}
@@ -923,16 +1017,10 @@ function buildModalBody(opId) {
       ${tableSelect('lkp-table','Lookup from table')}
       ${colSelect('lkp-left','Match key (this table)')}
       <div class="field"><label>Match key (other table)</label>
-        <select id="lkp-right"><option>—</option></select></div>
+        <select id="lkp-right"><option>— select after choosing table —</option></select></div>
       <div class="field"><label>Column to bring in</label>
-        <select id="lkp-col"><option>—</option></select></div>
-      <div class="field"><label>New column name</label><input id="lkp-name" placeholder="e.g. Product_Name"/></div>
-      <script>document.getElementById('lkp-table').onchange=function(){
-        const t=tables[this.value];if(!t||!t.length)return;
-        const cc=Object.keys(t[0]);
-        document.getElementById('lkp-right').innerHTML=cc.map(c=>'<option>'+c+'</option>').join('');
-        document.getElementById('lkp-col').innerHTML=cc.map(c=>'<option>'+c+'</option>').join('');
-      }<\/script>`;
+        <select id="lkp-col"><option>— select after choosing table —</option></select></div>
+      <div class="field"><label>New column name</label><input id="lkp-name" placeholder="e.g. Product_Name"/></div>`;
 
     case 'filter': return `
       <div class="field"><label>Filter expression</label>
@@ -1044,15 +1132,7 @@ function buildModalBody(opId) {
         </select></div>
       <div id="txt-extra"></div>
       <div class="field"><label>Output column name</label><input id="txt-outname" placeholder="Leave blank to overwrite"/></div>
-      <script>function updateTextOpUI(){
-        const op=document.getElementById('txt-op').value;
-        const ex=document.getElementById('txt-extra');
-        if(op==='concat') ex.innerHTML='<div class="field"><label>Concatenate with column</label><select id="txt-col2">'+cols().map(c=>'<option>'+c+'</option>').join('')+'</select></div><div class="field"><label>Separator</label><input id="txt-sep" value=" "/></div>';
-        else if(op==='split') ex.innerHTML='<div class="field"><label>Delimiter</label><input id="txt-delim" value=","/></div><div class="field"><label>Max splits (0 = all)</label><input id="txt-maxsplit" type="number" value="0"/></div>';
-        else if(op==='left'||op==='right') ex.innerHTML='<div class="field"><label>N characters</label><input id="txt-n" type="number" value="3"/></div>';
-        else if(op==='mid') ex.innerHTML='<div class="field-row"><div class="field"><label>Start (0-based)</label><input id="txt-start" type="number" value="0"/></div><div class="field"><label>Length</label><input id="txt-len" type="number" value="5"/></div></div>';
-        else ex.innerHTML='';
-      }<\/script>`;
+      <div id="txt-extra"></div>`;
 
     case 'findreplace': return `
       ${colSelect('fr-col','Column')}
@@ -1772,18 +1852,40 @@ function applyOperation() {
     pushHistory();
     pipeline.push({id:currentOp, fn, label, icon: OPS.find(o=>o.id===currentOp)?.icon||'⚙'});
     const newData = applyStep({fn}, currentData);
-    currentData = newData;
 
-    // Update table meta
-    if(currentData.length && activeTable) {
-      tablesMeta[activeTable] = {...tablesMeta[activeTable], rows: currentData.length, cols: Object.keys(currentData[0]).length, types: buildMeta(currentData).types};
+    if(!newData || !newData.length) {
+      showToast('Operation returned 0 rows — check your parameters', 'error');
+      pipeline.pop();
+      history.pop();
+      return;
     }
 
-    addAudit(label, `Input: ${history[history.length-1]?.data.length.toLocaleString()||'?'} rows → Output: ${currentData.length.toLocaleString()} rows`, '');
+    currentData = newData;
+    sortCol = null;
+    sortDir = 1;
+    searchQuery = '';
+    displayPage = 0;
+
+    // Save result as a new named table in the sidebar
+    const resultName = activeTable + '_result';
+    const uniqueName = (()=>{
+      let n = resultName; let i = 2;
+      while(tables[n] && !tablesMeta[n]?.isResult) n = resultName + '_' + i++;
+      return n;
+    })();
+    tables[uniqueName] = currentData;
+    tablesMeta[uniqueName] = {...buildMeta(currentData), isResult: true,
+      filename: `Result of ${label} on ${activeTable}`};
+
+    // Switch view to the result table
+    activeTable = uniqueName;
+    renderTableList();
+
+    addAudit(label, `Input: ${history[history.length-1]?.data.length.toLocaleString()||'?'} rows → Output: ${currentData.length.toLocaleString()} rows`, `Saved as "${uniqueName}"`);
+    closeModal();
     renderPipeline();
     renderPreview();
-    closeModal();
-    showToast(`Applied: ${label}`, 'success');
+    showToast(`✓ ${label} — ${currentData.length.toLocaleString()} rows → saved as "${uniqueName}"`, 'success');
 
   } catch(e) {
     showToast('Error: ' + e.message, 'error');
