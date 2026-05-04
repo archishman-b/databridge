@@ -1,11 +1,21 @@
-customer_id,customer_name,industry,tier,account_manager,country,annual_contract_value,onboarded_date
-C042,Acme Corp,Manufacturing,Enterprise,Sarah Chen,USA,45000,2021-03-15
-C055,Delta Co,Retail,Mid-Market,Tom Walsh,USA,18000,2022-01-10
-C108,Beta Ltd,Financial Services,Enterprise,James Okafor,UK,32000,2020-11-20
-C217,Gamma Inc,Technology,Enterprise,Priya Sharma,USA,55000,2019-06-05
-C301,Epsilon LLC,Healthcare,Mid-Market,Sarah Chen,USA,22000,2022-08-14
-C412,Zeta Corp,Technology,Enterprise,Priya Sharma,Singapore,67000,2018-04-22
-C520,Eta Partners,Consulting,Mid-Market,James Okafor,UK,15000,2023-02-01
-C630,Theta Inc,Manufacturing,Enterprise,Sarah Chen,USA,38000,2021-09-30
-C750,Iota Systems,Retail,SMB,Tom Walsh,USA,8000,2023-05-12
-C810,Kappa Group,Financial Services,Mid-Market,James Okafor,Australia,19500,2022-11-08
+customer_id,customer_name,industry,tier,account_manager,country,annual_contract_value,onboarded_date,days_as_customer,segment
+C001,Apex Industries,Manufacturing,Enterprise,Sarah Chen,USA,78000,2020-03-10,2246,Strategic
+C002,Horizon Tech,Technology,Enterprise,Priya Sharma,USA,92000,2019-07-22,2478,Strategic
+C003,Meridian Health,Healthcare,Enterprise,Sarah Chen,USA,55000,2021-01-15,1935,Growth
+C004,Solaris Energy,Energy,Mid-Market,Tom Walsh,USA,28000,2022-04-08,1487,Emerging
+C005,Cascade Retail,Retail,Mid-Market,James Okafor,USA,22000,2022-08-30,1343,Emerging
+C006,Nimbus Financial,Financial Services,Enterprise,Priya Sharma,UK,65000,2020-11-05,2006,Growth
+C007,Vertex Logistics,Logistics,Mid-Market,Marco Ruiz,USA,19000,2023-01-20,1200,Emerging
+C008,Orion Pharma,Healthcare,Enterprise,Aisha Patel,USA,88000,2019-05-14,2547,Strategic
+C009,BlueRock Mining,Mining,Mid-Market,Tom Walsh,USA,24000,2022-02-11,1543,Emerging
+C010,Stratos Media,Media,SMB,Emily Foster,USA,9500,2023-05-01,1099,Emerging
+C011,Pinnacle Consulting,Professional Svcs,Mid-Market,Emily Foster,USA,31000,2021-09-18,1689,Growth
+C012,Delta Aerospace,Aerospace,Enterprise,David Evans,USA,71000,2020-08-25,2078,Strategic
+C013,Harbor Insurance,Financial Services,Enterprise,Aisha Patel,UK,58000,2020-12-03,1978,Growth
+C014,Quantum Devices,Technology,Enterprise,Sarah Chen,USA,83000,2019-03-30,2592,Strategic
+C015,Redwood Construction,Construction,SMB,Marco Ruiz,USA,11000,2023-03-12,1149,Emerging
+C016,Tidal Software,Technology,Mid-Market,James Okafor,USA,37000,2021-06-07,1792,Growth
+C017,Granite Automotive,Automotive,Enterprise,David Evans,USA,95000,2018-11-19,2723,Strategic
+C018,Ember Analytics,Technology,SMB,Emily Foster,USA,14000,2022-11-28,1253,Emerging
+C019,Coastline Hotels,Hospitality,Mid-Market,Tom Walsh,USA,26000,2022-07-14,1390,Emerging
+C020,Polar Biotech,Healthcare,Enterprise,Aisha Patel,USA,61000,2020-04-22,2203,Growth

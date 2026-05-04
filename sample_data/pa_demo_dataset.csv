@@ -1,0 +1,274 @@
+transaction_id,date,year,quarter,month,customer,customer_id,customer_tier,industry,region,product,category,units,list_price,discount_pct,discount_amt,pocket_price,revenue,unit_cost,total_cost,margin_pct,sales_rep
+T0001,2023-01-03,2023,Q1,Jan,Meridian Health,C003,Enterprise,Healthcare,North,CRM Platform,Software,5,8500,4.23,1797.75,8140.45,40702.25,600,3000,92.63,Sarah Chen
+T0004,2023-01-17,2023,Q1,Jan,Polar Biotech,C020,Enterprise,Healthcare,East,Training Package,Services,10,1800,8.27,1488.6,1651.14,16511.4,400,4000,75.77,Aisha Patel
+T0006,2023-02-01,2023,Q1,Feb,Horizon Tech,C002,Enterprise,Technology,East,ERP Module,Software,2,12000,3.91,938.4,11530.8,23061.6,1200,2400,89.59,Priya Sharma
+T0007,2023-02-02,2023,Q1,Feb,Ember Analytics,C018,SMB,Technology,North,Office Chair,Furniture,3,180,28.67,154.83,128.39,385.17,80,240,37.69,Emily Foster
+T0008,2023-02-07,2023,Q1,Feb,Harbor Insurance,C013,Enterprise,Financial Services,East,Network Switch,Hardware,1,950,4.77,45.31,904.69,904.69,540,540,40.31,Aisha Patel
+T0011,2023-02-09,2023,Q1,Feb,Quantum Devices,C014,Enterprise,Technology,North,BI Dashboard,Software,2,5500,7.26,798.6,5100.7,10201.4,500,1000,90.2,Sarah Chen
+T0014,2023-02-15,2023,Q1,Feb,Delta Aerospace,C012,Enterprise,Aerospace,West,Office Chair,Furniture,1,180,10.69,19.24,160.76,160.76,80,80,50.24,David Evans
+T0015,2023-02-16,2023,Q1,Feb,Orion Pharma,C008,Enterprise,Healthcare,East,ERP Module,Software,1,12000,5.98,717.6,11282.4,11282.4,1200,1200,89.36,Aisha Patel
+T0017,2023-02-18,2023,Q1,Feb,Horizon Tech,C002,Enterprise,Technology,East,BI Dashboard,Software,2,5500,6.84,752.4,5123.8,10247.6,500,1000,90.24,Priya Sharma
+T0020,2023-02-23,2023,Q1,Feb,Horizon Tech,C002,Enterprise,Technology,East,Desk Pro,Furniture,2,420,12.2,102.48,368.76,737.52,180,360,51.19,Priya Sharma
+T0021,2023-02-26,2023,Q1,Feb,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,1,1800,8.23,148.14,1651.86,1651.86,400,400,75.78,James Okafor
+T0023,2023-03-03,2023,Q1,Mar,Coastline Hotels,C019,Mid-Market,Hospitality,West,Laptop Pro,Hardware,1,1200,2.49,29.88,1170.12,1170.12,800,800,31.63,Tom Walsh
+T0025,2023-03-08,2023,Q1,Mar,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,10,8500,5.98,5083.0,7991.7,79917.0,600,6000,92.49,Priya Sharma
+T0026,2023-03-11,2023,Q1,Mar,Ember Analytics,C018,SMB,Technology,North,Office Chair,Furniture,2,180,22.5,81.0,139.5,279.0,80,160,42.65,Emily Foster
+T0027,2023-03-11,2023,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Headset Pro,Hardware,1,220,7.15,15.73,204.27,204.27,120,120,41.25,Tom Walsh
+T0029,2023-03-12,2023,Q1,Mar,Apex Industries,C001,Enterprise,Manufacturing,North,Analytics Suite,Software,3,4500,8.08,1090.8,4136.4,12409.2,500,1500,87.91,Sarah Chen
+T0030,2023-03-13,2023,Q1,Mar,Quantum Devices,C014,Enterprise,Technology,North,Analytics Suite,Software,2,4500,11.46,1031.4,3984.3,7968.6,500,1000,87.45,Sarah Chen
+T0032,2023-03-16,2023,Q1,Mar,Tidal Software,C016,Mid-Market,Technology,South,Office Chair,Furniture,5,180,8.07,72.65,165.47,827.35,80,400,51.65,James Okafor
+T0033,2023-03-17,2023,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Security Suite,Software,1,3200,9.22,295.04,2904.96,2904.96,280,280,90.36,Tom Walsh
+T0034,2023-03-19,2023,Q1,Mar,Nimbus Financial,C006,Enterprise,Financial Services,East,CRM Platform,Software,10,8500,10.6,9010.0,7599.0,75990.0,600,6000,92.1,Priya Sharma
+T0035,2023-03-22,2023,Q1,Mar,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,2,1800,27.19,978.84,1310.58,2621.16,400,800,69.48,David Evans
+T0038,2023-03-24,2023,Q1,Mar,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,5,1800,7.19,647.1,1670.58,8352.9,400,2000,76.06,David Evans
+T0039,2023-03-25,2023,Q1,Mar,Meridian Health,C003,Enterprise,Healthcare,North,Training Package,Services,1,1800,11.75,211.5,1588.5,1588.5,400,400,74.82,Sarah Chen
+T0041,2023-03-29,2023,Q1,Mar,Quantum Devices,C014,Enterprise,Technology,North,Analytics Suite,Software,3,4500,8.25,1113.75,4128.75,12386.25,500,1500,87.89,Sarah Chen
+T0042,2023-04-06,2023,Q2,Apr,Meridian Health,C003,Enterprise,Healthcare,North,Security Suite,Software,5,3200,10.19,1630.4,2873.92,14369.6,280,1400,90.26,Sarah Chen
+T0045,2023-04-07,2023,Q2,Apr,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,10,350,22.35,782.3,271.77,2717.7,210,2100,22.73,Emily Foster
+T0046,2023-04-12,2023,Q2,Apr,Stratos Media,C010,SMB,Media,North,Mobile Device Mgmt,Software,5,2800,31.17,4363.8,1927.24,9636.2,250,1250,87.03,Emily Foster
+T0047,2023-04-12,2023,Q2,Apr,Meridian Health,C003,Enterprise,Healthcare,North,ERP Module,Software,2,12000,10.05,2412.0,10794.0,21588.0,1200,2400,88.88,Sarah Chen
+T0048,2023-04-13,2023,Q2,Apr,Redwood Construction,C015,SMB,Construction,South,ERP Module,Software,1,12000,13.56,1627.2,10372.8,10372.8,1200,1200,88.43,Marco Ruiz
+T0049,2023-04-13,2023,Q2,Apr,Stratos Media,C010,SMB,Media,North,Office Chair,Furniture,1,180,19.08,34.34,145.66,145.66,80,80,45.08,Emily Foster
+T0050,2023-04-15,2023,Q2,Apr,Harbor Insurance,C013,Enterprise,Financial Services,East,Headset Pro,Hardware,2,220,13.44,59.14,190.43,380.86,120,240,36.98,Aisha Patel
+T0052,2023-04-19,2023,Q2,Apr,Redwood Construction,C015,SMB,Construction,South,Mobile Device Mgmt,Software,3,2800,8.46,710.64,2563.12,7689.36,250,750,90.25,Marco Ruiz
+T0053,2023-04-20,2023,Q2,Apr,Horizon Tech,C002,Enterprise,Technology,East,Analytics Suite,Software,2,4500,14.13,1271.7,3864.15,7728.3,500,1000,87.06,Priya Sharma
+T0054,2023-04-25,2023,Q2,Apr,Apex Industries,C001,Enterprise,Manufacturing,North,Security Suite,Software,3,3200,13.56,1301.76,2766.08,8298.24,280,840,89.88,Sarah Chen
+T0058,2023-05-05,2023,Q2,May,Nimbus Financial,C006,Enterprise,Financial Services,East,BI Dashboard,Software,3,5500,3.07,506.55,5331.15,15993.45,500,1500,90.62,Priya Sharma
+T0059,2023-05-09,2023,Q2,May,Meridian Health,C003,Enterprise,Healthcare,North,Headset Pro,Hardware,10,220,12.45,273.9,192.61,1926.1,120,1200,37.7,Sarah Chen
+T0061,2023-05-11,2023,Q2,May,Cascade Retail,C005,Mid-Market,Retail,South,Cloud Storage 1TB,Software,1,380,10.68,40.58,339.42,339.42,45,45,86.74,James Okafor
+T0062,2023-05-11,2023,Q2,May,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,3,350,38.17,400.77,216.41,649.23,210,630,2.96,Emily Foster
+T0063,2023-05-13,2023,Q2,May,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,3,1800,5.84,315.36,1694.88,5084.64,400,1200,76.4,James Okafor
+T0065,2023-05-16,2023,Q2,May,Meridian Health,C003,Enterprise,Healthcare,North,Cloud Storage 1TB,Software,2,380,8.33,63.3,348.35,696.7,45,90,87.08,Sarah Chen
+T0066,2023-05-16,2023,Q2,May,Coastline Hotels,C019,Mid-Market,Hospitality,West,Server Rack,Hardware,1,6200,11.5,713.0,5487.0,5487.0,4100,4100,25.28,Tom Walsh
+T0067,2023-05-17,2023,Q2,May,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,1,6200,7.37,456.94,5743.06,5743.06,4100,4100,28.61,David Evans
+T0068,2023-05-18,2023,Q2,May,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,CRM Platform,Software,10,8500,21.4,18190.0,6681.0,66810.0,600,6000,91.02,Emily Foster
+T0071,2023-05-22,2023,Q2,May,Quantum Devices,C014,Enterprise,Technology,North,Training Package,Services,5,1800,13.09,1178.1,1564.38,7821.9,400,2000,74.43,Sarah Chen
+T0073,2023-05-28,2023,Q2,May,Horizon Tech,C002,Enterprise,Technology,East,"Monitor 27""",Hardware,10,350,4.14,144.9,335.51,3355.1,210,2100,37.41,Priya Sharma
+T0074,2023-05-30,2023,Q2,May,Vertex Logistics,C007,Mid-Market,Logistics,South,ERP Module,Software,3,12000,3.59,1292.4,11569.2,34707.6,1200,3600,89.63,Marco Ruiz
+T0075,2023-06-02,2023,Q2,Jun,Stratos Media,C010,SMB,Media,North,Headset Pro,Hardware,2,220,26.82,118.0,161.0,322.0,120,240,25.47,Emily Foster
+T0076,2023-06-06,2023,Q2,Jun,Harbor Insurance,C013,Enterprise,Financial Services,East,Network Switch,Hardware,1,950,6.67,63.36,886.63,886.63,540,540,39.1,Aisha Patel
+T0077,2023-06-12,2023,Q2,Jun,Tidal Software,C016,Mid-Market,Technology,South,Laptop Pro,Hardware,1,1200,13.4,160.8,1039.2,1039.2,800,800,23.02,James Okafor
+T0078,2023-06-13,2023,Q2,Jun,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,1,6200,8.1,502.2,5697.8,5697.8,4100,4100,28.04,David Evans
+T0079,2023-06-14,2023,Q2,Jun,Meridian Health,C003,Enterprise,Healthcare,North,Server Rack,Hardware,3,6200,5.05,939.3,5886.9,17660.7,4100,12300,30.35,Sarah Chen
+T0080,2023-06-15,2023,Q2,Jun,Solaris Energy,C004,Mid-Market,Energy,West,Cloud Storage 1TB,Software,1,380,5.91,22.46,357.54,357.54,45,45,87.41,Tom Walsh
+T0083,2023-06-22,2023,Q2,Jun,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,CRM Platform,Software,10,8500,19.91,16923.5,6807.65,68076.5,600,6000,91.19,Emily Foster
+T0084,2023-06-24,2023,Q2,Jun,Coastline Hotels,C019,Mid-Market,Hospitality,West,Office Chair,Furniture,1,180,13.81,24.86,155.14,155.14,80,80,48.43,Tom Walsh
+T0085,2023-06-26,2023,Q2,Jun,Polar Biotech,C020,Enterprise,Healthcare,East,CRM Platform,Software,10,8500,8.67,7369.5,7763.05,77630.5,600,6000,92.27,Aisha Patel
+T0086,2023-07-01,2023,Q3,Jul,Polar Biotech,C020,Enterprise,Healthcare,East,Headset Pro,Hardware,1,220,10.63,23.39,196.61,196.61,120,120,38.97,Aisha Patel
+T0087,2023-07-08,2023,Q3,Jul,Tidal Software,C016,Mid-Market,Technology,South,Laptop Pro,Hardware,1,1200,3.98,47.76,1152.24,1152.24,800,800,30.57,James Okafor
+T0088,2023-07-15,2023,Q3,Jul,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Desk Pro,Furniture,1,420,33.98,142.72,277.28,277.28,180,180,35.08,Emily Foster
+T0089,2023-07-16,2023,Q3,Jul,Stratos Media,C010,SMB,Media,North,Desk Pro,Furniture,5,420,31.6,663.6,287.28,1436.4,180,900,37.34,Emily Foster
+T0090,2023-07-18,2023,Q3,Jul,Orion Pharma,C008,Enterprise,Healthcare,East,Cloud Storage 1TB,Software,2,380,5.34,40.58,359.71,719.42,45,90,87.49,Aisha Patel
+T0091,2023-07-20,2023,Q3,Jul,Apex Industries,C001,Enterprise,Manufacturing,North,CRM Platform,Software,5,8500,10.65,4526.25,7594.75,37973.75,600,3000,92.1,Sarah Chen
+T0092,2023-07-22,2023,Q3,Jul,Cascade Retail,C005,Mid-Market,Retail,South,Office Chair,Furniture,1,180,5.93,10.67,169.33,169.33,80,80,52.75,James Okafor
+T0093,2023-07-24,2023,Q3,Jul,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,2,8500,6.66,1132.2,7933.9,15867.8,600,1200,92.44,Priya Sharma
+T0094,2023-07-28,2023,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,Office Chair,Furniture,1,180,4.12,7.42,172.58,172.58,80,80,53.64,Tom Walsh
+T0095,2023-07-28,2023,Q3,Jul,Ember Analytics,C018,SMB,Technology,North,Network Switch,Hardware,5,950,18.48,877.8,774.44,3872.2,540,2700,30.27,Emily Foster
+T0096,2023-07-30,2023,Q3,Jul,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,1,350,29.48,103.18,246.82,246.82,210,210,14.92,Emily Foster
+T0097,2023-07-31,2023,Q3,Jul,Vertex Logistics,C007,Mid-Market,Logistics,South,Laptop Pro,Hardware,5,1200,3.82,229.2,1154.16,5770.8,800,4000,30.69,Marco Ruiz
+T0098,2023-08-04,2023,Q3,Aug,Harbor Insurance,C013,Enterprise,Financial Services,East,Cloud Storage 1TB,Software,1,380,0.25,0.95,379.05,379.05,45,45,88.13,Aisha Patel
+T0099,2023-08-07,2023,Q3,Aug,Orion Pharma,C008,Enterprise,Healthcare,East,"Monitor 27""",Hardware,5,350,12.76,223.3,305.34,1526.7,210,1050,31.22,Aisha Patel
+T0100,2023-08-08,2023,Q3,Aug,Horizon Tech,C002,Enterprise,Technology,East,Mobile Device Mgmt,Software,3,2800,10.66,895.44,2501.52,7504.56,250,750,90.01,Priya Sharma
+T0101,2023-08-08,2023,Q3,Aug,Granite Automotive,C017,Enterprise,Automotive,West,Laptop Pro,Hardware,5,1200,21.93,1315.8,936.84,4684.2,800,4000,14.61,David Evans
+T0104,2023-08-19,2023,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,ERP Module,Software,1,12000,10.78,1293.6,10706.4,10706.4,1200,1200,88.79,Aisha Patel
+T0105,2023-08-20,2023,Q3,Aug,Stratos Media,C010,SMB,Media,North,Headset Pro,Hardware,3,220,24.63,162.57,165.81,497.43,120,360,27.63,Emily Foster
+T0106,2023-08-23,2023,Q3,Aug,Horizon Tech,C002,Enterprise,Technology,East,Training Package,Services,5,1800,7.47,672.3,1665.54,8327.7,400,2000,75.98,Priya Sharma
+T0107,2023-08-25,2023,Q3,Aug,Quantum Devices,C014,Enterprise,Technology,North,Headset Pro,Hardware,3,220,5.37,35.43,208.19,624.57,120,360,42.36,Sarah Chen
+T0109,2023-08-28,2023,Q3,Aug,Harbor Insurance,C013,Enterprise,Financial Services,East,Mobile Device Mgmt,Software,3,2800,9.68,813.12,2528.96,7586.88,250,750,90.11,Aisha Patel
+T0111,2023-09-01,2023,Q3,Sep,Polar Biotech,C020,Enterprise,Healthcare,East,BI Dashboard,Software,1,5500,7.78,427.9,5072.1,5072.1,500,500,90.14,Aisha Patel
+T0113,2023-09-02,2023,Q3,Sep,Orion Pharma,C008,Enterprise,Healthcare,East,Office Chair,Furniture,1,180,2.35,4.23,175.77,175.77,80,80,54.49,Aisha Patel
+T0115,2023-09-02,2023,Q3,Sep,Granite Automotive,C017,Enterprise,Automotive,West,Network Switch,Hardware,1,950,16.91,160.65,789.36,789.36,540,540,31.59,David Evans
+T0117,2023-09-06,2023,Q3,Sep,Ember Analytics,C018,SMB,Technology,North,Headset Pro,Hardware,2,220,28.3,124.52,157.74,315.48,120,240,23.93,Emily Foster
+T0119,2023-09-10,2023,Q3,Sep,BlueRock Mining,C009,Mid-Market,Mining,West,Security Suite,Software,10,3200,6.08,1945.6,3005.44,30054.4,280,2800,90.68,Tom Walsh
+T0120,2023-09-11,2023,Q3,Sep,Delta Aerospace,C012,Enterprise,Aerospace,West,Cloud Storage 1TB,Software,1,380,18.7,71.06,308.94,308.94,45,45,85.43,David Evans
+T0122,2023-09-15,2023,Q3,Sep,Quantum Devices,C014,Enterprise,Technology,North,Security Suite,Software,1,3200,3.97,127.04,3072.96,3072.96,280,280,90.89,Sarah Chen
+T0123,2023-09-17,2023,Q3,Sep,Horizon Tech,C002,Enterprise,Technology,East,ERP Module,Software,2,12000,0.0,0.0,12000.0,24000.0,1200,2400,90.0,Priya Sharma
+T0125,2023-09-20,2023,Q3,Sep,Cascade Retail,C005,Mid-Market,Retail,South,BI Dashboard,Software,10,5500,7.61,4185.5,5081.45,50814.5,500,5000,90.16,James Okafor
+T0126,2023-09-24,2023,Q3,Sep,Cascade Retail,C005,Mid-Market,Retail,South,Mobile Device Mgmt,Software,10,2800,4.78,1338.4,2666.16,26661.6,250,2500,90.62,James Okafor
+T0128,2023-09-29,2023,Q3,Sep,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Analytics Suite,Software,1,4500,25.9,1165.5,3334.5,3334.5,500,500,85.01,Emily Foster
+T0129,2023-09-29,2023,Q3,Sep,Orion Pharma,C008,Enterprise,Healthcare,East,Security Suite,Software,3,3200,13.11,1258.56,2780.48,8341.44,280,840,89.93,Aisha Patel
+T0130,2023-09-30,2023,Q3,Sep,Coastline Hotels,C019,Mid-Market,Hospitality,West,Desk Pro,Furniture,2,420,3.53,29.66,405.17,810.34,180,360,55.57,Tom Walsh
+T0131,2023-10-01,2023,Q4,Oct,Nimbus Financial,C006,Enterprise,Financial Services,East,ERP Module,Software,3,12000,5.09,1832.4,11389.2,34167.6,1200,3600,89.46,Priya Sharma
+T0133,2023-10-04,2023,Q4,Oct,Meridian Health,C003,Enterprise,Healthcare,North,Security Suite,Software,1,3200,5.07,162.24,3037.76,3037.76,280,280,90.78,Sarah Chen
+T0136,2023-10-06,2023,Q4,Oct,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,2,6200,24.78,3072.72,4663.64,9327.28,4100,8200,12.09,David Evans
+T0138,2023-10-09,2023,Q4,Oct,Stratos Media,C010,SMB,Media,North,Training Package,Services,1,1800,30.46,548.28,1251.72,1251.72,400,400,68.04,Emily Foster
+T0141,2023-10-13,2023,Q4,Oct,Delta Aerospace,C012,Enterprise,Aerospace,West,CRM Platform,Software,2,8500,32.13,5462.1,5768.95,11537.9,600,1200,89.6,David Evans
+T0142,2023-10-16,2023,Q4,Oct,Cascade Retail,C005,Mid-Market,Retail,South,CRM Platform,Software,1,8500,13.07,1110.95,7389.05,7389.05,600,600,91.88,James Okafor
+T0143,2023-10-17,2023,Q4,Oct,Orion Pharma,C008,Enterprise,Healthcare,East,Headset Pro,Hardware,2,220,5.64,24.82,207.59,415.18,120,240,42.19,Aisha Patel
+T0144,2023-10-18,2023,Q4,Oct,Quantum Devices,C014,Enterprise,Technology,North,CRM Platform,Software,2,8500,8.06,1370.2,7814.9,15629.8,600,1200,92.32,Sarah Chen
+T0145,2023-10-18,2023,Q4,Oct,Polar Biotech,C020,Enterprise,Healthcare,East,Analytics Suite,Software,3,4500,9.63,1300.05,4066.65,12199.95,500,1500,87.7,Aisha Patel
+T0147,2023-10-21,2023,Q4,Oct,Apex Industries,C001,Enterprise,Manufacturing,North,Cloud Storage 1TB,Software,5,380,12.9,245.1,330.98,1654.9,45,225,86.4,Sarah Chen
+T0148,2023-10-22,2023,Q4,Oct,BlueRock Mining,C009,Mid-Market,Mining,West,Server Rack,Hardware,2,6200,3.73,462.52,5968.74,11937.48,4100,8200,31.31,Tom Walsh
+T0149,2023-10-23,2023,Q4,Oct,Horizon Tech,C002,Enterprise,Technology,East,Security Suite,Software,2,3200,1.27,81.28,3159.36,6318.72,280,560,91.14,Priya Sharma
+T0150,2023-10-23,2023,Q4,Oct,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,2,380,9.69,73.64,343.18,686.36,45,90,86.89,Tom Walsh
+T0151,2023-10-24,2023,Q4,Oct,Delta Aerospace,C012,Enterprise,Aerospace,West,Security Suite,Software,2,3200,19.94,1276.16,2561.92,5123.84,280,560,89.07,David Evans
+T0153,2023-10-24,2023,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,BI Dashboard,Software,1,5500,9.2,506.0,4994.0,4994.0,500,500,89.99,Marco Ruiz
+T0154,2023-10-26,2023,Q4,Oct,Redwood Construction,C015,SMB,Construction,South,Laptop Pro,Hardware,1,1200,7.43,89.16,1110.84,1110.84,800,800,27.98,Marco Ruiz
+T0156,2023-10-30,2023,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,Network Switch,Hardware,10,950,11.07,1051.7,844.84,8448.4,540,5400,36.08,Marco Ruiz
+T0157,2023-10-30,2023,Q4,Oct,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,10,8500,11.73,9970.5,7502.95,75029.5,600,6000,92.0,Priya Sharma
+T0158,2023-10-30,2023,Q4,Oct,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,BI Dashboard,Software,10,5500,45.0,24750.0,3025.0,30250.0,500,5000,83.47,Emily Foster
+T0161,2023-11-04,2023,Q4,Nov,BlueRock Mining,C009,Mid-Market,Mining,West,Network Switch,Hardware,1,950,6.92,65.74,884.26,884.26,540,540,38.93,Tom Walsh
+T0162,2023-11-05,2023,Q4,Nov,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,5,420,4.19,88.0,402.4,2012.0,180,900,55.27,Sarah Chen
+T0163,2023-11-06,2023,Q4,Nov,Quantum Devices,C014,Enterprise,Technology,North,Headset Pro,Hardware,2,220,9.32,41.0,199.5,399.0,120,240,39.85,Sarah Chen
+T0164,2023-11-06,2023,Q4,Nov,Polar Biotech,C020,Enterprise,Healthcare,East,Desk Pro,Furniture,1,420,2.38,10.0,410.0,410.0,180,180,56.1,Aisha Patel
+T0165,2023-11-07,2023,Q4,Nov,Polar Biotech,C020,Enterprise,Healthcare,East,ERP Module,Software,3,12000,8.88,3196.8,10934.4,32803.2,1200,3600,89.03,Aisha Patel
+T0167,2023-11-11,2023,Q4,Nov,Cascade Retail,C005,Mid-Market,Retail,South,Laptop Pro,Hardware,1,1200,10.27,123.24,1076.76,1076.76,800,800,25.7,James Okafor
+T0168,2023-11-12,2023,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Office Chair,Furniture,1,180,13.58,24.44,155.56,155.56,80,80,48.57,Emily Foster
+T0169,2023-11-12,2023,Q4,Nov,Granite Automotive,C017,Enterprise,Automotive,West,Network Switch,Hardware,10,950,13.76,1307.2,819.28,8192.8,540,5400,34.09,David Evans
+T0170,2023-11-18,2023,Q4,Nov,Horizon Tech,C002,Enterprise,Technology,East,Laptop Pro,Hardware,5,1200,5.83,349.8,1130.04,5650.2,800,4000,29.21,Priya Sharma
+T0171,2023-11-19,2023,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Network Switch,Hardware,2,950,36.16,687.04,606.48,1212.96,540,1080,10.96,Emily Foster
+T0173,2023-11-28,2023,Q4,Nov,Horizon Tech,C002,Enterprise,Technology,East,Server Rack,Hardware,1,6200,17.36,1076.32,5123.68,5123.68,4100,4100,19.98,Priya Sharma
+T0174,2023-11-28,2023,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Laptop Pro,Hardware,5,1200,18.09,1085.4,982.92,4914.6,800,4000,18.61,Emily Foster
+T0175,2023-12-04,2023,Q4,Dec,Orion Pharma,C008,Enterprise,Healthcare,East,Analytics Suite,Software,2,4500,4.76,428.4,4285.8,8571.6,500,1000,88.33,Aisha Patel
+T0178,2023-12-08,2023,Q4,Dec,Quantum Devices,C014,Enterprise,Technology,North,Mobile Device Mgmt,Software,2,2800,16.74,937.44,2331.28,4662.56,250,500,89.28,Sarah Chen
+T0180,2023-12-11,2023,Q4,Dec,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,"Monitor 27""",Hardware,5,350,21.32,373.1,275.38,1376.9,210,1050,23.74,Emily Foster
+T0181,2023-12-13,2023,Q4,Dec,Granite Automotive,C017,Enterprise,Automotive,West,Security Suite,Software,1,3200,33.81,1081.92,2118.08,2118.08,280,280,86.78,David Evans
+T0182,2023-12-14,2023,Q4,Dec,Orion Pharma,C008,Enterprise,Healthcare,East,Network Switch,Hardware,5,950,4.03,191.45,911.72,4558.6,540,2700,40.77,Aisha Patel
+T0183,2023-12-19,2023,Q4,Dec,Solaris Energy,C004,Mid-Market,Energy,West,Laptop Pro,Hardware,5,1200,9.96,597.6,1080.48,5402.4,800,4000,25.96,Tom Walsh
+T0184,2023-12-19,2023,Q4,Dec,Coastline Hotels,C019,Mid-Market,Hospitality,West,ERP Module,Software,10,12000,9.56,11472.0,10852.8,108528.0,1200,12000,88.94,Tom Walsh
+T0187,2023-12-21,2023,Q4,Dec,Redwood Construction,C015,SMB,Construction,South,Desk Pro,Furniture,5,420,0.7,14.7,417.06,2085.3,180,900,56.84,Marco Ruiz
+T0188,2023-12-24,2023,Q4,Dec,Vertex Logistics,C007,Mid-Market,Logistics,South,Headset Pro,Hardware,10,220,18.61,409.4,179.06,1790.6,120,1200,32.98,Marco Ruiz
+T0191,2024-01-02,2024,Q1,Jan,BlueRock Mining,C009,Mid-Market,Mining,West,BI Dashboard,Software,1,5500,14.19,780.45,4719.55,4719.55,500,500,89.41,Tom Walsh
+T0192,2024-01-04,2024,Q1,Jan,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,3,6200,9.79,1820.94,5593.02,16779.06,4100,12300,26.69,Aisha Patel
+T0193,2024-01-06,2024,Q1,Jan,Redwood Construction,C015,SMB,Construction,South,Network Switch,Hardware,1,950,2.4,22.8,927.2,927.2,540,540,41.76,Marco Ruiz
+T0194,2024-01-06,2024,Q1,Jan,Horizon Tech,C002,Enterprise,Technology,East,"Monitor 27""",Hardware,5,350,1.47,25.7,344.85,1724.25,210,1050,39.1,Priya Sharma
+T0195,2024-01-09,2024,Q1,Jan,Meridian Health,C003,Enterprise,Healthcare,North,Mobile Device Mgmt,Software,2,2800,10.61,594.16,2502.92,5005.84,250,500,90.01,Sarah Chen
+T0196,2024-01-10,2024,Q1,Jan,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Headset Pro,Hardware,5,220,23.68,260.5,167.9,839.5,120,600,28.53,Emily Foster
+T0200,2024-01-15,2024,Q1,Jan,Coastline Hotels,C019,Mid-Market,Hospitality,West,Analytics Suite,Software,1,4500,10.85,488.25,4011.75,4011.75,500,500,87.54,Tom Walsh
+T0201,2024-01-18,2024,Q1,Jan,Ember Analytics,C018,SMB,Technology,North,Analytics Suite,Software,5,4500,23.46,5278.5,3444.3,17221.5,500,2500,85.48,Emily Foster
+T0203,2024-01-21,2024,Q1,Jan,Polar Biotech,C020,Enterprise,Healthcare,East,Headset Pro,Hardware,1,220,13.43,29.55,190.45,190.45,120,120,36.99,Aisha Patel
+T0204,2024-01-21,2024,Q1,Jan,Cascade Retail,C005,Mid-Market,Retail,South,Cloud Storage 1TB,Software,2,380,0.0,0.0,380.0,760.0,45,90,88.16,James Okafor
+T0206,2024-01-25,2024,Q1,Jan,Stratos Media,C010,SMB,Media,North,ERP Module,Software,1,12000,33.59,4030.8,7969.2,7969.2,1200,1200,84.94,Emily Foster
+T0207,2024-01-28,2024,Q1,Jan,Redwood Construction,C015,SMB,Construction,South,Analytics Suite,Software,1,4500,14.33,644.85,3855.15,3855.15,500,500,87.03,Marco Ruiz
+T0208,2024-01-29,2024,Q1,Jan,Cascade Retail,C005,Mid-Market,Retail,South,Laptop Pro,Hardware,1,1200,12.07,144.84,1055.16,1055.16,800,800,24.18,James Okafor
+T0209,2024-01-31,2024,Q1,Jan,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,1,1800,15.95,287.1,1512.9,1512.9,400,400,73.56,David Evans
+T0210,2024-02-03,2024,Q1,Feb,Ember Analytics,C018,SMB,Technology,North,Headset Pro,Hardware,2,220,16.43,72.3,183.85,367.7,120,240,34.73,Emily Foster
+T0212,2024-02-09,2024,Q1,Feb,Harbor Insurance,C013,Enterprise,Financial Services,East,Mobile Device Mgmt,Software,3,2800,3.76,315.84,2694.72,8084.16,250,750,90.72,Aisha Patel
+T0213,2024-02-09,2024,Q1,Feb,Coastline Hotels,C019,Mid-Market,Hospitality,West,Server Rack,Hardware,2,6200,6.03,747.72,5826.14,11652.28,4100,8200,29.63,Tom Walsh
+T0214,2024-02-09,2024,Q1,Feb,Ember Analytics,C018,SMB,Technology,North,Training Package,Services,2,1800,30.88,1111.68,1244.16,2488.32,400,800,67.85,Emily Foster
+T0215,2024-02-12,2024,Q1,Feb,Cascade Retail,C005,Mid-Market,Retail,South,Laptop Pro,Hardware,10,1200,8.62,1034.4,1096.56,10965.6,800,8000,27.04,James Okafor
+T0216,2024-02-15,2024,Q1,Feb,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,2,1800,7.04,253.44,1673.28,3346.56,400,800,76.09,James Okafor
+T0218,2024-02-17,2024,Q1,Feb,Redwood Construction,C015,SMB,Construction,South,Mobile Device Mgmt,Software,1,2800,2.67,74.76,2725.24,2725.24,250,250,90.83,Marco Ruiz
+T0219,2024-02-17,2024,Q1,Feb,Polar Biotech,C020,Enterprise,Healthcare,East,Headset Pro,Hardware,2,220,3.83,16.86,211.57,423.14,120,240,43.28,Aisha Patel
+T0220,2024-02-21,2024,Q1,Feb,Delta Aerospace,C012,Enterprise,Aerospace,West,Office Chair,Furniture,2,180,16.33,58.78,150.61,301.22,80,160,46.88,David Evans
+T0221,2024-02-21,2024,Q1,Feb,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,1,380,5.41,20.56,359.44,359.44,45,45,87.48,Tom Walsh
+T0222,2024-02-23,2024,Q1,Feb,Meridian Health,C003,Enterprise,Healthcare,North,Training Package,Services,10,1800,10.86,1954.8,1604.52,16045.2,400,4000,75.07,Sarah Chen
+T0223,2024-02-25,2024,Q1,Feb,Solaris Energy,C004,Mid-Market,Energy,West,Desk Pro,Furniture,5,420,12.52,262.9,367.42,1837.1,180,900,51.01,Tom Walsh
+T0227,2024-03-05,2024,Q1,Mar,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,1,6200,11.15,691.3,5508.7,5508.7,4100,4100,25.57,Aisha Patel
+T0229,2024-03-06,2024,Q1,Mar,Nimbus Financial,C006,Enterprise,Financial Services,East,BI Dashboard,Software,1,5500,9.1,500.5,4999.5,4999.5,500,500,90.0,Priya Sharma
+T0230,2024-03-08,2024,Q1,Mar,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,BI Dashboard,Software,1,5500,22.04,1212.2,4287.8,4287.8,500,500,88.34,Emily Foster
+T0232,2024-03-13,2024,Q1,Mar,Horizon Tech,C002,Enterprise,Technology,East,Cloud Storage 1TB,Software,1,380,7.56,28.73,351.27,351.27,45,45,87.19,Priya Sharma
+T0233,2024-03-14,2024,Q1,Mar,Ember Analytics,C018,SMB,Technology,North,Analytics Suite,Software,5,4500,13.35,3003.75,3899.25,19496.25,500,2500,87.18,Emily Foster
+T0235,2024-03-21,2024,Q1,Mar,Redwood Construction,C015,SMB,Construction,South,Analytics Suite,Software,3,4500,5.47,738.45,4253.85,12761.55,500,1500,88.25,Marco Ruiz
+T0236,2024-03-26,2024,Q1,Mar,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,CRM Platform,Software,1,8500,14.86,1263.1,7236.9,7236.9,600,600,91.71,Emily Foster
+T0237,2024-03-28,2024,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Security Suite,Software,1,3200,8.2,262.4,2937.6,2937.6,280,280,90.47,Tom Walsh
+T0238,2024-03-28,2024,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Server Rack,Hardware,5,6200,13.56,4203.6,5359.28,26796.4,4100,20500,23.5,Tom Walsh
+T0240,2024-03-29,2024,Q1,Mar,Orion Pharma,C008,Enterprise,Healthcare,East,BI Dashboard,Software,5,5500,12.61,3467.75,4806.45,24032.25,500,2500,89.6,Aisha Patel
+T0241,2024-03-30,2024,Q1,Mar,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,1,420,7.21,30.28,389.72,389.72,180,180,53.81,Sarah Chen
+T0242,2024-04-02,2024,Q2,Apr,Vertex Logistics,C007,Mid-Market,Logistics,South,Laptop Pro,Hardware,1,1200,1.8,21.6,1178.4,1178.4,800,800,32.11,Marco Ruiz
+T0245,2024-04-09,2024,Q2,Apr,Polar Biotech,C020,Enterprise,Healthcare,East,Server Rack,Hardware,2,6200,11.23,1392.52,5503.74,11007.48,4100,8200,25.51,Aisha Patel
+T0246,2024-04-09,2024,Q2,Apr,Ember Analytics,C018,SMB,Technology,North,Headset Pro,Hardware,2,220,28.23,124.22,157.89,315.78,120,240,24.0,Emily Foster
+T0247,2024-04-09,2024,Q2,Apr,Apex Industries,C001,Enterprise,Manufacturing,North,Laptop Pro,Hardware,2,1200,6.36,152.64,1123.68,2247.36,800,1600,28.81,Sarah Chen
+T0248,2024-04-10,2024,Q2,Apr,Harbor Insurance,C013,Enterprise,Financial Services,East,Training Package,Services,1,1800,8.13,146.34,1653.66,1653.66,400,400,75.81,Aisha Patel
+T0250,2024-04-12,2024,Q2,Apr,Granite Automotive,C017,Enterprise,Automotive,West,Headset Pro,Hardware,2,220,26.07,114.7,162.65,325.3,120,240,26.22,David Evans
+T0252,2024-04-14,2024,Q2,Apr,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,2,6200,25.2,3124.8,4637.6,9275.2,4100,8200,11.59,David Evans
+T0253,2024-04-15,2024,Q2,Apr,Harbor Insurance,C013,Enterprise,Financial Services,East,Mobile Device Mgmt,Software,1,2800,7.99,223.72,2576.28,2576.28,250,250,90.3,Aisha Patel
+T0255,2024-04-20,2024,Q2,Apr,Tidal Software,C016,Mid-Market,Technology,South,Analytics Suite,Software,3,4500,10.44,1409.4,4030.2,12090.6,500,1500,87.59,James Okafor
+T0257,2024-04-29,2024,Q2,Apr,Quantum Devices,C014,Enterprise,Technology,North,BI Dashboard,Software,3,5500,3.78,623.7,5292.1,15876.3,500,1500,90.55,Sarah Chen
+T0258,2024-04-29,2024,Q2,Apr,Coastline Hotels,C019,Mid-Market,Hospitality,West,Network Switch,Hardware,2,950,10.54,200.26,849.87,1699.74,540,1080,36.46,Tom Walsh
+T0259,2024-04-30,2024,Q2,Apr,Granite Automotive,C017,Enterprise,Automotive,West,Network Switch,Hardware,1,950,23.07,219.16,730.84,730.84,540,540,26.11,David Evans
+T0260,2024-05-01,2024,Q2,May,Vertex Logistics,C007,Mid-Market,Logistics,South,"Monitor 27""",Hardware,1,350,1.94,6.79,343.21,343.21,210,210,38.81,Marco Ruiz
+T0262,2024-05-02,2024,Q2,May,Redwood Construction,C015,SMB,Construction,South,Training Package,Services,2,1800,9.18,330.48,1634.76,3269.52,400,800,75.53,Marco Ruiz
+T0264,2024-05-05,2024,Q2,May,Delta Aerospace,C012,Enterprise,Aerospace,West,Server Rack,Hardware,1,6200,19.73,1223.26,4976.74,4976.74,4100,4100,17.62,David Evans
+T0267,2024-05-18,2024,Q2,May,BlueRock Mining,C009,Mid-Market,Mining,West,"Monitor 27""",Hardware,5,350,5.53,96.8,330.64,1653.2,210,1050,36.49,Tom Walsh
+T0268,2024-05-19,2024,Q2,May,Stratos Media,C010,SMB,Media,North,Desk Pro,Furniture,5,420,23.58,495.2,320.96,1604.8,180,900,43.92,Emily Foster
+T0269,2024-05-21,2024,Q2,May,Redwood Construction,C015,SMB,Construction,South,Security Suite,Software,5,3200,6.51,1041.6,2991.68,14958.4,280,1400,90.64,Marco Ruiz
+T0270,2024-05-29,2024,Q2,May,BlueRock Mining,C009,Mid-Market,Mining,West,Office Chair,Furniture,2,180,10.4,37.44,161.28,322.56,80,160,50.4,Tom Walsh
+T0275,2024-06-12,2024,Q2,Jun,BlueRock Mining,C009,Mid-Market,Mining,West,Analytics Suite,Software,10,4500,11.58,5211.0,3978.9,39789.0,500,5000,87.43,Tom Walsh
+T0278,2024-06-21,2024,Q2,Jun,Nimbus Financial,C006,Enterprise,Financial Services,East,Office Chair,Furniture,2,180,7.77,27.98,166.01,332.02,80,160,51.81,Priya Sharma
+T0279,2024-06-21,2024,Q2,Jun,Ember Analytics,C018,SMB,Technology,North,Server Rack,Hardware,1,6200,19.11,1184.82,5015.18,5015.18,4100,4100,18.25,Emily Foster
+T0280,2024-06-22,2024,Q2,Jun,Cascade Retail,C005,Mid-Market,Retail,South,Cloud Storage 1TB,Software,3,380,13.56,154.59,328.47,985.41,45,135,86.3,James Okafor
+T0281,2024-06-24,2024,Q2,Jun,Delta Aerospace,C012,Enterprise,Aerospace,West,Desk Pro,Furniture,10,420,16.47,691.7,350.83,3508.3,180,1800,48.69,David Evans
+T0282,2024-06-24,2024,Q2,Jun,Polar Biotech,C020,Enterprise,Healthcare,East,Mobile Device Mgmt,Software,1,2800,0.81,22.68,2777.32,2777.32,250,250,91.0,Aisha Patel
+T0283,2024-06-27,2024,Q2,Jun,Granite Automotive,C017,Enterprise,Automotive,West,Security Suite,Software,2,3200,28.8,1843.2,2278.4,4556.8,280,560,87.71,David Evans
+T0284,2024-06-27,2024,Q2,Jun,Ember Analytics,C018,SMB,Technology,North,Analytics Suite,Software,3,4500,30.68,4141.8,3119.4,9358.2,500,1500,83.97,Emily Foster
+T0285,2024-06-27,2024,Q2,Jun,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,BI Dashboard,Software,1,5500,28.53,1569.15,3930.85,3930.85,500,500,87.28,Emily Foster
+T0286,2024-06-29,2024,Q2,Jun,Stratos Media,C010,SMB,Media,North,Mobile Device Mgmt,Software,1,2800,24.59,688.52,2111.48,2111.48,250,250,88.16,Emily Foster
+T0288,2024-07-02,2024,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,Headset Pro,Hardware,2,220,11.53,50.74,194.63,389.26,120,240,38.34,Tom Walsh
+T0289,2024-07-02,2024,Q3,Jul,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,10,420,15.03,631.3,356.87,3568.7,180,1800,49.56,Sarah Chen
+T0290,2024-07-03,2024,Q3,Jul,Meridian Health,C003,Enterprise,Healthcare,North,BI Dashboard,Software,2,5500,5.17,568.7,5215.65,10431.3,500,1000,90.41,Sarah Chen
+T0291,2024-07-04,2024,Q3,Jul,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Headset Pro,Hardware,5,220,25.22,277.4,164.52,822.6,120,600,27.06,Emily Foster
+T0292,2024-07-06,2024,Q3,Jul,Quantum Devices,C014,Enterprise,Technology,North,CRM Platform,Software,1,8500,9.02,766.7,7733.3,7733.3,600,600,92.24,Sarah Chen
+T0293,2024-07-06,2024,Q3,Jul,Polar Biotech,C020,Enterprise,Healthcare,East,Desk Pro,Furniture,1,420,8.04,33.77,386.23,386.23,180,180,53.4,Aisha Patel
+T0295,2024-07-09,2024,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,BI Dashboard,Software,5,5500,12.94,3558.5,4788.3,23941.5,500,2500,89.56,Tom Walsh
+T0297,2024-07-10,2024,Q3,Jul,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,1,1800,17.37,312.66,1487.34,1487.34,400,400,73.11,David Evans
+T0298,2024-07-12,2024,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,Analytics Suite,Software,2,4500,8.07,726.3,4136.85,8273.7,500,1000,87.91,Tom Walsh
+T0299,2024-07-16,2024,Q3,Jul,Polar Biotech,C020,Enterprise,Healthcare,East,BI Dashboard,Software,10,5500,3.23,1776.5,5322.35,53223.5,500,5000,90.61,Aisha Patel
+T0301,2024-07-19,2024,Q3,Jul,Vertex Logistics,C007,Mid-Market,Logistics,South,Desk Pro,Furniture,2,420,7.85,65.94,387.03,774.06,180,360,53.49,Marco Ruiz
+T0302,2024-07-19,2024,Q3,Jul,Redwood Construction,C015,SMB,Construction,South,Cloud Storage 1TB,Software,10,380,3.51,133.4,366.66,3666.6,45,450,87.73,Marco Ruiz
+T0303,2024-07-23,2024,Q3,Jul,Granite Automotive,C017,Enterprise,Automotive,West,Office Chair,Furniture,1,180,17.84,32.11,147.89,147.89,80,80,45.91,David Evans
+T0306,2024-07-29,2024,Q3,Jul,Quantum Devices,C014,Enterprise,Technology,North,Laptop Pro,Hardware,3,1200,9.93,357.48,1080.84,3242.52,800,2400,25.98,Sarah Chen
+T0307,2024-07-29,2024,Q3,Jul,BlueRock Mining,C009,Mid-Market,Mining,West,Office Chair,Furniture,1,180,10.53,18.95,161.05,161.05,80,80,50.33,Tom Walsh
+T0308,2024-07-30,2024,Q3,Jul,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,1,6200,2.61,161.82,6038.18,6038.18,4100,4100,32.1,Aisha Patel
+T0310,2024-08-09,2024,Q3,Aug,Vertex Logistics,C007,Mid-Market,Logistics,South,BI Dashboard,Software,1,5500,8.39,461.45,5038.55,5038.55,500,500,90.08,Marco Ruiz
+T0311,2024-08-09,2024,Q3,Aug,Delta Aerospace,C012,Enterprise,Aerospace,West,Laptop Pro,Hardware,1,1200,25.34,304.08,895.92,895.92,800,800,10.71,David Evans
+T0313,2024-08-14,2024,Q3,Aug,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,2,8500,12.32,2094.4,7452.8,14905.6,600,1200,91.95,Priya Sharma
+T0315,2024-08-15,2024,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,Laptop Pro,Hardware,2,1200,0.16,3.84,1198.08,2396.16,800,1600,33.23,Aisha Patel
+T0318,2024-08-19,2024,Q3,Aug,BlueRock Mining,C009,Mid-Market,Mining,West,Headset Pro,Hardware,1,220,8.72,19.18,200.82,200.82,120,120,40.24,Tom Walsh
+T0319,2024-08-20,2024,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,Analytics Suite,Software,1,4500,13.42,603.9,3896.1,3896.1,500,500,87.17,Aisha Patel
+T0320,2024-08-21,2024,Q3,Aug,Redwood Construction,C015,SMB,Construction,South,"Monitor 27""",Hardware,2,350,12.23,85.6,307.19,614.38,210,420,31.64,Marco Ruiz
+T0321,2024-08-21,2024,Q3,Aug,Apex Industries,C001,Enterprise,Manufacturing,North,CRM Platform,Software,1,8500,2.26,192.1,8307.9,8307.9,600,600,92.78,Sarah Chen
+T0322,2024-08-25,2024,Q3,Aug,Delta Aerospace,C012,Enterprise,Aerospace,West,Server Rack,Hardware,10,6200,25.44,15772.8,4622.72,46227.2,4100,41000,11.31,David Evans
+T0323,2024-08-29,2024,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,BI Dashboard,Software,10,5500,10.57,5813.5,4918.65,49186.5,500,5000,89.83,Aisha Patel
+T0324,2024-09-02,2024,Q3,Sep,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,"Monitor 27""",Hardware,10,350,34.16,1195.6,230.44,2304.4,210,2100,8.87,Emily Foster
+T0327,2024-09-03,2024,Q3,Sep,Meridian Health,C003,Enterprise,Healthcare,North,Desk Pro,Furniture,2,420,9.19,77.2,381.4,762.8,180,360,52.81,Sarah Chen
+T0328,2024-09-03,2024,Q3,Sep,Coastline Hotels,C019,Mid-Market,Hospitality,West,Cloud Storage 1TB,Software,3,380,10.04,114.45,341.85,1025.55,45,135,86.84,Tom Walsh
+T0329,2024-09-03,2024,Q3,Sep,Solaris Energy,C004,Mid-Market,Energy,West,Cloud Storage 1TB,Software,1,380,3.7,14.06,365.94,365.94,45,45,87.7,Tom Walsh
+T0330,2024-09-03,2024,Q3,Sep,Redwood Construction,C015,SMB,Construction,South,Office Chair,Furniture,2,180,6.91,24.88,167.56,335.12,80,160,52.26,Marco Ruiz
+T0331,2024-09-04,2024,Q3,Sep,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,10,380,9.68,367.8,343.22,3432.2,45,450,86.89,Tom Walsh
+T0332,2024-09-08,2024,Q3,Sep,Delta Aerospace,C012,Enterprise,Aerospace,West,BI Dashboard,Software,3,5500,19.63,3238.95,4420.35,13261.05,500,1500,88.69,David Evans
+T0333,2024-09-09,2024,Q3,Sep,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,5,8500,4.36,1853.0,8129.4,40647.0,600,3000,92.62,Priya Sharma
+T0334,2024-09-12,2024,Q3,Sep,Polar Biotech,C020,Enterprise,Healthcare,East,Office Chair,Furniture,2,180,12.4,44.64,157.68,315.36,80,160,49.26,Aisha Patel
+T0335,2024-09-15,2024,Q3,Sep,Vertex Logistics,C007,Mid-Market,Logistics,South,Mobile Device Mgmt,Software,1,2800,8.13,227.64,2572.36,2572.36,250,250,90.28,Marco Ruiz
+T0336,2024-09-19,2024,Q3,Sep,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,1,6200,16.78,1040.36,5159.64,5159.64,4100,4100,20.54,David Evans
+T0338,2024-09-24,2024,Q3,Sep,Meridian Health,C003,Enterprise,Healthcare,North,Headset Pro,Hardware,1,220,12.74,28.03,191.97,191.97,120,120,37.49,Sarah Chen
+T0340,2024-09-25,2024,Q3,Sep,Stratos Media,C010,SMB,Media,North,Laptop Pro,Hardware,2,1200,30.76,738.24,830.88,1661.76,800,1600,3.72,Emily Foster
+T0344,2024-10-01,2024,Q4,Oct,Meridian Health,C003,Enterprise,Healthcare,North,Training Package,Services,1,1800,7.01,126.18,1673.82,1673.82,400,400,76.1,Sarah Chen
+T0345,2024-10-01,2024,Q4,Oct,Nimbus Financial,C006,Enterprise,Financial Services,East,Security Suite,Software,1,3200,10.4,332.8,2867.2,2867.2,280,280,90.23,Priya Sharma
+T0347,2024-10-05,2024,Q4,Oct,Nimbus Financial,C006,Enterprise,Financial Services,East,Security Suite,Software,1,3200,8.37,267.84,2932.16,2932.16,280,280,90.45,Priya Sharma
+T0348,2024-10-08,2024,Q4,Oct,Harbor Insurance,C013,Enterprise,Financial Services,East,ERP Module,Software,10,12000,8.75,10500.0,10950.0,109500.0,1200,12000,89.04,Aisha Patel
+T0349,2024-10-10,2024,Q4,Oct,Apex Industries,C001,Enterprise,Manufacturing,North,"Monitor 27""",Hardware,1,350,4.3,15.05,334.95,334.95,210,210,37.3,Sarah Chen
+T0350,2024-10-10,2024,Q4,Oct,Orion Pharma,C008,Enterprise,Healthcare,East,ERP Module,Software,1,12000,7.4,888.0,11112.0,11112.0,1200,1200,89.2,Aisha Patel
+T0351,2024-10-11,2024,Q4,Oct,Polar Biotech,C020,Enterprise,Healthcare,East,Office Chair,Furniture,3,180,3.79,20.46,173.18,519.54,80,240,53.81,Aisha Patel
+T0352,2024-10-11,2024,Q4,Oct,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,10,380,7.94,301.7,349.83,3498.3,45,450,87.14,Tom Walsh
+T0354,2024-10-15,2024,Q4,Oct,Orion Pharma,C008,Enterprise,Healthcare,East,Server Rack,Hardware,1,6200,9.42,584.04,5615.96,5615.96,4100,4100,26.99,Aisha Patel
+T0355,2024-10-16,2024,Q4,Oct,Granite Automotive,C017,Enterprise,Automotive,West,BI Dashboard,Software,1,5500,18.68,1027.4,4472.6,4472.6,500,500,88.82,David Evans
+T0356,2024-10-16,2024,Q4,Oct,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,1,350,15.98,55.93,294.07,294.07,210,210,28.59,Emily Foster
+T0357,2024-10-18,2024,Q4,Oct,Polar Biotech,C020,Enterprise,Healthcare,East,ERP Module,Software,1,12000,8.44,1012.8,10987.2,10987.2,1200,1200,89.08,Aisha Patel
+T0359,2024-10-20,2024,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,Desk Pro,Furniture,10,420,11.57,485.9,371.41,3714.1,180,1800,51.54,Marco Ruiz
+T0361,2024-10-22,2024,Q4,Oct,Stratos Media,C010,SMB,Media,North,Server Rack,Hardware,10,6200,23.57,14613.4,4738.66,47386.6,4100,41000,13.48,Emily Foster
+T0364,2024-10-23,2024,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,BI Dashboard,Software,2,5500,13.16,1447.6,4776.2,9552.4,500,1000,89.53,Marco Ruiz
+T0365,2024-10-25,2024,Q4,Oct,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,3,420,3.05,38.43,407.19,1221.57,180,540,55.79,Sarah Chen
+T0366,2024-10-27,2024,Q4,Oct,Delta Aerospace,C012,Enterprise,Aerospace,West,Server Rack,Hardware,1,6200,18.15,1125.3,5074.7,5074.7,4100,4100,19.21,David Evans
+T0367,2024-11-01,2024,Q4,Nov,Redwood Construction,C015,SMB,Construction,South,Analytics Suite,Software,1,4500,2.05,92.25,4407.75,4407.75,500,500,88.66,Marco Ruiz
+T0369,2024-11-02,2024,Q4,Nov,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,5,6200,10.31,3196.1,5560.78,27803.9,4100,20500,26.27,Aisha Patel
+T0370,2024-11-05,2024,Q4,Nov,Granite Automotive,C017,Enterprise,Automotive,West,Security Suite,Software,1,3200,17.27,552.64,2647.36,2647.36,280,280,89.42,David Evans
+T0371,2024-11-06,2024,Q4,Nov,Orion Pharma,C008,Enterprise,Healthcare,East,Security Suite,Software,3,3200,8.5,816.0,2928.0,8784.0,280,840,90.44,Aisha Patel
+T0372,2024-11-07,2024,Q4,Nov,Quantum Devices,C014,Enterprise,Technology,North,Security Suite,Software,1,3200,4.62,147.84,3052.16,3052.16,280,280,90.83,Sarah Chen
+T0373,2024-11-10,2024,Q4,Nov,Nimbus Financial,C006,Enterprise,Financial Services,East,Desk Pro,Furniture,1,420,8.94,37.55,382.45,382.45,180,180,52.94,Priya Sharma
+T0374,2024-11-14,2024,Q4,Nov,Stratos Media,C010,SMB,Media,North,Security Suite,Software,1,3200,21.52,688.64,2511.36,2511.36,280,280,88.85,Emily Foster
+T0375,2024-11-18,2024,Q4,Nov,Vertex Logistics,C007,Mid-Market,Logistics,South,Headset Pro,Hardware,2,220,5.96,26.22,206.89,413.78,120,240,42.0,Marco Ruiz
+T0377,2024-11-21,2024,Q4,Nov,BlueRock Mining,C009,Mid-Market,Mining,West,Headset Pro,Hardware,1,220,11.61,25.54,194.46,194.46,120,120,38.29,Tom Walsh
+T0379,2024-11-26,2024,Q4,Nov,BlueRock Mining,C009,Mid-Market,Mining,West,Desk Pro,Furniture,1,420,13.08,54.94,365.06,365.06,180,180,50.69,Tom Walsh
+T0381,2024-11-28,2024,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,"Monitor 27""",Hardware,10,350,27.46,961.1,253.89,2538.9,210,2100,17.29,Emily Foster
+T0383,2024-12-02,2024,Q4,Dec,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Office Chair,Furniture,5,180,19.77,177.95,144.41,722.05,80,400,44.6,Emily Foster
+T0384,2024-12-03,2024,Q4,Dec,Delta Aerospace,C012,Enterprise,Aerospace,West,Office Chair,Furniture,10,180,17.17,309.1,149.09,1490.9,80,800,46.34,David Evans
+T0385,2024-12-03,2024,Q4,Dec,Solaris Energy,C004,Mid-Market,Energy,West,Server Rack,Hardware,2,6200,11.77,1459.48,5470.26,10940.52,4100,8200,25.05,Tom Walsh
+T0387,2024-12-06,2024,Q4,Dec,Meridian Health,C003,Enterprise,Healthcare,North,"Monitor 27""",Hardware,1,350,9.64,33.74,316.26,316.26,210,210,33.6,Sarah Chen
+T0389,2024-12-07,2024,Q4,Dec,Solaris Energy,C004,Mid-Market,Energy,West,Mobile Device Mgmt,Software,10,2800,0.93,260.4,2773.96,27739.6,250,2500,90.99,Tom Walsh
+T0391,2024-12-10,2024,Q4,Dec,Harbor Insurance,C013,Enterprise,Financial Services,East,"Monitor 27""",Hardware,1,350,1.04,3.64,346.36,346.36,210,210,39.37,Aisha Patel
+T0394,2024-12-14,2024,Q4,Dec,Polar Biotech,C020,Enterprise,Healthcare,East,Mobile Device Mgmt,Software,1,2800,0.0,0.0,2800.0,2800.0,250,250,91.07,Aisha Patel
+T0395,2024-12-16,2024,Q4,Dec,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,2,1800,3.21,115.56,1742.22,3484.44,400,800,77.04,James Okafor
+T0397,2024-12-18,2024,Q4,Dec,Granite Automotive,C017,Enterprise,Automotive,West,Desk Pro,Furniture,5,420,30.47,639.85,292.03,1460.15,180,900,38.36,David Evans
+T0399,2024-12-26,2024,Q4,Dec,Quantum Devices,C014,Enterprise,Technology,North,Security Suite,Software,1,3200,4.06,129.92,3070.08,3070.08,280,280,90.88,Sarah Chen
+T0400,2024-12-27,2024,Q4,Dec,Redwood Construction,C015,SMB,Construction,South,Laptop Pro,Hardware,3,1200,10.06,362.16,1079.28,3237.84,800,2400,25.88,Marco Ruiz

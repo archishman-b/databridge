@@ -1,0 +1,9 @@
+sales_rep,region,annual_target,actual_revenue,attainment_pct,deal_count,avg_discount_pct,leakage_flag
+Sarah Chen,North,420000,310156.49,73.8,40,8.37,No
+James Okafor,South,380000,128893.72,33.9,18,8.16,No
+Priya Sharma,East,400000,468161.78,117.0,26,7.59,No
+Tom Walsh,West,350000,345061.43,98.6,38,8.76,No
+Marco Ruiz,South,310000,151315.31,48.8,28,7.52,No
+Emily Foster,North,290000,338648.51,116.8,44,25.42,Yes
+David Evans,West,360000,172170.13,47.8,32,19.95,Yes
+Aisha Patel,East,395000,567202.87,143.6,47,7.37,No

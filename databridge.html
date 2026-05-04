@@ -404,6 +404,60 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 
 .divider { height: 1px; background: var(--border); margin: 10px 0; }
 .section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); margin-bottom: 6px; padding: 0 4px; }
+
+/* ── SQL panel ── */
+.sql-toggle{display:flex;align-items:center;gap:6px;margin-top:16px;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:11px;color:var(--text3);font-family:var(--sans);width:100%;transition:all .15s;text-align:left}
+.sql-toggle:hover{border-color:var(--border2);color:var(--text2)}
+.sql-toggle .sql-arrow{margin-left:auto;transition:transform .15s;font-size:9px}
+.sql-toggle.open .sql-arrow{transform:rotate(180deg)}
+.sql-panel{display:none;margin-top:6px;padding:12px 14px;background:#1e1e2e;border-radius:6px;border:1px solid #2a2a3e;font-family:var(--mono);font-size:11px;color:#cdd6f4;line-height:1.6;white-space:pre-wrap;overflow-x:auto}
+.sql-panel.open{display:block}
+.sql-kw{color:#89b4fa;font-weight:500}.sql-fn{color:#a6e3a1}.sql-str{color:#f9e2af}.sql-cm{color:#6c7086;font-style:italic}
+
+/* ── Quality bar ── */
+.quality-bar{padding:6px 16px;background:var(--surface);border-bottom:1px solid var(--border);display:none;gap:16px;align-items:center;flex-shrink:0;font-size:11px;flex-wrap:wrap}
+.quality-bar.show{display:flex}
+.q-score{font-weight:600;padding:2px 8px;border-radius:10px;font-size:10px}
+.q-good{background:var(--success-bg);color:var(--success)}.q-warn{background:var(--warn-bg);color:var(--warn)}.q-bad{background:var(--danger-bg);color:var(--danger)}
+.q-issue{color:var(--warn);font-size:11px}.q-label{color:var(--text3);font-size:11px}
+
+/* ── Schema wizard ── */
+.schema-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;opacity:0;pointer-events:none;transition:opacity .15s}
+.schema-overlay.open{opacity:1;pointer-events:all}
+.schema-modal{background:var(--surface);border-radius:var(--radius-lg);box-shadow:0 20px 60px rgba(0,0,0,0.2);width:100%;max-width:620px;max-height:88vh;overflow-y:auto}
+.schema-header{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.schema-badge{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
+.schema-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px}
+.schema-field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.schema-field .sf-sub{font-size:10px;color:var(--text3);margin-bottom:5px}
+.schema-field select{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface2);font-family:var(--sans);font-size:12px;color:var(--text);outline:none}
+.schema-field select:focus{border-color:var(--accent)}
+
+/* ── Visual rule/agg builders ── */
+.rule-builder,.agg-builder{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.rule-row,.agg-row{display:flex;gap:6px;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 10px}
+.rule-row select,.rule-row input,.agg-row select,.agg-row input{border:1px solid var(--border);border-radius:5px;background:var(--surface);font-family:var(--sans);font-size:11px;color:var(--text);padding:4px 7px;outline:none}
+.rule-row select:focus,.rule-row input:focus,.agg-row select:focus,.agg-row input:focus{border-color:var(--accent)}
+.rm-rule{width:22px;height:22px;border:1px solid var(--border);border-radius:4px;background:transparent;cursor:pointer;font-size:12px;color:var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rm-rule:hover{background:var(--danger-bg);color:var(--danger);border-color:#fca5a5}
+.add-rule-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border:1px dashed var(--border2);border-radius:6px;background:transparent;font-family:var(--sans);font-size:11px;color:var(--text3);cursor:pointer;transition:all .12s}
+.add-rule-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.logic-connector{font-size:10px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:4px;background:var(--accent-bg);border:1px solid var(--accent-border);align-self:center;flex-shrink:0}
+
+/* ── Calc builder ── */
+.calc-simple{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}
+.calc-simple select,.calc-simple input{border:1px solid var(--border);border-radius:5px;background:var(--surface2);font-family:var(--sans);font-size:12px;color:var(--text);padding:6px 9px;outline:none;width:100%}
+.calc-preview{font-family:var(--mono);font-size:11px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:6px 10px;min-height:28px}
+
+/* ── Rename builder ── */
+.rename-grid{display:flex;flex-direction:column;gap:5px;max-height:240px;overflow-y:auto}
+.rename-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.rename-row:last-child{border:none}
+.rename-old{flex:1;color:var(--text2);font-family:var(--mono);font-size:11px}
+.rename-arrow{color:var(--text3);flex-shrink:0}
+.rename-new{flex:1;border:1px solid var(--border);border-radius:5px;padding:4px 8px;background:var(--surface2);font-family:var(--mono);font-size:11px;color:var(--text);outline:none}
+.rename-new:focus{border-color:var(--accent)}
+
 </style>
 </head>
 <body>
@@ -426,10 +480,18 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
   <div class="topbar-right">
     <button class="btn btn-secondary btn-sm" onclick="toggleAudit()">📋 Audit log</button>
     <button class="btn btn-secondary btn-sm" onclick="undoStep()" id="undo-btn" disabled>↩ Undo</button>
-    <button class="btn btn-primary btn-sm" onclick="exportData()">⬇ Export</button>
+    <button class="btn btn-secondary btn-sm" onclick="sendToPricingAnalyser()" id="pa-send-btn" style="display:none">→ Pricing Analyser</button><button class="btn btn-primary btn-sm" onclick="exportData()">⬇ Export</button>
   </div>
 </div>
 
+
+<!-- Quality bar -->
+<div class="quality-bar" id="quality-bar">
+  <span class="q-label">Data quality:</span>
+  <span class="q-score" id="q-score-badge">—</span>
+  <span id="q-issues"></span>
+  <button class="btn btn-xs btn-secondary" onclick="openOp('nullaudit')" style="margin-left:auto">Full null audit ↗</button>
+</div>
 <div class="main">
 
   <!-- Sidebar: loaded tables -->
@@ -486,6 +548,33 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 </div>
 
 <!-- Audit log -->
+
+<!-- Pricing Schema Wizard -->
+<div class="schema-overlay" id="schema-overlay">
+  <div class="schema-modal">
+    <div class="schema-header">
+      <span style="font-size:20px">◈</span>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600">Pricing schema mapper</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Map your columns to pricing dimensions for Pricing Analyser handoff</div>
+      </div>
+      <span class="schema-badge">DB-01</span>
+      <button class="modal-close" onclick="closeSchemaWizard()" style="margin-left:8px">✕</button>
+    </div>
+    <div style="padding:14px 20px 4px;font-size:11px;color:var(--text3);background:var(--surface2);border-bottom:1px solid var(--border)">
+      Columns auto-suggested by name. Adjust using dropdowns. Unmapped dimensions are skipped.
+    </div>
+    <div class="schema-grid" id="schema-grid"></div>
+    <div style="padding:0 20px 16px;display:flex;gap:8px;justify-content:space-between;align-items:center">
+      <div></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary btn-sm" onclick="closeSchemaWizard()">Skip for now</button>
+        <button class="btn btn-primary btn-sm" onclick="applySchemaMapping()">Apply mapping</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="audit-panel" id="audit-panel">
   <div class="audit-header">
     Pipeline audit log
@@ -520,166 +609,762 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 // ═══════════════════════════════════════════════════
 // EMBEDDED SAMPLE DATA
 // ═══════════════════════════════════════════════════
-const SAMPLE_TRANSACTIONS_CSV = `transaction_id,date,customer_id,customer_name,region,category,product,units,unit_price,discount_pct,revenue,cost,status,sales_rep
-T001,2023-01-05,C042,Acme Corp,North,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Won,Sarah Chen
-T002,2023-01-07,C108,Beta Ltd,South,Furniture,Office Chair,5,180.00,0,900.00,450.00,Won,James Okafor
-T003,2023-01-09,C042,Acme Corp,North,Software,Analytics Suite,1,4500.00,15,3825.00,500.00,Won,Sarah Chen
-T004,2023-01-12,C217,Gamma Inc,East,Electronics,Monitor 27",3,350.00,5,997.50,630.00,Won,Priya Sharma
-T005,2023-01-15,C055,Delta Co,West,Software,CRM Basic,2,1200.00,0,2400.00,240.00,Won,Tom Walsh
-T006,2023-01-18,C301,Epsilon LLC,North,Furniture,Standing Desk,1,650.00,0,650.00,390.00,Lost,Sarah Chen
-T007,2023-01-20,C108,Beta Ltd,South,Electronics,Laptop Pro,1,1200.00,10,1080.00,800.00,Won,James Okafor
-T008,2023-01-22,C412,Zeta Corp,East,Software,Analytics Suite,3,4500.00,20,10800.00,1500.00,Won,Priya Sharma
-T009,2023-01-25,C055,Delta Co,West,Electronics,Keyboard,10,85.00,0,850.00,340.00,Won,Tom Walsh
-T010,2023-01-28,C042,Acme Corp,North,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,Sarah Chen
-T011,2023-02-02,C217,Gamma Inc,East,Furniture,Conference Table,1,1200.00,10,1080.00,720.00,Won,Priya Sharma
-T012,2023-02-05,C520,Eta Partners,South,Electronics,Monitor 27",2,350.00,0,700.00,420.00,Won,James Okafor
-T013,2023-02-07,C301,Epsilon LLC,North,Software,Analytics Suite,1,4500.00,25,3375.00,500.00,Won,Sarah Chen
-T014,2023-02-10,C412,Zeta Corp,East,Electronics,Laptop Pro,4,1200.00,15,4080.00,3200.00,Won,Priya Sharma
-T015,2023-02-14,C055,Delta Co,West,Furniture,Office Chair,8,180.00,10,1296.00,720.00,Won,Tom Walsh
-T016,2023-02-17,C630,Theta Inc,North,Software,CRM Basic,3,1200.00,0,3600.00,360.00,Won,Sarah Chen
-T017,2023-02-20,C108,Beta Ltd,South,Electronics,Keyboard,20,85.00,5,1615.00,680.00,Won,James Okafor
-T018,2023-02-22,C042,Acme Corp,North,Electronics,Monitor 27",1,350.00,0,350.00,210.00,Lost,Sarah Chen
-T019,2023-02-25,C217,Gamma Inc,East,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,Priya Sharma
-T020,2023-02-28,C520,Eta Partners,South,Furniture,Standing Desk,3,650.00,5,1852.50,1170.00,Won,James Okafor
-T021,2023-03-03,C412,Zeta Corp,East,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Priya Sharma
-T022,2023-03-06,C055,Delta Co,West,Electronics,Laptop Pro,2,1200.00,0,2400.00,1600.00,Won,Tom Walsh
-T023,2023-03-09,C301,Epsilon LLC,North,Furniture,Conference Table,2,1200.00,0,2400.00,1440.00,Won,Sarah Chen
-T024,2023-03-12,C630,Theta Inc,North,Electronics,Monitor 27",5,350.00,10,1575.00,1050.00,Won,Sarah Chen
-T025,2023-03-15,C108,Beta Ltd,South,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,James Okafor
-T026,2023-03-18,C042,Acme Corp,North,Electronics,Keyboard,15,85.00,5,1211.25,510.00,Won,Sarah Chen
-T027,2023-03-21,C217,Gamma Inc,East,Furniture,Office Chair,10,180.00,15,1530.00,900.00,Won,Priya Sharma
-T028,2023-03-24,C520,Eta Partners,South,Software,CRM Basic,2,1200.00,0,2400.00,240.00,Lost,James Okafor
-T029,2023-03-27,C412,Zeta Corp,East,Electronics,Laptop Pro,3,1200.00,20,2880.00,2400.00,Won,Priya Sharma
-T030,2023-03-30,C055,Delta Co,West,Software,CRM Pro,1,3600.00,5,3420.00,360.00,Won,Tom Walsh
-T031,2023-04-04,C301,Epsilon LLC,North,Electronics,Monitor 27",4,350.00,0,1400.00,840.00,Won,Sarah Chen
-T032,2023-04-07,C630,Theta Inc,North,Software,Analytics Suite,2,4500.00,15,7650.00,1000.00,Won,Sarah Chen
-T033,2023-04-10,C108,Beta Ltd,South,Furniture,Standing Desk,2,650.00,10,1170.00,780.00,Won,James Okafor
-T034,2023-04-13,C042,Acme Corp,North,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Sarah Chen
-T035,2023-04-16,C217,Gamma Inc,East,Electronics,Keyboard,25,85.00,0,2125.00,850.00,Won,Priya Sharma
-T036,2023-04-19,C520,Eta Partners,South,Electronics,Laptop Pro,1,1200.00,0,1200.00,800.00,Won,James Okafor
-T037,2023-04-22,C412,Zeta Corp,East,Furniture,Conference Table,1,1200.00,5,1140.00,720.00,Won,Priya Sharma
-T038,2023-04-25,C055,Delta Co,West,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,Tom Walsh
-T039,2023-04-28,C301,Epsilon LLC,North,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Lost,Sarah Chen
-T040,2023-04-30,C630,Theta Inc,North,Furniture,Office Chair,6,180.00,0,1080.00,540.00,Won,Sarah Chen
-T041,2023-05-03,C108,Beta Ltd,South,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,James Okafor
-T042,2023-05-06,C042,Acme Corp,North,Electronics,Monitor 27",3,350.00,5,997.50,630.00,Won,Sarah Chen
-T043,2023-05-09,C217,Gamma Inc,East,Software,Analytics Suite,4,4500.00,20,14400.00,2000.00,Won,Priya Sharma
-T044,2023-05-12,C520,Eta Partners,South,Furniture,Standing Desk,1,650.00,0,650.00,390.00,Won,James Okafor
-T045,2023-05-15,C412,Zeta Corp,East,Electronics,Keyboard,30,85.00,10,2295.00,1020.00,Won,Priya Sharma
-T046,2023-05-18,C055,Delta Co,West,Electronics,Laptop Pro,1,1200.00,0,1200.00,800.00,Won,Tom Walsh
-T047,2023-05-21,C301,Epsilon LLC,North,Software,CRM Basic,4,1200.00,5,4560.00,480.00,Won,Sarah Chen
-T048,2023-05-24,C630,Theta Inc,North,Furniture,Conference Table,1,1200.00,0,1200.00,720.00,Won,Sarah Chen
-T049,2023-05-27,C108,Beta Ltd,South,Electronics,Monitor 27",3,350.00,0,1050.00,630.00,Won,James Okafor
-T050,2023-05-30,C042,Acme Corp,North,Software,Analytics Suite,1,4500.00,10,4050.00,500.00,Won,Sarah Chen
-T051,2023-06-02,C217,Gamma Inc,East,Electronics,Laptop Pro,2,1200.00,5,2280.00,1600.00,Won,Priya Sharma
-T052,2023-06-05,C520,Eta Partners,South,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,James Okafor
-T053,2023-06-08,C412,Zeta Corp,East,Furniture,Office Chair,12,180.00,15,1836.00,1080.00,Won,Priya Sharma
-T054,2023-06-11,C055,Delta Co,West,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,Tom Walsh
-T055,2023-06-14,C301,Epsilon LLC,North,Electronics,Keyboard,20,85.00,0,1700.00,680.00,Won,Sarah Chen
-T056,2023-06-17,C630,Theta Inc,North,Electronics,Monitor 27",2,350.00,10,630.00,420.00,Lost,Sarah Chen
-T057,2023-06-20,C108,Beta Ltd,South,Software,CRM Basic,5,1200.00,10,5400.00,600.00,Won,James Okafor
-T058,2023-06-23,C042,Acme Corp,North,Furniture,Standing Desk,2,650.00,5,1235.00,780.00,Won,Sarah Chen
-T059,2023-06-26,C217,Gamma Inc,East,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,Priya Sharma
-T060,2023-06-29,C520,Eta Partners,South,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Won,James Okafor
-T061,2023-07-03,C412,Zeta Corp,East,Furniture,Conference Table,3,1200.00,10,3240.00,2160.00,Won,Priya Sharma
-T062,2023-07-06,C055,Delta Co,West,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,Tom Walsh
-T063,2023-07-09,C301,Epsilon LLC,North,Electronics,Laptop Pro,3,1200.00,15,3060.00,2400.00,Won,Sarah Chen
-T064,2023-07-12,C630,Theta Inc,North,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Sarah Chen
-T065,2023-07-15,C108,Beta Ltd,South,Furniture,Office Chair,4,180.00,0,720.00,360.00,Won,James Okafor
-T066,2023-07-18,C042,Acme Corp,North,Electronics,Monitor 27",4,350.00,5,1330.00,840.00,Won,Sarah Chen
-T067,2023-07-21,C217,Gamma Inc,East,Software,CRM Basic,6,1200.00,10,6480.00,720.00,Won,Priya Sharma
-T068,2023-07-24,C520,Eta Partners,South,Electronics,Keyboard,15,85.00,0,1275.00,510.00,Won,James Okafor
-T069,2023-07-27,C412,Zeta Corp,East,Software,Analytics Suite,2,4500.00,15,7650.00,1000.00,Won,Priya Sharma
-T070,2023-07-30,C055,Delta Co,West,Furniture,Standing Desk,2,650.00,0,1300.00,780.00,Won,Tom Walsh
-T071,2023-08-02,C301,Epsilon LLC,North,Electronics,Laptop Pro,1,1200.00,0,1200.00,800.00,Won,Sarah Chen
-T072,2023-08-05,C630,Theta Inc,North,Software,Analytics Suite,3,4500.00,20,10800.00,1500.00,Won,Sarah Chen
-T073,2023-08-08,C108,Beta Ltd,South,Furniture,Conference Table,1,1200.00,5,1140.00,720.00,Won,James Okafor
-T074,2023-08-11,C042,Acme Corp,North,Software,CRM Basic,2,1200.00,0,2400.00,240.00,Won,Sarah Chen
-T075,2023-08-14,C217,Gamma Inc,East,Electronics,Monitor 27",6,350.00,10,1890.00,1260.00,Won,Priya Sharma
-T076,2023-08-17,C520,Eta Partners,South,Software,CRM Pro,2,3600.00,5,6840.00,720.00,Won,James Okafor
-T077,2023-08-20,C412,Zeta Corp,East,Electronics,Laptop Pro,5,1200.00,20,4800.00,4000.00,Won,Priya Sharma
-T078,2023-08-23,C055,Delta Co,West,Furniture,Office Chair,3,180.00,0,540.00,270.00,Won,Tom Walsh
-T079,2023-08-26,C301,Epsilon LLC,North,Software,CRM Pro,1,3600.00,10,3240.00,360.00,Lost,Sarah Chen
-T080,2023-08-29,C630,Theta Inc,North,Electronics,Keyboard,25,85.00,5,2018.75,850.00,Won,Sarah Chen
-T081,2023-09-01,C108,Beta Ltd,South,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,James Okafor
-T082,2023-09-04,C042,Acme Corp,North,Furniture,Standing Desk,3,650.00,10,1755.00,1170.00,Won,Sarah Chen
-T083,2023-09-07,C217,Gamma Inc,East,Electronics,Laptop Pro,3,1200.00,10,3240.00,2400.00,Won,Priya Sharma
-T084,2023-09-10,C520,Eta Partners,South,Software,CRM Basic,4,1200.00,0,4800.00,480.00,Won,James Okafor
-T085,2023-09-13,C412,Zeta Corp,East,Furniture,Conference Table,2,1200.00,0,2400.00,1440.00,Won,Priya Sharma
-T086,2023-09-16,C055,Delta Co,West,Electronics,Monitor 27",2,350.00,0,700.00,420.00,Won,Tom Walsh
-T087,2023-09-19,C301,Epsilon LLC,North,Software,Analytics Suite,1,4500.00,5,4275.00,500.00,Won,Sarah Chen
-T088,2023-09-22,C630,Theta Inc,North,Furniture,Office Chair,4,180.00,10,648.00,360.00,Won,Sarah Chen
-T089,2023-09-25,C108,Beta Ltd,South,Electronics,Laptop Pro,2,1200.00,0,2400.00,1600.00,Won,James Okafor
-T090,2023-09-28,C042,Acme Corp,North,Software,CRM Pro,3,3600.00,15,9180.00,1080.00,Won,Sarah Chen
-T091,2023-10-01,C217,Gamma Inc,East,Electronics,Keyboard,20,85.00,5,1615.00,680.00,Won,Priya Sharma
-T092,2023-10-04,C520,Eta Partners,South,Furniture,Standing Desk,4,650.00,10,2340.00,1560.00,Won,James Okafor
-T093,2023-10-07,C412,Zeta Corp,East,Software,Analytics Suite,3,4500.00,15,11475.00,1500.00,Won,Priya Sharma
-T094,2023-10-10,C055,Delta Co,West,Electronics,Laptop Pro,2,1200.00,10,2160.00,1600.00,Won,Tom Walsh
-T095,2023-10-13,C301,Epsilon LLC,North,Furniture,Conference Table,1,1200.00,0,1200.00,720.00,Won,Sarah Chen
-T096,2023-10-16,C630,Theta Inc,North,Software,CRM Basic,3,1200.00,5,3420.00,360.00,Won,Sarah Chen
-T097,2023-10-19,C108,Beta Ltd,South,Electronics,Monitor 27",4,350.00,10,1260.00,840.00,Won,James Okafor
-T098,2023-10-22,C042,Acme Corp,North,Furniture,Office Chair,7,180.00,0,1260.00,630.00,Won,Sarah Chen
-T099,2023-10-25,C217,Gamma Inc,East,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Priya Sharma
-T100,2023-10-28,C520,Eta Partners,South,Electronics,Laptop Pro,3,1200.00,5,3420.00,2400.00,Lost,James Okafor
-T101,2023-11-01,C412,Zeta Corp,East,Software,CRM Basic,5,1200.00,10,5400.00,600.00,Won,Priya Sharma
-T102,2023-11-04,C055,Delta Co,West,Furniture,Standing Desk,1,650.00,0,650.00,390.00,Won,Tom Walsh
-T103,2023-11-07,C301,Epsilon LLC,North,Electronics,Keyboard,30,85.00,5,2422.50,1020.00,Won,Sarah Chen
-T104,2023-11-10,C630,Theta Inc,North,Software,Analytics Suite,2,4500.00,10,8100.00,1000.00,Won,Sarah Chen
-T105,2023-11-13,C108,Beta Ltd,South,Furniture,Office Chair,5,180.00,10,810.00,450.00,Won,James Okafor
-T106,2023-11-16,C042,Acme Corp,North,Electronics,Laptop Pro,3,1200.00,15,3060.00,2400.00,Won,Sarah Chen
-T107,2023-11-19,C217,Gamma Inc,East,Furniture,Conference Table,2,1200.00,5,2280.00,1440.00,Won,Priya Sharma
-T108,2023-11-22,C520,Eta Partners,South,Software,CRM Pro,1,3600.00,0,3600.00,360.00,Won,James Okafor
-T109,2023-11-25,C412,Zeta Corp,East,Electronics,Monitor 27",5,350.00,10,1575.00,1050.00,Won,Priya Sharma
-T110,2023-11-28,C055,Delta Co,West,Software,Analytics Suite,2,4500.00,20,7200.00,1000.00,Won,Tom Walsh
-T111,2023-12-01,C301,Epsilon LLC,North,Electronics,Laptop Pro,4,1200.00,10,4320.00,3200.00,Won,Sarah Chen
-T112,2023-12-04,C630,Theta Inc,North,Furniture,Standing Desk,2,650.00,5,1235.00,780.00,Won,Sarah Chen
-T113,2023-12-07,C108,Beta Ltd,South,Software,CRM Basic,6,1200.00,15,6120.00,720.00,Won,James Okafor
-T114,2023-12-10,C042,Acme Corp,North,Electronics,Keyboard,20,85.00,0,1700.00,680.00,Won,Sarah Chen
-T115,2023-12-13,C217,Gamma Inc,East,Software,Analytics Suite,5,4500.00,20,18000.00,2500.00,Won,Priya Sharma
-T116,2023-12-16,C520,Eta Partners,South,Furniture,Office Chair,6,180.00,10,972.00,540.00,Won,James Okafor
-T117,2023-12-19,C412,Zeta Corp,East,Electronics,Laptop Pro,4,1200.00,15,4080.00,3200.00,Won,Priya Sharma
-T118,2023-12-22,C055,Delta Co,West,Software,CRM Pro,2,3600.00,10,6480.00,720.00,Won,Tom Walsh
-T119,2023-12-26,C301,Epsilon LLC,North,Furniture,Conference Table,1,1200.00,0,1200.00,720.00,Won,Sarah Chen
-T120,2023-12-29,C630,Theta Inc,North,Software,Analytics Suite,1,4500.00,0,4500.00,500.00,Won,Sarah Chen
-`;
+const SAMPLE_TRANSACTIONS_CSV = `transaction_id,date,customer_id,customer_name,region,category,product,units,list_price,discount_pct,discount_amt,pocket_price,revenue,unit_cost,total_cost,margin_pct,status,sales_rep,customer_tier,industry,year,quarter,month
+T0001,2023-01-03,C003,Meridian Health,North,Software,CRM Platform,5,8500,4.23,1797.75,8140.45,40702.25,600,3000,92.63,Won,Sarah Chen,Enterprise,Healthcare,2023,Q1,Jan
+T0002,2023-01-06,C004,Solaris Energy,West,Hardware,Network Switch,3,950,7.62,217.17,877.61,2632.83,540,1620,38.47,Lost,Tom Walsh,Mid-Market,Energy,2023,Q1,Jan
+T0003,2023-01-07,C008,Orion Pharma,East,Hardware,Server Rack,2,6200,5.62,696.88,5851.56,11703.12,4100,8200,29.93,Lost,Aisha Patel,Enterprise,Healthcare,2023,Q1,Jan
+T0004,2023-01-17,C020,Polar Biotech,East,Services,Training Package,10,1800,8.27,1488.6,1651.14,16511.4,400,4000,75.77,Won,Aisha Patel,Enterprise,Healthcare,2023,Q1,Jan
+T0005,2023-01-30,C020,Polar Biotech,East,Furniture,Desk Pro,1,420,3.46,14.53,405.47,405.47,180,180,55.61,Lost,Aisha Patel,Enterprise,Healthcare,2023,Q1,Jan
+T0006,2023-02-01,C002,Horizon Tech,East,Software,ERP Module,2,12000,3.91,938.4,11530.8,23061.6,1200,2400,89.59,Won,Priya Sharma,Enterprise,Technology,2023,Q1,Feb
+T0007,2023-02-02,C018,Ember Analytics,North,Furniture,Office Chair,3,180,28.67,154.83,128.39,385.17,80,240,37.69,Won,Emily Foster,SMB,Technology,2023,Q1,Feb
+T0008,2023-02-07,C013,Harbor Insurance,East,Hardware,Network Switch,1,950,4.77,45.31,904.69,904.69,540,540,40.31,Won,Aisha Patel,Enterprise,Financial Services,2023,Q1,Feb
+T0009,2023-02-07,C006,Nimbus Financial,East,Hardware,Network Switch,1,950,5.62,53.39,896.61,896.61,540,540,39.77,Pending,Priya Sharma,Enterprise,Financial Services,2023,Q1,Feb
+T0010,2023-02-08,C002,Horizon Tech,East,Services,Training Package,1,1800,6.32,113.76,1686.24,1686.24,400,400,76.28,Lost,Priya Sharma,Enterprise,Technology,2023,Q1,Feb
+T0011,2023-02-09,C014,Quantum Devices,North,Software,BI Dashboard,2,5500,7.26,798.6,5100.7,10201.4,500,1000,90.2,Won,Sarah Chen,Enterprise,Technology,2023,Q1,Feb
+T0012,2023-02-10,C002,Horizon Tech,East,Software,CRM Platform,3,8500,3.44,877.2,8207.6,24622.8,600,1800,92.69,Pending,Priya Sharma,Enterprise,Technology,2023,Q1,Feb
+T0013,2023-02-12,C003,Meridian Health,North,Software,Security Suite,5,3200,3.05,488.0,3102.4,15512.0,280,1400,90.97,Lost,Sarah Chen,Enterprise,Healthcare,2023,Q1,Feb
+T0014,2023-02-15,C012,Delta Aerospace,West,Furniture,Office Chair,1,180,10.69,19.24,160.76,160.76,80,80,50.24,Won,David Evans,Enterprise,Aerospace,2023,Q1,Feb
+T0015,2023-02-16,C008,Orion Pharma,East,Software,ERP Module,1,12000,5.98,717.6,11282.4,11282.4,1200,1200,89.36,Won,Aisha Patel,Enterprise,Healthcare,2023,Q1,Feb
+T0016,2023-02-17,C015,Redwood Construction,South,Hardware,"Monitor 27""",2,350,8.73,61.1,319.44,638.88,210,420,34.26,Pending,Marco Ruiz,SMB,Construction,2023,Q1,Feb
+T0017,2023-02-18,C002,Horizon Tech,East,Software,BI Dashboard,2,5500,6.84,752.4,5123.8,10247.6,500,1000,90.24,Won,Priya Sharma,Enterprise,Technology,2023,Q1,Feb
+T0018,2023-02-19,C002,Horizon Tech,East,Software,Cloud Storage 1TB,1,380,8.83,33.55,346.45,346.45,45,45,87.01,Lost,Priya Sharma,Enterprise,Technology,2023,Q1,Feb
+T0019,2023-02-20,C010,Stratos Media,North,Software,Analytics Suite,5,4500,20.61,4637.25,3572.55,17862.75,500,2500,86.0,Lost,Emily Foster,SMB,Media,2023,Q1,Feb
+T0020,2023-02-23,C002,Horizon Tech,East,Furniture,Desk Pro,2,420,12.2,102.48,368.76,737.52,180,360,51.19,Won,Priya Sharma,Enterprise,Technology,2023,Q1,Feb
+T0021,2023-02-26,C005,Cascade Retail,South,Services,Training Package,1,1800,8.23,148.14,1651.86,1651.86,400,400,75.78,Won,James Okafor,Mid-Market,Retail,2023,Q1,Feb
+T0022,2023-03-01,C016,Tidal Software,South,Furniture,Office Chair,2,180,6.03,21.7,169.15,338.3,80,160,52.7,Lost,James Okafor,Mid-Market,Technology,2023,Q1,Mar
+T0023,2023-03-03,C019,Coastline Hotels,West,Hardware,Laptop Pro,1,1200,2.49,29.88,1170.12,1170.12,800,800,31.63,Won,Tom Walsh,Mid-Market,Hospitality,2023,Q1,Mar
+T0024,2023-03-05,C014,Quantum Devices,North,Software,Cloud Storage 1TB,10,380,9.51,361.4,343.86,3438.6,45,450,86.91,Pending,Sarah Chen,Enterprise,Technology,2023,Q1,Mar
+T0025,2023-03-08,C002,Horizon Tech,East,Software,CRM Platform,10,8500,5.98,5083.0,7991.7,79917.0,600,6000,92.49,Won,Priya Sharma,Enterprise,Technology,2023,Q1,Mar
+T0026,2023-03-11,C018,Ember Analytics,North,Furniture,Office Chair,2,180,22.5,81.0,139.5,279.0,80,160,42.65,Won,Emily Foster,SMB,Technology,2023,Q1,Mar
+T0027,2023-03-11,C009,BlueRock Mining,West,Hardware,Headset Pro,1,220,7.15,15.73,204.27,204.27,120,120,41.25,Won,Tom Walsh,Mid-Market,Mining,2023,Q1,Mar
+T0028,2023-03-12,C006,Nimbus Financial,East,Software,Analytics Suite,1,4500,9.86,443.7,4056.3,4056.3,500,500,87.67,Lost,Priya Sharma,Enterprise,Financial Services,2023,Q1,Mar
+T0029,2023-03-12,C001,Apex Industries,North,Software,Analytics Suite,3,4500,8.08,1090.8,4136.4,12409.2,500,1500,87.91,Won,Sarah Chen,Enterprise,Manufacturing,2023,Q1,Mar
+T0030,2023-03-13,C014,Quantum Devices,North,Software,Analytics Suite,2,4500,11.46,1031.4,3984.3,7968.6,500,1000,87.45,Won,Sarah Chen,Enterprise,Technology,2023,Q1,Mar
+T0031,2023-03-15,C018,Ember Analytics,North,Hardware,Headset Pro,2,220,8.75,38.5,200.75,401.5,120,240,40.22,Lost,Emily Foster,SMB,Technology,2023,Q1,Mar
+T0032,2023-03-16,C016,Tidal Software,South,Furniture,Office Chair,5,180,8.07,72.65,165.47,827.35,80,400,51.65,Won,James Okafor,Mid-Market,Technology,2023,Q1,Mar
+T0033,2023-03-17,C009,BlueRock Mining,West,Software,Security Suite,1,3200,9.22,295.04,2904.96,2904.96,280,280,90.36,Won,Tom Walsh,Mid-Market,Mining,2023,Q1,Mar
+T0034,2023-03-19,C006,Nimbus Financial,East,Software,CRM Platform,10,8500,10.6,9010.0,7599.0,75990.0,600,6000,92.1,Won,Priya Sharma,Enterprise,Financial Services,2023,Q1,Mar
+T0035,2023-03-22,C012,Delta Aerospace,West,Services,Training Package,2,1800,27.19,978.84,1310.58,2621.16,400,800,69.48,Won,David Evans,Enterprise,Aerospace,2023,Q1,Mar
+T0036,2023-03-22,C009,BlueRock Mining,West,Software,BI Dashboard,1,5500,8.11,446.05,5053.95,5053.95,500,500,90.11,Lost,Tom Walsh,Mid-Market,Mining,2023,Q1,Mar
+T0037,2023-03-22,C011,Pinnacle Consulting,North,Services,Training Package,2,1800,35.71,1285.56,1157.22,2314.44,400,800,65.43,Pending,Emily Foster,Mid-Market,Professional Svcs,2023,Q1,Mar
+T0038,2023-03-24,C012,Delta Aerospace,West,Services,Training Package,5,1800,7.19,647.1,1670.58,8352.9,400,2000,76.06,Won,David Evans,Enterprise,Aerospace,2023,Q1,Mar
+T0039,2023-03-25,C003,Meridian Health,North,Services,Training Package,1,1800,11.75,211.5,1588.5,1588.5,400,400,74.82,Won,Sarah Chen,Enterprise,Healthcare,2023,Q1,Mar
+T0040,2023-03-28,C017,Granite Automotive,West,Hardware,"Monitor 27""",1,350,25.91,90.69,259.31,259.31,210,210,19.02,Lost,David Evans,Enterprise,Automotive,2023,Q1,Mar
+T0041,2023-03-29,C014,Quantum Devices,North,Software,Analytics Suite,3,4500,8.25,1113.75,4128.75,12386.25,500,1500,87.89,Won,Sarah Chen,Enterprise,Technology,2023,Q1,Mar
+T0042,2023-04-06,C003,Meridian Health,North,Software,Security Suite,5,3200,10.19,1630.4,2873.92,14369.6,280,1400,90.26,Won,Sarah Chen,Enterprise,Healthcare,2023,Q2,Apr
+T0043,2023-04-06,C015,Redwood Construction,South,Software,BI Dashboard,1,5500,22.46,1235.3,4264.7,4264.7,500,500,88.28,Lost,Marco Ruiz,SMB,Construction,2023,Q2,Apr
+T0044,2023-04-06,C016,Tidal Software,South,Hardware,Laptop Pro,1,1200,11.2,134.4,1065.6,1065.6,800,800,24.92,Lost,James Okafor,Mid-Market,Technology,2023,Q2,Apr
+T0045,2023-04-07,C018,Ember Analytics,North,Hardware,"Monitor 27""",10,350,22.35,782.3,271.77,2717.7,210,2100,22.73,Won,Emily Foster,SMB,Technology,2023,Q2,Apr
+T0046,2023-04-12,C010,Stratos Media,North,Software,Mobile Device Mgmt,5,2800,31.17,4363.8,1927.24,9636.2,250,1250,87.03,Won,Emily Foster,SMB,Media,2023,Q2,Apr
+T0047,2023-04-12,C003,Meridian Health,North,Software,ERP Module,2,12000,10.05,2412.0,10794.0,21588.0,1200,2400,88.88,Won,Sarah Chen,Enterprise,Healthcare,2023,Q2,Apr
+T0048,2023-04-13,C015,Redwood Construction,South,Software,ERP Module,1,12000,13.56,1627.2,10372.8,10372.8,1200,1200,88.43,Won,Marco Ruiz,SMB,Construction,2023,Q2,Apr
+T0049,2023-04-13,C010,Stratos Media,North,Furniture,Office Chair,1,180,19.08,34.34,145.66,145.66,80,80,45.08,Won,Emily Foster,SMB,Media,2023,Q2,Apr
+T0050,2023-04-15,C013,Harbor Insurance,East,Hardware,Headset Pro,2,220,13.44,59.14,190.43,380.86,120,240,36.98,Won,Aisha Patel,Enterprise,Financial Services,2023,Q2,Apr
+T0051,2023-04-17,C010,Stratos Media,North,Software,Security Suite,1,3200,14.26,456.32,2743.68,2743.68,280,280,89.79,Pending,Emily Foster,SMB,Media,2023,Q2,Apr
+T0052,2023-04-19,C015,Redwood Construction,South,Software,Mobile Device Mgmt,3,2800,8.46,710.64,2563.12,7689.36,250,750,90.25,Won,Marco Ruiz,SMB,Construction,2023,Q2,Apr
+T0053,2023-04-20,C002,Horizon Tech,East,Software,Analytics Suite,2,4500,14.13,1271.7,3864.15,7728.3,500,1000,87.06,Won,Priya Sharma,Enterprise,Technology,2023,Q2,Apr
+T0054,2023-04-25,C001,Apex Industries,North,Software,Security Suite,3,3200,13.56,1301.76,2766.08,8298.24,280,840,89.88,Won,Sarah Chen,Enterprise,Manufacturing,2023,Q2,Apr
+T0055,2023-04-26,C005,Cascade Retail,South,Software,CRM Platform,2,8500,6.52,1108.4,7945.8,15891.6,600,1200,92.45,Pending,James Okafor,Mid-Market,Retail,2023,Q2,Apr
+T0056,2023-04-27,C010,Stratos Media,North,Software,Cloud Storage 1TB,1,380,19.07,72.47,307.53,307.53,45,45,85.37,Pending,Emily Foster,SMB,Media,2023,Q2,Apr
+T0057,2023-04-28,C017,Granite Automotive,West,Software,CRM Platform,10,8500,21.74,18479.0,6652.1,66521.0,600,6000,90.98,Lost,David Evans,Enterprise,Automotive,2023,Q2,Apr
+T0058,2023-05-05,C006,Nimbus Financial,East,Software,BI Dashboard,3,5500,3.07,506.55,5331.15,15993.45,500,1500,90.62,Won,Priya Sharma,Enterprise,Financial Services,2023,Q2,May
+T0059,2023-05-09,C003,Meridian Health,North,Hardware,Headset Pro,10,220,12.45,273.9,192.61,1926.1,120,1200,37.7,Won,Sarah Chen,Enterprise,Healthcare,2023,Q2,May
+T0060,2023-05-10,C002,Horizon Tech,East,Software,Cloud Storage 1TB,2,380,13.94,105.94,327.03,654.06,45,90,86.24,Lost,Priya Sharma,Enterprise,Technology,2023,Q2,May
+T0061,2023-05-11,C005,Cascade Retail,South,Software,Cloud Storage 1TB,1,380,10.68,40.58,339.42,339.42,45,45,86.74,Won,James Okafor,Mid-Market,Retail,2023,Q2,May
+T0062,2023-05-11,C018,Ember Analytics,North,Hardware,"Monitor 27""",3,350,38.17,400.77,216.41,649.23,210,630,2.96,Won,Emily Foster,SMB,Technology,2023,Q2,May
+T0063,2023-05-13,C005,Cascade Retail,South,Services,Training Package,3,1800,5.84,315.36,1694.88,5084.64,400,1200,76.4,Won,James Okafor,Mid-Market,Retail,2023,Q2,May
+T0064,2023-05-14,C011,Pinnacle Consulting,North,Software,Mobile Device Mgmt,3,2800,20.62,1732.08,2222.64,6667.92,250,750,88.75,Pending,Emily Foster,Mid-Market,Professional Svcs,2023,Q2,May
+T0065,2023-05-16,C003,Meridian Health,North,Software,Cloud Storage 1TB,2,380,8.33,63.3,348.35,696.7,45,90,87.08,Won,Sarah Chen,Enterprise,Healthcare,2023,Q2,May
+T0066,2023-05-16,C019,Coastline Hotels,West,Hardware,Server Rack,1,6200,11.5,713.0,5487.0,5487.0,4100,4100,25.28,Won,Tom Walsh,Mid-Market,Hospitality,2023,Q2,May
+T0067,2023-05-17,C017,Granite Automotive,West,Hardware,Server Rack,1,6200,7.37,456.94,5743.06,5743.06,4100,4100,28.61,Won,David Evans,Enterprise,Automotive,2023,Q2,May
+T0068,2023-05-18,C011,Pinnacle Consulting,North,Software,CRM Platform,10,8500,21.4,18190.0,6681.0,66810.0,600,6000,91.02,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q2,May
+T0069,2023-05-19,C004,Solaris Energy,West,Hardware,Laptop Pro,2,1200,8.82,211.68,1094.16,2188.32,800,1600,26.88,Pending,Tom Walsh,Mid-Market,Energy,2023,Q2,May
+T0070,2023-05-20,C018,Ember Analytics,North,Hardware,"Monitor 27""",5,350,30.82,539.35,242.13,1210.65,210,1050,13.27,Lost,Emily Foster,SMB,Technology,2023,Q2,May
+T0071,2023-05-22,C014,Quantum Devices,North,Services,Training Package,5,1800,13.09,1178.1,1564.38,7821.9,400,2000,74.43,Won,Sarah Chen,Enterprise,Technology,2023,Q2,May
+T0072,2023-05-22,C014,Quantum Devices,North,Hardware,"Monitor 27""",2,350,8.78,61.46,319.27,638.54,210,420,34.22,Lost,Sarah Chen,Enterprise,Technology,2023,Q2,May
+T0073,2023-05-28,C002,Horizon Tech,East,Hardware,"Monitor 27""",10,350,4.14,144.9,335.51,3355.1,210,2100,37.41,Won,Priya Sharma,Enterprise,Technology,2023,Q2,May
+T0074,2023-05-30,C007,Vertex Logistics,South,Software,ERP Module,3,12000,3.59,1292.4,11569.2,34707.6,1200,3600,89.63,Won,Marco Ruiz,Mid-Market,Logistics,2023,Q2,May
+T0075,2023-06-02,C010,Stratos Media,North,Hardware,Headset Pro,2,220,26.82,118.0,161.0,322.0,120,240,25.47,Won,Emily Foster,SMB,Media,2023,Q2,Jun
+T0076,2023-06-06,C013,Harbor Insurance,East,Hardware,Network Switch,1,950,6.67,63.36,886.63,886.63,540,540,39.1,Won,Aisha Patel,Enterprise,Financial Services,2023,Q2,Jun
+T0077,2023-06-12,C016,Tidal Software,South,Hardware,Laptop Pro,1,1200,13.4,160.8,1039.2,1039.2,800,800,23.02,Won,James Okafor,Mid-Market,Technology,2023,Q2,Jun
+T0078,2023-06-13,C017,Granite Automotive,West,Hardware,Server Rack,1,6200,8.1,502.2,5697.8,5697.8,4100,4100,28.04,Won,David Evans,Enterprise,Automotive,2023,Q2,Jun
+T0079,2023-06-14,C003,Meridian Health,North,Hardware,Server Rack,3,6200,5.05,939.3,5886.9,17660.7,4100,12300,30.35,Won,Sarah Chen,Enterprise,Healthcare,2023,Q2,Jun
+T0080,2023-06-15,C004,Solaris Energy,West,Software,Cloud Storage 1TB,1,380,5.91,22.46,357.54,357.54,45,45,87.41,Won,Tom Walsh,Mid-Market,Energy,2023,Q2,Jun
+T0081,2023-06-17,C006,Nimbus Financial,East,Software,Security Suite,1,3200,6.9,220.8,2979.2,2979.2,280,280,90.6,Lost,Priya Sharma,Enterprise,Financial Services,2023,Q2,Jun
+T0082,2023-06-19,C005,Cascade Retail,South,Furniture,Desk Pro,10,420,0.0,0.0,420.0,4200.0,180,1800,57.14,Pending,James Okafor,Mid-Market,Retail,2023,Q2,Jun
+T0083,2023-06-22,C011,Pinnacle Consulting,North,Software,CRM Platform,10,8500,19.91,16923.5,6807.65,68076.5,600,6000,91.19,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q2,Jun
+T0084,2023-06-24,C019,Coastline Hotels,West,Furniture,Office Chair,1,180,13.81,24.86,155.14,155.14,80,80,48.43,Won,Tom Walsh,Mid-Market,Hospitality,2023,Q2,Jun
+T0085,2023-06-26,C020,Polar Biotech,East,Software,CRM Platform,10,8500,8.67,7369.5,7763.05,77630.5,600,6000,92.27,Won,Aisha Patel,Enterprise,Healthcare,2023,Q2,Jun
+T0086,2023-07-01,C020,Polar Biotech,East,Hardware,Headset Pro,1,220,10.63,23.39,196.61,196.61,120,120,38.97,Won,Aisha Patel,Enterprise,Healthcare,2023,Q3,Jul
+T0087,2023-07-08,C016,Tidal Software,South,Hardware,Laptop Pro,1,1200,3.98,47.76,1152.24,1152.24,800,800,30.57,Won,James Okafor,Mid-Market,Technology,2023,Q3,Jul
+T0088,2023-07-15,C011,Pinnacle Consulting,North,Furniture,Desk Pro,1,420,33.98,142.72,277.28,277.28,180,180,35.08,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q3,Jul
+T0089,2023-07-16,C010,Stratos Media,North,Furniture,Desk Pro,5,420,31.6,663.6,287.28,1436.4,180,900,37.34,Won,Emily Foster,SMB,Media,2023,Q3,Jul
+T0090,2023-07-18,C008,Orion Pharma,East,Software,Cloud Storage 1TB,2,380,5.34,40.58,359.71,719.42,45,90,87.49,Won,Aisha Patel,Enterprise,Healthcare,2023,Q3,Jul
+T0091,2023-07-20,C001,Apex Industries,North,Software,CRM Platform,5,8500,10.65,4526.25,7594.75,37973.75,600,3000,92.1,Won,Sarah Chen,Enterprise,Manufacturing,2023,Q3,Jul
+T0092,2023-07-22,C005,Cascade Retail,South,Furniture,Office Chair,1,180,5.93,10.67,169.33,169.33,80,80,52.75,Won,James Okafor,Mid-Market,Retail,2023,Q3,Jul
+T0093,2023-07-24,C002,Horizon Tech,East,Software,CRM Platform,2,8500,6.66,1132.2,7933.9,15867.8,600,1200,92.44,Won,Priya Sharma,Enterprise,Technology,2023,Q3,Jul
+T0094,2023-07-28,C004,Solaris Energy,West,Furniture,Office Chair,1,180,4.12,7.42,172.58,172.58,80,80,53.64,Won,Tom Walsh,Mid-Market,Energy,2023,Q3,Jul
+T0095,2023-07-28,C018,Ember Analytics,North,Hardware,Network Switch,5,950,18.48,877.8,774.44,3872.2,540,2700,30.27,Won,Emily Foster,SMB,Technology,2023,Q3,Jul
+T0096,2023-07-30,C018,Ember Analytics,North,Hardware,"Monitor 27""",1,350,29.48,103.18,246.82,246.82,210,210,14.92,Won,Emily Foster,SMB,Technology,2023,Q3,Jul
+T0097,2023-07-31,C007,Vertex Logistics,South,Hardware,Laptop Pro,5,1200,3.82,229.2,1154.16,5770.8,800,4000,30.69,Won,Marco Ruiz,Mid-Market,Logistics,2023,Q3,Jul
+T0098,2023-08-04,C013,Harbor Insurance,East,Software,Cloud Storage 1TB,1,380,0.25,0.95,379.05,379.05,45,45,88.13,Won,Aisha Patel,Enterprise,Financial Services,2023,Q3,Aug
+T0099,2023-08-07,C008,Orion Pharma,East,Hardware,"Monitor 27""",5,350,12.76,223.3,305.34,1526.7,210,1050,31.22,Won,Aisha Patel,Enterprise,Healthcare,2023,Q3,Aug
+T0100,2023-08-08,C002,Horizon Tech,East,Software,Mobile Device Mgmt,3,2800,10.66,895.44,2501.52,7504.56,250,750,90.01,Won,Priya Sharma,Enterprise,Technology,2023,Q3,Aug
+T0101,2023-08-08,C017,Granite Automotive,West,Hardware,Laptop Pro,5,1200,21.93,1315.8,936.84,4684.2,800,4000,14.61,Won,David Evans,Enterprise,Automotive,2023,Q3,Aug
+T0102,2023-08-08,C004,Solaris Energy,West,Software,CRM Platform,2,8500,8.42,1431.4,7784.3,15568.6,600,1200,92.29,Lost,Tom Walsh,Mid-Market,Energy,2023,Q3,Aug
+T0103,2023-08-12,C001,Apex Industries,North,Hardware,Network Switch,2,950,6.0,114.0,893.0,1786.0,540,1080,39.53,Lost,Sarah Chen,Enterprise,Manufacturing,2023,Q3,Aug
+T0104,2023-08-19,C020,Polar Biotech,East,Software,ERP Module,1,12000,10.78,1293.6,10706.4,10706.4,1200,1200,88.79,Won,Aisha Patel,Enterprise,Healthcare,2023,Q3,Aug
+T0105,2023-08-20,C010,Stratos Media,North,Hardware,Headset Pro,3,220,24.63,162.57,165.81,497.43,120,360,27.63,Won,Emily Foster,SMB,Media,2023,Q3,Aug
+T0106,2023-08-23,C002,Horizon Tech,East,Services,Training Package,5,1800,7.47,672.3,1665.54,8327.7,400,2000,75.98,Won,Priya Sharma,Enterprise,Technology,2023,Q3,Aug
+T0107,2023-08-25,C014,Quantum Devices,North,Hardware,Headset Pro,3,220,5.37,35.43,208.19,624.57,120,360,42.36,Won,Sarah Chen,Enterprise,Technology,2023,Q3,Aug
+T0108,2023-08-25,C001,Apex Industries,North,Hardware,Network Switch,1,950,6.67,63.36,886.63,886.63,540,540,39.1,Lost,Sarah Chen,Enterprise,Manufacturing,2023,Q3,Aug
+T0109,2023-08-28,C013,Harbor Insurance,East,Software,Mobile Device Mgmt,3,2800,9.68,813.12,2528.96,7586.88,250,750,90.11,Won,Aisha Patel,Enterprise,Financial Services,2023,Q3,Aug
+T0110,2023-08-31,C008,Orion Pharma,East,Software,Mobile Device Mgmt,3,2800,1.92,161.28,2746.24,8238.72,250,750,90.9,Lost,Aisha Patel,Enterprise,Healthcare,2023,Q3,Aug
+T0111,2023-09-01,C020,Polar Biotech,East,Software,BI Dashboard,1,5500,7.78,427.9,5072.1,5072.1,500,500,90.14,Won,Aisha Patel,Enterprise,Healthcare,2023,Q3,Sep
+T0112,2023-09-02,C019,Coastline Hotels,West,Software,Cloud Storage 1TB,3,380,10.48,119.46,340.18,1020.54,45,135,86.77,Lost,Tom Walsh,Mid-Market,Hospitality,2023,Q3,Sep
+T0113,2023-09-02,C008,Orion Pharma,East,Furniture,Office Chair,1,180,2.35,4.23,175.77,175.77,80,80,54.49,Won,Aisha Patel,Enterprise,Healthcare,2023,Q3,Sep
+T0114,2023-09-02,C018,Ember Analytics,North,Hardware,Network Switch,10,950,16.21,1540.0,796.0,7960.0,540,5400,32.16,Pending,Emily Foster,SMB,Technology,2023,Q3,Sep
+T0115,2023-09-02,C017,Granite Automotive,West,Hardware,Network Switch,1,950,16.91,160.65,789.36,789.36,540,540,31.59,Won,David Evans,Enterprise,Automotive,2023,Q3,Sep
+T0116,2023-09-04,C002,Horizon Tech,East,Software,BI Dashboard,5,5500,0.96,264.0,5447.2,27236.0,500,2500,90.82,Pending,Priya Sharma,Enterprise,Technology,2023,Q3,Sep
+T0117,2023-09-06,C018,Ember Analytics,North,Hardware,Headset Pro,2,220,28.3,124.52,157.74,315.48,120,240,23.93,Won,Emily Foster,SMB,Technology,2023,Q3,Sep
+T0118,2023-09-07,C009,BlueRock Mining,West,Software,ERP Module,2,12000,8.83,2119.2,10940.4,21880.8,1200,2400,89.03,Pending,Tom Walsh,Mid-Market,Mining,2023,Q3,Sep
+T0119,2023-09-10,C009,BlueRock Mining,West,Software,Security Suite,10,3200,6.08,1945.6,3005.44,30054.4,280,2800,90.68,Won,Tom Walsh,Mid-Market,Mining,2023,Q3,Sep
+T0120,2023-09-11,C012,Delta Aerospace,West,Software,Cloud Storage 1TB,1,380,18.7,71.06,308.94,308.94,45,45,85.43,Won,David Evans,Enterprise,Aerospace,2023,Q3,Sep
+T0121,2023-09-11,C012,Delta Aerospace,West,Hardware,Network Switch,10,950,22.58,2145.1,735.49,7354.9,540,5400,26.58,Lost,David Evans,Enterprise,Aerospace,2023,Q3,Sep
+T0122,2023-09-15,C014,Quantum Devices,North,Software,Security Suite,1,3200,3.97,127.04,3072.96,3072.96,280,280,90.89,Won,Sarah Chen,Enterprise,Technology,2023,Q3,Sep
+T0123,2023-09-17,C002,Horizon Tech,East,Software,ERP Module,2,12000,0.0,0.0,12000.0,24000.0,1200,2400,90.0,Won,Priya Sharma,Enterprise,Technology,2023,Q3,Sep
+T0124,2023-09-19,C020,Polar Biotech,East,Software,Analytics Suite,1,4500,10.72,482.4,4017.6,4017.6,500,500,87.55,Lost,Aisha Patel,Enterprise,Healthcare,2023,Q3,Sep
+T0125,2023-09-20,C005,Cascade Retail,South,Software,BI Dashboard,10,5500,7.61,4185.5,5081.45,50814.5,500,5000,90.16,Won,James Okafor,Mid-Market,Retail,2023,Q3,Sep
+T0126,2023-09-24,C005,Cascade Retail,South,Software,Mobile Device Mgmt,10,2800,4.78,1338.4,2666.16,26661.6,250,2500,90.62,Won,James Okafor,Mid-Market,Retail,2023,Q3,Sep
+T0127,2023-09-27,C011,Pinnacle Consulting,North,Hardware,Laptop Pro,2,1200,14.94,358.56,1020.72,2041.44,800,1600,21.62,Pending,Emily Foster,Mid-Market,Professional Svcs,2023,Q3,Sep
+T0128,2023-09-29,C011,Pinnacle Consulting,North,Software,Analytics Suite,1,4500,25.9,1165.5,3334.5,3334.5,500,500,85.01,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q3,Sep
+T0129,2023-09-29,C008,Orion Pharma,East,Software,Security Suite,3,3200,13.11,1258.56,2780.48,8341.44,280,840,89.93,Won,Aisha Patel,Enterprise,Healthcare,2023,Q3,Sep
+T0130,2023-09-30,C019,Coastline Hotels,West,Furniture,Desk Pro,2,420,3.53,29.66,405.17,810.34,180,360,55.57,Won,Tom Walsh,Mid-Market,Hospitality,2023,Q3,Sep
+T0131,2023-10-01,C006,Nimbus Financial,East,Software,ERP Module,3,12000,5.09,1832.4,11389.2,34167.6,1200,3600,89.46,Won,Priya Sharma,Enterprise,Financial Services,2023,Q4,Oct
+T0132,2023-10-01,C018,Ember Analytics,North,Software,Mobile Device Mgmt,1,2800,20.54,575.12,2224.88,2224.88,250,250,88.76,Pending,Emily Foster,SMB,Technology,2023,Q4,Oct
+T0133,2023-10-04,C003,Meridian Health,North,Software,Security Suite,1,3200,5.07,162.24,3037.76,3037.76,280,280,90.78,Won,Sarah Chen,Enterprise,Healthcare,2023,Q4,Oct
+T0134,2023-10-04,C015,Redwood Construction,South,Hardware,Headset Pro,1,220,2.02,4.44,215.56,215.56,120,120,44.33,Pending,Marco Ruiz,SMB,Construction,2023,Q4,Oct
+T0135,2023-10-05,C015,Redwood Construction,South,Furniture,Desk Pro,2,420,7.95,66.78,386.61,773.22,180,360,53.44,Lost,Marco Ruiz,SMB,Construction,2023,Q4,Oct
+T0136,2023-10-06,C017,Granite Automotive,West,Hardware,Server Rack,2,6200,24.78,3072.72,4663.64,9327.28,4100,8200,12.09,Won,David Evans,Enterprise,Automotive,2023,Q4,Oct
+T0137,2023-10-07,C004,Solaris Energy,West,Software,CRM Platform,1,8500,4.38,372.3,8127.7,8127.7,600,600,92.62,Lost,Tom Walsh,Mid-Market,Energy,2023,Q4,Oct
+T0138,2023-10-09,C010,Stratos Media,North,Services,Training Package,1,1800,30.46,548.28,1251.72,1251.72,400,400,68.04,Won,Emily Foster,SMB,Media,2023,Q4,Oct
+T0139,2023-10-11,C015,Redwood Construction,South,Software,CRM Platform,2,8500,3.59,610.3,8194.85,16389.7,600,1200,92.68,Lost,Marco Ruiz,SMB,Construction,2023,Q4,Oct
+T0140,2023-10-12,C013,Harbor Insurance,East,Software,ERP Module,2,12000,4.52,1084.8,11457.6,22915.2,1200,2400,89.53,Pending,Aisha Patel,Enterprise,Financial Services,2023,Q4,Oct
+T0141,2023-10-13,C012,Delta Aerospace,West,Software,CRM Platform,2,8500,32.13,5462.1,5768.95,11537.9,600,1200,89.6,Won,David Evans,Enterprise,Aerospace,2023,Q4,Oct
+T0142,2023-10-16,C005,Cascade Retail,South,Software,CRM Platform,1,8500,13.07,1110.95,7389.05,7389.05,600,600,91.88,Won,James Okafor,Mid-Market,Retail,2023,Q4,Oct
+T0143,2023-10-17,C008,Orion Pharma,East,Hardware,Headset Pro,2,220,5.64,24.82,207.59,415.18,120,240,42.19,Won,Aisha Patel,Enterprise,Healthcare,2023,Q4,Oct
+T0144,2023-10-18,C014,Quantum Devices,North,Software,CRM Platform,2,8500,8.06,1370.2,7814.9,15629.8,600,1200,92.32,Won,Sarah Chen,Enterprise,Technology,2023,Q4,Oct
+T0145,2023-10-18,C020,Polar Biotech,East,Software,Analytics Suite,3,4500,9.63,1300.05,4066.65,12199.95,500,1500,87.7,Won,Aisha Patel,Enterprise,Healthcare,2023,Q4,Oct
+T0146,2023-10-21,C020,Polar Biotech,East,Hardware,Headset Pro,10,220,13.11,288.4,191.16,1911.6,120,1200,37.23,Lost,Aisha Patel,Enterprise,Healthcare,2023,Q4,Oct
+T0147,2023-10-21,C001,Apex Industries,North,Software,Cloud Storage 1TB,5,380,12.9,245.1,330.98,1654.9,45,225,86.4,Won,Sarah Chen,Enterprise,Manufacturing,2023,Q4,Oct
+T0148,2023-10-22,C009,BlueRock Mining,West,Hardware,Server Rack,2,6200,3.73,462.52,5968.74,11937.48,4100,8200,31.31,Won,Tom Walsh,Mid-Market,Mining,2023,Q4,Oct
+T0149,2023-10-23,C002,Horizon Tech,East,Software,Security Suite,2,3200,1.27,81.28,3159.36,6318.72,280,560,91.14,Won,Priya Sharma,Enterprise,Technology,2023,Q4,Oct
+T0150,2023-10-23,C009,BlueRock Mining,West,Software,Cloud Storage 1TB,2,380,9.69,73.64,343.18,686.36,45,90,86.89,Won,Tom Walsh,Mid-Market,Mining,2023,Q4,Oct
+T0151,2023-10-24,C012,Delta Aerospace,West,Software,Security Suite,2,3200,19.94,1276.16,2561.92,5123.84,280,560,89.07,Won,David Evans,Enterprise,Aerospace,2023,Q4,Oct
+T0152,2023-10-24,C013,Harbor Insurance,East,Software,BI Dashboard,10,5500,10.59,5824.5,4917.55,49175.5,500,5000,89.83,Pending,Aisha Patel,Enterprise,Financial Services,2023,Q4,Oct
+T0153,2023-10-24,C007,Vertex Logistics,South,Software,BI Dashboard,1,5500,9.2,506.0,4994.0,4994.0,500,500,89.99,Won,Marco Ruiz,Mid-Market,Logistics,2023,Q4,Oct
+T0154,2023-10-26,C015,Redwood Construction,South,Hardware,Laptop Pro,1,1200,7.43,89.16,1110.84,1110.84,800,800,27.98,Won,Marco Ruiz,SMB,Construction,2023,Q4,Oct
+T0155,2023-10-26,C001,Apex Industries,North,Furniture,Desk Pro,2,420,10.93,91.82,374.09,748.18,180,360,51.88,Lost,Sarah Chen,Enterprise,Manufacturing,2023,Q4,Oct
+T0156,2023-10-30,C007,Vertex Logistics,South,Hardware,Network Switch,10,950,11.07,1051.7,844.84,8448.4,540,5400,36.08,Won,Marco Ruiz,Mid-Market,Logistics,2023,Q4,Oct
+T0157,2023-10-30,C002,Horizon Tech,East,Software,CRM Platform,10,8500,11.73,9970.5,7502.95,75029.5,600,6000,92.0,Won,Priya Sharma,Enterprise,Technology,2023,Q4,Oct
+T0158,2023-10-30,C011,Pinnacle Consulting,North,Software,BI Dashboard,10,5500,45.0,24750.0,3025.0,30250.0,500,5000,83.47,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q4,Oct
+T0159,2023-10-31,C020,Polar Biotech,East,Software,CRM Platform,1,8500,4.79,407.15,8092.85,8092.85,600,600,92.59,Lost,Aisha Patel,Enterprise,Healthcare,2023,Q4,Oct
+T0160,2023-11-02,C008,Orion Pharma,East,Software,Mobile Device Mgmt,1,2800,16.53,462.84,2337.16,2337.16,250,250,89.3,Lost,Aisha Patel,Enterprise,Healthcare,2023,Q4,Nov
+T0161,2023-11-04,C009,BlueRock Mining,West,Hardware,Network Switch,1,950,6.92,65.74,884.26,884.26,540,540,38.93,Won,Tom Walsh,Mid-Market,Mining,2023,Q4,Nov
+T0162,2023-11-05,C014,Quantum Devices,North,Furniture,Desk Pro,5,420,4.19,88.0,402.4,2012.0,180,900,55.27,Won,Sarah Chen,Enterprise,Technology,2023,Q4,Nov
+T0163,2023-11-06,C014,Quantum Devices,North,Hardware,Headset Pro,2,220,9.32,41.0,199.5,399.0,120,240,39.85,Won,Sarah Chen,Enterprise,Technology,2023,Q4,Nov
+T0164,2023-11-06,C020,Polar Biotech,East,Furniture,Desk Pro,1,420,2.38,10.0,410.0,410.0,180,180,56.1,Won,Aisha Patel,Enterprise,Healthcare,2023,Q4,Nov
+T0165,2023-11-07,C020,Polar Biotech,East,Software,ERP Module,3,12000,8.88,3196.8,10934.4,32803.2,1200,3600,89.03,Won,Aisha Patel,Enterprise,Healthcare,2023,Q4,Nov
+T0166,2023-11-10,C016,Tidal Software,South,Hardware,Server Rack,1,6200,10.36,642.32,5557.68,5557.68,4100,4100,26.23,Lost,James Okafor,Mid-Market,Technology,2023,Q4,Nov
+T0167,2023-11-11,C005,Cascade Retail,South,Hardware,Laptop Pro,1,1200,10.27,123.24,1076.76,1076.76,800,800,25.7,Won,James Okafor,Mid-Market,Retail,2023,Q4,Nov
+T0168,2023-11-12,C011,Pinnacle Consulting,North,Furniture,Office Chair,1,180,13.58,24.44,155.56,155.56,80,80,48.57,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q4,Nov
+T0169,2023-11-12,C017,Granite Automotive,West,Hardware,Network Switch,10,950,13.76,1307.2,819.28,8192.8,540,5400,34.09,Won,David Evans,Enterprise,Automotive,2023,Q4,Nov
+T0170,2023-11-18,C002,Horizon Tech,East,Hardware,Laptop Pro,5,1200,5.83,349.8,1130.04,5650.2,800,4000,29.21,Won,Priya Sharma,Enterprise,Technology,2023,Q4,Nov
+T0171,2023-11-19,C011,Pinnacle Consulting,North,Hardware,Network Switch,2,950,36.16,687.04,606.48,1212.96,540,1080,10.96,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q4,Nov
+T0172,2023-11-24,C017,Granite Automotive,West,Services,Training Package,10,1800,24.67,4440.6,1355.94,13559.4,400,4000,70.5,Lost,David Evans,Enterprise,Automotive,2023,Q4,Nov
+T0173,2023-11-28,C002,Horizon Tech,East,Hardware,Server Rack,1,6200,17.36,1076.32,5123.68,5123.68,4100,4100,19.98,Won,Priya Sharma,Enterprise,Technology,2023,Q4,Nov
+T0174,2023-11-28,C011,Pinnacle Consulting,North,Hardware,Laptop Pro,5,1200,18.09,1085.4,982.92,4914.6,800,4000,18.61,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q4,Nov
+T0175,2023-12-04,C008,Orion Pharma,East,Software,Analytics Suite,2,4500,4.76,428.4,4285.8,8571.6,500,1000,88.33,Won,Aisha Patel,Enterprise,Healthcare,2023,Q4,Dec
+T0176,2023-12-07,C014,Quantum Devices,North,Software,Analytics Suite,1,4500,6.68,300.6,4199.4,4199.4,500,500,88.09,Lost,Sarah Chen,Enterprise,Technology,2023,Q4,Dec
+T0177,2023-12-07,C007,Vertex Logistics,South,Hardware,Server Rack,2,6200,14.27,1769.48,5315.26,10630.52,4100,8200,22.86,Pending,Marco Ruiz,Mid-Market,Logistics,2023,Q4,Dec
+T0178,2023-12-08,C014,Quantum Devices,North,Software,Mobile Device Mgmt,2,2800,16.74,937.44,2331.28,4662.56,250,500,89.28,Won,Sarah Chen,Enterprise,Technology,2023,Q4,Dec
+T0179,2023-12-11,C006,Nimbus Financial,East,Hardware,Headset Pro,5,220,6.75,74.25,205.15,1025.75,120,600,41.51,Pending,Priya Sharma,Enterprise,Financial Services,2023,Q4,Dec
+T0180,2023-12-11,C011,Pinnacle Consulting,North,Hardware,"Monitor 27""",5,350,21.32,373.1,275.38,1376.9,210,1050,23.74,Won,Emily Foster,Mid-Market,Professional Svcs,2023,Q4,Dec
+T0181,2023-12-13,C017,Granite Automotive,West,Software,Security Suite,1,3200,33.81,1081.92,2118.08,2118.08,280,280,86.78,Won,David Evans,Enterprise,Automotive,2023,Q4,Dec
+T0182,2023-12-14,C008,Orion Pharma,East,Hardware,Network Switch,5,950,4.03,191.45,911.72,4558.6,540,2700,40.77,Won,Aisha Patel,Enterprise,Healthcare,2023,Q4,Dec
+T0183,2023-12-19,C004,Solaris Energy,West,Hardware,Laptop Pro,5,1200,9.96,597.6,1080.48,5402.4,800,4000,25.96,Won,Tom Walsh,Mid-Market,Energy,2023,Q4,Dec
+T0184,2023-12-19,C019,Coastline Hotels,West,Software,ERP Module,10,12000,9.56,11472.0,10852.8,108528.0,1200,12000,88.94,Won,Tom Walsh,Mid-Market,Hospitality,2023,Q4,Dec
+T0185,2023-12-19,C003,Meridian Health,North,Hardware,Server Rack,10,6200,6.6,4092.0,5790.8,57908.0,4100,41000,29.2,Lost,Sarah Chen,Enterprise,Healthcare,2023,Q4,Dec
+T0186,2023-12-21,C012,Delta Aerospace,West,Software,BI Dashboard,1,5500,27.58,1516.9,3983.1,3983.1,500,500,87.45,Lost,David Evans,Enterprise,Aerospace,2023,Q4,Dec
+T0187,2023-12-21,C015,Redwood Construction,South,Furniture,Desk Pro,5,420,0.7,14.7,417.06,2085.3,180,900,56.84,Won,Marco Ruiz,SMB,Construction,2023,Q4,Dec
+T0188,2023-12-24,C007,Vertex Logistics,South,Hardware,Headset Pro,10,220,18.61,409.4,179.06,1790.6,120,1200,32.98,Won,Marco Ruiz,Mid-Market,Logistics,2023,Q4,Dec
+T0189,2023-12-26,C006,Nimbus Financial,East,Software,CRM Platform,2,8500,4.29,729.3,8135.35,16270.7,600,1200,92.62,Pending,Priya Sharma,Enterprise,Financial Services,2023,Q4,Dec
+T0190,2023-12-26,C010,Stratos Media,North,Software,CRM Platform,10,8500,16.1,13685.0,7131.5,71315.0,600,6000,91.59,Lost,Emily Foster,SMB,Media,2023,Q4,Dec
+T0191,2024-01-02,C009,BlueRock Mining,West,Software,BI Dashboard,1,5500,14.19,780.45,4719.55,4719.55,500,500,89.41,Won,Tom Walsh,Mid-Market,Mining,2024,Q1,Jan
+T0192,2024-01-04,C013,Harbor Insurance,East,Hardware,Server Rack,3,6200,9.79,1820.94,5593.02,16779.06,4100,12300,26.69,Won,Aisha Patel,Enterprise,Financial Services,2024,Q1,Jan
+T0193,2024-01-06,C015,Redwood Construction,South,Hardware,Network Switch,1,950,2.4,22.8,927.2,927.2,540,540,41.76,Won,Marco Ruiz,SMB,Construction,2024,Q1,Jan
+T0194,2024-01-06,C002,Horizon Tech,East,Hardware,"Monitor 27""",5,350,1.47,25.7,344.85,1724.25,210,1050,39.1,Won,Priya Sharma,Enterprise,Technology,2024,Q1,Jan
+T0195,2024-01-09,C003,Meridian Health,North,Software,Mobile Device Mgmt,2,2800,10.61,594.16,2502.92,5005.84,250,500,90.01,Won,Sarah Chen,Enterprise,Healthcare,2024,Q1,Jan
+T0196,2024-01-10,C011,Pinnacle Consulting,North,Hardware,Headset Pro,5,220,23.68,260.5,167.9,839.5,120,600,28.53,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q1,Jan
+T0197,2024-01-12,C017,Granite Automotive,West,Services,Training Package,2,1800,12.71,457.56,1571.22,3142.44,400,800,74.54,Pending,David Evans,Enterprise,Automotive,2024,Q1,Jan
+T0198,2024-01-13,C005,Cascade Retail,South,Hardware,Server Rack,1,6200,5.42,336.04,5863.96,5863.96,4100,4100,30.08,Lost,James Okafor,Mid-Market,Retail,2024,Q1,Jan
+T0199,2024-01-13,C017,Granite Automotive,West,Software,Mobile Device Mgmt,10,2800,16.29,4561.2,2343.88,23438.8,250,2500,89.33,Lost,David Evans,Enterprise,Automotive,2024,Q1,Jan
+T0200,2024-01-15,C019,Coastline Hotels,West,Software,Analytics Suite,1,4500,10.85,488.25,4011.75,4011.75,500,500,87.54,Won,Tom Walsh,Mid-Market,Hospitality,2024,Q1,Jan
+T0201,2024-01-18,C018,Ember Analytics,North,Software,Analytics Suite,5,4500,23.46,5278.5,3444.3,17221.5,500,2500,85.48,Won,Emily Foster,SMB,Technology,2024,Q1,Jan
+T0202,2024-01-20,C010,Stratos Media,North,Hardware,Laptop Pro,1,1200,18.04,216.48,983.52,983.52,800,800,18.66,Pending,Emily Foster,SMB,Media,2024,Q1,Jan
+T0203,2024-01-21,C020,Polar Biotech,East,Hardware,Headset Pro,1,220,13.43,29.55,190.45,190.45,120,120,36.99,Won,Aisha Patel,Enterprise,Healthcare,2024,Q1,Jan
+T0204,2024-01-21,C005,Cascade Retail,South,Software,Cloud Storage 1TB,2,380,0.0,0.0,380.0,760.0,45,90,88.16,Won,James Okafor,Mid-Market,Retail,2024,Q1,Jan
+T0205,2024-01-23,C020,Polar Biotech,East,Software,CRM Platform,1,8500,7.37,626.45,7873.55,7873.55,600,600,92.38,Pending,Aisha Patel,Enterprise,Healthcare,2024,Q1,Jan
+T0206,2024-01-25,C010,Stratos Media,North,Software,ERP Module,1,12000,33.59,4030.8,7969.2,7969.2,1200,1200,84.94,Won,Emily Foster,SMB,Media,2024,Q1,Jan
+T0207,2024-01-28,C015,Redwood Construction,South,Software,Analytics Suite,1,4500,14.33,644.85,3855.15,3855.15,500,500,87.03,Won,Marco Ruiz,SMB,Construction,2024,Q1,Jan
+T0208,2024-01-29,C005,Cascade Retail,South,Hardware,Laptop Pro,1,1200,12.07,144.84,1055.16,1055.16,800,800,24.18,Won,James Okafor,Mid-Market,Retail,2024,Q1,Jan
+T0209,2024-01-31,C012,Delta Aerospace,West,Services,Training Package,1,1800,15.95,287.1,1512.9,1512.9,400,400,73.56,Won,David Evans,Enterprise,Aerospace,2024,Q1,Jan
+T0210,2024-02-03,C018,Ember Analytics,North,Hardware,Headset Pro,2,220,16.43,72.3,183.85,367.7,120,240,34.73,Won,Emily Foster,SMB,Technology,2024,Q1,Feb
+T0211,2024-02-08,C020,Polar Biotech,East,Hardware,Laptop Pro,1,1200,4.77,57.24,1142.76,1142.76,800,800,29.99,Pending,Aisha Patel,Enterprise,Healthcare,2024,Q1,Feb
+T0212,2024-02-09,C013,Harbor Insurance,East,Software,Mobile Device Mgmt,3,2800,3.76,315.84,2694.72,8084.16,250,750,90.72,Won,Aisha Patel,Enterprise,Financial Services,2024,Q1,Feb
+T0213,2024-02-09,C019,Coastline Hotels,West,Hardware,Server Rack,2,6200,6.03,747.72,5826.14,11652.28,4100,8200,29.63,Won,Tom Walsh,Mid-Market,Hospitality,2024,Q1,Feb
+T0214,2024-02-09,C018,Ember Analytics,North,Services,Training Package,2,1800,30.88,1111.68,1244.16,2488.32,400,800,67.85,Won,Emily Foster,SMB,Technology,2024,Q1,Feb
+T0215,2024-02-12,C005,Cascade Retail,South,Hardware,Laptop Pro,10,1200,8.62,1034.4,1096.56,10965.6,800,8000,27.04,Won,James Okafor,Mid-Market,Retail,2024,Q1,Feb
+T0216,2024-02-15,C005,Cascade Retail,South,Services,Training Package,2,1800,7.04,253.44,1673.28,3346.56,400,800,76.09,Won,James Okafor,Mid-Market,Retail,2024,Q1,Feb
+T0217,2024-02-16,C017,Granite Automotive,West,Software,CRM Platform,10,8500,20.91,17773.5,6722.65,67226.5,600,6000,91.07,Pending,David Evans,Enterprise,Automotive,2024,Q1,Feb
+T0218,2024-02-17,C015,Redwood Construction,South,Software,Mobile Device Mgmt,1,2800,2.67,74.76,2725.24,2725.24,250,250,90.83,Won,Marco Ruiz,SMB,Construction,2024,Q1,Feb
+T0219,2024-02-17,C020,Polar Biotech,East,Hardware,Headset Pro,2,220,3.83,16.86,211.57,423.14,120,240,43.28,Won,Aisha Patel,Enterprise,Healthcare,2024,Q1,Feb
+T0220,2024-02-21,C012,Delta Aerospace,West,Furniture,Office Chair,2,180,16.33,58.78,150.61,301.22,80,160,46.88,Won,David Evans,Enterprise,Aerospace,2024,Q1,Feb
+T0221,2024-02-21,C009,BlueRock Mining,West,Software,Cloud Storage 1TB,1,380,5.41,20.56,359.44,359.44,45,45,87.48,Won,Tom Walsh,Mid-Market,Mining,2024,Q1,Feb
+T0222,2024-02-23,C003,Meridian Health,North,Services,Training Package,10,1800,10.86,1954.8,1604.52,16045.2,400,4000,75.07,Won,Sarah Chen,Enterprise,Healthcare,2024,Q1,Feb
+T0223,2024-02-25,C004,Solaris Energy,West,Furniture,Desk Pro,5,420,12.52,262.9,367.42,1837.1,180,900,51.01,Won,Tom Walsh,Mid-Market,Energy,2024,Q1,Feb
+T0224,2024-03-02,C019,Coastline Hotels,West,Software,CRM Platform,2,8500,7.15,1215.5,7892.25,15784.5,600,1200,92.4,Lost,Tom Walsh,Mid-Market,Hospitality,2024,Q1,Mar
+T0225,2024-03-03,C003,Meridian Health,North,Software,Mobile Device Mgmt,3,2800,3.36,282.24,2705.92,8117.76,250,750,90.76,Lost,Sarah Chen,Enterprise,Healthcare,2024,Q1,Mar
+T0226,2024-03-05,C007,Vertex Logistics,South,Furniture,Office Chair,1,180,2.12,3.82,176.18,176.18,80,80,54.59,Lost,Marco Ruiz,Mid-Market,Logistics,2024,Q1,Mar
+T0227,2024-03-05,C013,Harbor Insurance,East,Hardware,Server Rack,1,6200,11.15,691.3,5508.7,5508.7,4100,4100,25.57,Won,Aisha Patel,Enterprise,Financial Services,2024,Q1,Mar
+T0228,2024-03-05,C013,Harbor Insurance,East,Hardware,Server Rack,3,6200,4.84,900.24,5899.92,17699.76,4100,12300,30.51,Pending,Aisha Patel,Enterprise,Financial Services,2024,Q1,Mar
+T0229,2024-03-06,C006,Nimbus Financial,East,Software,BI Dashboard,1,5500,9.1,500.5,4999.5,4999.5,500,500,90.0,Won,Priya Sharma,Enterprise,Financial Services,2024,Q1,Mar
+T0230,2024-03-08,C011,Pinnacle Consulting,North,Software,BI Dashboard,1,5500,22.04,1212.2,4287.8,4287.8,500,500,88.34,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q1,Mar
+T0231,2024-03-09,C018,Ember Analytics,North,Software,ERP Module,1,12000,9.94,1192.8,10807.2,10807.2,1200,1200,88.9,Pending,Emily Foster,SMB,Technology,2024,Q1,Mar
+T0232,2024-03-13,C002,Horizon Tech,East,Software,Cloud Storage 1TB,1,380,7.56,28.73,351.27,351.27,45,45,87.19,Won,Priya Sharma,Enterprise,Technology,2024,Q1,Mar
+T0233,2024-03-14,C018,Ember Analytics,North,Software,Analytics Suite,5,4500,13.35,3003.75,3899.25,19496.25,500,2500,87.18,Won,Emily Foster,SMB,Technology,2024,Q1,Mar
+T0234,2024-03-17,C016,Tidal Software,South,Software,CRM Platform,1,8500,7.37,626.45,7873.55,7873.55,600,600,92.38,Lost,James Okafor,Mid-Market,Technology,2024,Q1,Mar
+T0235,2024-03-21,C015,Redwood Construction,South,Software,Analytics Suite,3,4500,5.47,738.45,4253.85,12761.55,500,1500,88.25,Won,Marco Ruiz,SMB,Construction,2024,Q1,Mar
+T0236,2024-03-26,C011,Pinnacle Consulting,North,Software,CRM Platform,1,8500,14.86,1263.1,7236.9,7236.9,600,600,91.71,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q1,Mar
+T0237,2024-03-28,C009,BlueRock Mining,West,Software,Security Suite,1,3200,8.2,262.4,2937.6,2937.6,280,280,90.47,Won,Tom Walsh,Mid-Market,Mining,2024,Q1,Mar
+T0238,2024-03-28,C009,BlueRock Mining,West,Hardware,Server Rack,5,6200,13.56,4203.6,5359.28,26796.4,4100,20500,23.5,Won,Tom Walsh,Mid-Market,Mining,2024,Q1,Mar
+T0239,2024-03-29,C015,Redwood Construction,South,Furniture,Desk Pro,3,420,4.85,61.11,399.63,1198.89,180,540,54.96,Pending,Marco Ruiz,SMB,Construction,2024,Q1,Mar
+T0240,2024-03-29,C008,Orion Pharma,East,Software,BI Dashboard,5,5500,12.61,3467.75,4806.45,24032.25,500,2500,89.6,Won,Aisha Patel,Enterprise,Healthcare,2024,Q1,Mar
+T0241,2024-03-30,C014,Quantum Devices,North,Furniture,Desk Pro,1,420,7.21,30.28,389.72,389.72,180,180,53.81,Won,Sarah Chen,Enterprise,Technology,2024,Q1,Mar
+T0242,2024-04-02,C007,Vertex Logistics,South,Hardware,Laptop Pro,1,1200,1.8,21.6,1178.4,1178.4,800,800,32.11,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q2,Apr
+T0243,2024-04-04,C015,Redwood Construction,South,Software,Security Suite,2,3200,6.82,436.48,2981.76,5963.52,280,560,90.61,Lost,Marco Ruiz,SMB,Construction,2024,Q2,Apr
+T0244,2024-04-06,C015,Redwood Construction,South,Services,Training Package,1,1800,8.86,159.48,1640.52,1640.52,400,400,75.62,Pending,Marco Ruiz,SMB,Construction,2024,Q2,Apr
+T0245,2024-04-09,C020,Polar Biotech,East,Hardware,Server Rack,2,6200,11.23,1392.52,5503.74,11007.48,4100,8200,25.51,Won,Aisha Patel,Enterprise,Healthcare,2024,Q2,Apr
+T0246,2024-04-09,C018,Ember Analytics,North,Hardware,Headset Pro,2,220,28.23,124.22,157.89,315.78,120,240,24.0,Won,Emily Foster,SMB,Technology,2024,Q2,Apr
+T0247,2024-04-09,C001,Apex Industries,North,Hardware,Laptop Pro,2,1200,6.36,152.64,1123.68,2247.36,800,1600,28.81,Won,Sarah Chen,Enterprise,Manufacturing,2024,Q2,Apr
+T0248,2024-04-10,C013,Harbor Insurance,East,Services,Training Package,1,1800,8.13,146.34,1653.66,1653.66,400,400,75.81,Won,Aisha Patel,Enterprise,Financial Services,2024,Q2,Apr
+T0249,2024-04-10,C012,Delta Aerospace,West,Software,Cloud Storage 1TB,3,380,27.22,310.32,276.56,829.68,45,135,83.73,Pending,David Evans,Enterprise,Aerospace,2024,Q2,Apr
+T0250,2024-04-12,C017,Granite Automotive,West,Hardware,Headset Pro,2,220,26.07,114.7,162.65,325.3,120,240,26.22,Won,David Evans,Enterprise,Automotive,2024,Q2,Apr
+T0251,2024-04-13,C016,Tidal Software,South,Furniture,Desk Pro,1,420,8.54,35.87,384.13,384.13,180,180,53.14,Lost,James Okafor,Mid-Market,Technology,2024,Q2,Apr
+T0252,2024-04-14,C017,Granite Automotive,West,Hardware,Server Rack,2,6200,25.2,3124.8,4637.6,9275.2,4100,8200,11.59,Won,David Evans,Enterprise,Automotive,2024,Q2,Apr
+T0253,2024-04-15,C013,Harbor Insurance,East,Software,Mobile Device Mgmt,1,2800,7.99,223.72,2576.28,2576.28,250,250,90.3,Won,Aisha Patel,Enterprise,Financial Services,2024,Q2,Apr
+T0254,2024-04-16,C016,Tidal Software,South,Furniture,Office Chair,2,180,15.0,54.0,153.0,306.0,80,160,47.71,Lost,James Okafor,Mid-Market,Technology,2024,Q2,Apr
+T0255,2024-04-20,C016,Tidal Software,South,Software,Analytics Suite,3,4500,10.44,1409.4,4030.2,12090.6,500,1500,87.59,Won,James Okafor,Mid-Market,Technology,2024,Q2,Apr
+T0256,2024-04-20,C012,Delta Aerospace,West,Software,Cloud Storage 1TB,3,380,18.0,205.2,311.6,934.8,45,135,85.56,Lost,David Evans,Enterprise,Aerospace,2024,Q2,Apr
+T0257,2024-04-29,C014,Quantum Devices,North,Software,BI Dashboard,3,5500,3.78,623.7,5292.1,15876.3,500,1500,90.55,Won,Sarah Chen,Enterprise,Technology,2024,Q2,Apr
+T0258,2024-04-29,C019,Coastline Hotels,West,Hardware,Network Switch,2,950,10.54,200.26,849.87,1699.74,540,1080,36.46,Won,Tom Walsh,Mid-Market,Hospitality,2024,Q2,Apr
+T0259,2024-04-30,C017,Granite Automotive,West,Hardware,Network Switch,1,950,23.07,219.16,730.84,730.84,540,540,26.11,Won,David Evans,Enterprise,Automotive,2024,Q2,Apr
+T0260,2024-05-01,C007,Vertex Logistics,South,Hardware,"Monitor 27""",1,350,1.94,6.79,343.21,343.21,210,210,38.81,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q2,May
+T0261,2024-05-01,C020,Polar Biotech,East,Software,Mobile Device Mgmt,5,2800,10.44,1461.6,2507.68,12538.4,250,1250,90.03,Pending,Aisha Patel,Enterprise,Healthcare,2024,Q2,May
+T0262,2024-05-02,C015,Redwood Construction,South,Services,Training Package,2,1800,9.18,330.48,1634.76,3269.52,400,800,75.53,Won,Marco Ruiz,SMB,Construction,2024,Q2,May
+T0263,2024-05-03,C018,Ember Analytics,North,Services,Training Package,1,1800,8.35,150.3,1649.7,1649.7,400,400,75.75,Pending,Emily Foster,SMB,Technology,2024,Q2,May
+T0264,2024-05-05,C012,Delta Aerospace,West,Hardware,Server Rack,1,6200,19.73,1223.26,4976.74,4976.74,4100,4100,17.62,Won,David Evans,Enterprise,Aerospace,2024,Q2,May
+T0265,2024-05-05,C010,Stratos Media,North,Services,Training Package,1,1800,26.41,475.38,1324.62,1324.62,400,400,69.8,Lost,Emily Foster,SMB,Media,2024,Q2,May
+T0266,2024-05-08,C017,Granite Automotive,West,Software,Cloud Storage 1TB,2,380,24.61,187.04,286.48,572.96,45,90,84.29,Lost,David Evans,Enterprise,Automotive,2024,Q2,May
+T0267,2024-05-18,C009,BlueRock Mining,West,Hardware,"Monitor 27""",5,350,5.53,96.8,330.64,1653.2,210,1050,36.49,Won,Tom Walsh,Mid-Market,Mining,2024,Q2,May
+T0268,2024-05-19,C010,Stratos Media,North,Furniture,Desk Pro,5,420,23.58,495.2,320.96,1604.8,180,900,43.92,Won,Emily Foster,SMB,Media,2024,Q2,May
+T0269,2024-05-21,C015,Redwood Construction,South,Software,Security Suite,5,3200,6.51,1041.6,2991.68,14958.4,280,1400,90.64,Won,Marco Ruiz,SMB,Construction,2024,Q2,May
+T0270,2024-05-29,C009,BlueRock Mining,West,Furniture,Office Chair,2,180,10.4,37.44,161.28,322.56,80,160,50.4,Won,Tom Walsh,Mid-Market,Mining,2024,Q2,May
+T0271,2024-06-01,C016,Tidal Software,South,Software,Analytics Suite,1,4500,8.05,362.25,4137.75,4137.75,500,500,87.92,Pending,James Okafor,Mid-Market,Technology,2024,Q2,Jun
+T0272,2024-06-03,C011,Pinnacle Consulting,North,Software,Security Suite,3,3200,18.91,1815.36,2594.88,7784.64,280,840,89.21,Pending,Emily Foster,Mid-Market,Professional Svcs,2024,Q2,Jun
+T0273,2024-06-03,C017,Granite Automotive,West,Software,ERP Module,1,12000,30.4,3648.0,8352.0,8352.0,1200,1200,85.63,Lost,David Evans,Enterprise,Automotive,2024,Q2,Jun
+T0274,2024-06-11,C007,Vertex Logistics,South,Hardware,"Monitor 27""",5,350,8.32,145.6,320.88,1604.4,210,1050,34.55,Lost,Marco Ruiz,Mid-Market,Logistics,2024,Q2,Jun
+T0275,2024-06-12,C009,BlueRock Mining,West,Software,Analytics Suite,10,4500,11.58,5211.0,3978.9,39789.0,500,5000,87.43,Won,Tom Walsh,Mid-Market,Mining,2024,Q2,Jun
+T0276,2024-06-15,C013,Harbor Insurance,East,Software,ERP Module,1,12000,3.31,397.2,11602.8,11602.8,1200,1200,89.66,Pending,Aisha Patel,Enterprise,Financial Services,2024,Q2,Jun
+T0277,2024-06-20,C017,Granite Automotive,West,Furniture,Desk Pro,1,420,24.67,103.61,316.39,316.39,180,180,43.11,Pending,David Evans,Enterprise,Automotive,2024,Q2,Jun
+T0278,2024-06-21,C006,Nimbus Financial,East,Furniture,Office Chair,2,180,7.77,27.98,166.01,332.02,80,160,51.81,Won,Priya Sharma,Enterprise,Financial Services,2024,Q2,Jun
+T0279,2024-06-21,C018,Ember Analytics,North,Hardware,Server Rack,1,6200,19.11,1184.82,5015.18,5015.18,4100,4100,18.25,Won,Emily Foster,SMB,Technology,2024,Q2,Jun
+T0280,2024-06-22,C005,Cascade Retail,South,Software,Cloud Storage 1TB,3,380,13.56,154.59,328.47,985.41,45,135,86.3,Won,James Okafor,Mid-Market,Retail,2024,Q2,Jun
+T0281,2024-06-24,C012,Delta Aerospace,West,Furniture,Desk Pro,10,420,16.47,691.7,350.83,3508.3,180,1800,48.69,Won,David Evans,Enterprise,Aerospace,2024,Q2,Jun
+T0282,2024-06-24,C020,Polar Biotech,East,Software,Mobile Device Mgmt,1,2800,0.81,22.68,2777.32,2777.32,250,250,91.0,Won,Aisha Patel,Enterprise,Healthcare,2024,Q2,Jun
+T0283,2024-06-27,C017,Granite Automotive,West,Software,Security Suite,2,3200,28.8,1843.2,2278.4,4556.8,280,560,87.71,Won,David Evans,Enterprise,Automotive,2024,Q2,Jun
+T0284,2024-06-27,C018,Ember Analytics,North,Software,Analytics Suite,3,4500,30.68,4141.8,3119.4,9358.2,500,1500,83.97,Won,Emily Foster,SMB,Technology,2024,Q2,Jun
+T0285,2024-06-27,C011,Pinnacle Consulting,North,Software,BI Dashboard,1,5500,28.53,1569.15,3930.85,3930.85,500,500,87.28,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q2,Jun
+T0286,2024-06-29,C010,Stratos Media,North,Software,Mobile Device Mgmt,1,2800,24.59,688.52,2111.48,2111.48,250,250,88.16,Won,Emily Foster,SMB,Media,2024,Q2,Jun
+T0287,2024-06-30,C003,Meridian Health,North,Software,Mobile Device Mgmt,3,2800,4.92,413.28,2662.24,7986.72,250,750,90.61,Lost,Sarah Chen,Enterprise,Healthcare,2024,Q2,Jun
+T0288,2024-07-02,C004,Solaris Energy,West,Hardware,Headset Pro,2,220,11.53,50.74,194.63,389.26,120,240,38.34,Won,Tom Walsh,Mid-Market,Energy,2024,Q3,Jul
+T0289,2024-07-02,C014,Quantum Devices,North,Furniture,Desk Pro,10,420,15.03,631.3,356.87,3568.7,180,1800,49.56,Won,Sarah Chen,Enterprise,Technology,2024,Q3,Jul
+T0290,2024-07-03,C003,Meridian Health,North,Software,BI Dashboard,2,5500,5.17,568.7,5215.65,10431.3,500,1000,90.41,Won,Sarah Chen,Enterprise,Healthcare,2024,Q3,Jul
+T0291,2024-07-04,C011,Pinnacle Consulting,North,Hardware,Headset Pro,5,220,25.22,277.4,164.52,822.6,120,600,27.06,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q3,Jul
+T0292,2024-07-06,C014,Quantum Devices,North,Software,CRM Platform,1,8500,9.02,766.7,7733.3,7733.3,600,600,92.24,Won,Sarah Chen,Enterprise,Technology,2024,Q3,Jul
+T0293,2024-07-06,C020,Polar Biotech,East,Furniture,Desk Pro,1,420,8.04,33.77,386.23,386.23,180,180,53.4,Won,Aisha Patel,Enterprise,Healthcare,2024,Q3,Jul
+T0294,2024-07-07,C001,Apex Industries,North,Software,CRM Platform,1,8500,5.31,451.35,8048.65,8048.65,600,600,92.55,Pending,Sarah Chen,Enterprise,Manufacturing,2024,Q3,Jul
+T0295,2024-07-09,C004,Solaris Energy,West,Software,BI Dashboard,5,5500,12.94,3558.5,4788.3,23941.5,500,2500,89.56,Won,Tom Walsh,Mid-Market,Energy,2024,Q3,Jul
+T0296,2024-07-09,C012,Delta Aerospace,West,Hardware,"Monitor 27""",1,350,14.04,49.14,300.86,300.86,210,210,30.2,Pending,David Evans,Enterprise,Aerospace,2024,Q3,Jul
+T0297,2024-07-10,C012,Delta Aerospace,West,Services,Training Package,1,1800,17.37,312.66,1487.34,1487.34,400,400,73.11,Won,David Evans,Enterprise,Aerospace,2024,Q3,Jul
+T0298,2024-07-12,C004,Solaris Energy,West,Software,Analytics Suite,2,4500,8.07,726.3,4136.85,8273.7,500,1000,87.91,Won,Tom Walsh,Mid-Market,Energy,2024,Q3,Jul
+T0299,2024-07-16,C020,Polar Biotech,East,Software,BI Dashboard,10,5500,3.23,1776.5,5322.35,53223.5,500,5000,90.61,Won,Aisha Patel,Enterprise,Healthcare,2024,Q3,Jul
+T0300,2024-07-17,C011,Pinnacle Consulting,North,Hardware,Network Switch,10,950,17.99,1709.1,779.1,7791.0,540,5400,30.69,Lost,Emily Foster,Mid-Market,Professional Svcs,2024,Q3,Jul
+T0301,2024-07-19,C007,Vertex Logistics,South,Furniture,Desk Pro,2,420,7.85,65.94,387.03,774.06,180,360,53.49,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q3,Jul
+T0302,2024-07-19,C015,Redwood Construction,South,Software,Cloud Storage 1TB,10,380,3.51,133.4,366.66,3666.6,45,450,87.73,Won,Marco Ruiz,SMB,Construction,2024,Q3,Jul
+T0303,2024-07-23,C017,Granite Automotive,West,Furniture,Office Chair,1,180,17.84,32.11,147.89,147.89,80,80,45.91,Won,David Evans,Enterprise,Automotive,2024,Q3,Jul
+T0304,2024-07-26,C002,Horizon Tech,East,Software,Mobile Device Mgmt,1,2800,10.57,295.96,2504.04,2504.04,250,250,90.02,Lost,Priya Sharma,Enterprise,Technology,2024,Q3,Jul
+T0305,2024-07-28,C005,Cascade Retail,South,Furniture,Desk Pro,2,420,10.28,86.36,376.82,753.64,180,360,52.23,Lost,James Okafor,Mid-Market,Retail,2024,Q3,Jul
+T0306,2024-07-29,C014,Quantum Devices,North,Hardware,Laptop Pro,3,1200,9.93,357.48,1080.84,3242.52,800,2400,25.98,Won,Sarah Chen,Enterprise,Technology,2024,Q3,Jul
+T0307,2024-07-29,C009,BlueRock Mining,West,Furniture,Office Chair,1,180,10.53,18.95,161.05,161.05,80,80,50.33,Won,Tom Walsh,Mid-Market,Mining,2024,Q3,Jul
+T0308,2024-07-30,C013,Harbor Insurance,East,Hardware,Server Rack,1,6200,2.61,161.82,6038.18,6038.18,4100,4100,32.1,Won,Aisha Patel,Enterprise,Financial Services,2024,Q3,Jul
+T0309,2024-08-01,C016,Tidal Software,South,Hardware,Server Rack,10,6200,2.17,1345.4,6065.46,60654.6,4100,41000,32.4,Lost,James Okafor,Mid-Market,Technology,2024,Q3,Aug
+T0310,2024-08-09,C007,Vertex Logistics,South,Software,BI Dashboard,1,5500,8.39,461.45,5038.55,5038.55,500,500,90.08,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q3,Aug
+T0311,2024-08-09,C012,Delta Aerospace,West,Hardware,Laptop Pro,1,1200,25.34,304.08,895.92,895.92,800,800,10.71,Won,David Evans,Enterprise,Aerospace,2024,Q3,Aug
+T0312,2024-08-12,C014,Quantum Devices,North,Hardware,Network Switch,1,950,10.74,102.03,847.97,847.97,540,540,36.32,Lost,Sarah Chen,Enterprise,Technology,2024,Q3,Aug
+T0313,2024-08-14,C002,Horizon Tech,East,Software,CRM Platform,2,8500,12.32,2094.4,7452.8,14905.6,600,1200,91.95,Won,Priya Sharma,Enterprise,Technology,2024,Q3,Aug
+T0314,2024-08-14,C020,Polar Biotech,East,Hardware,Network Switch,2,950,16.39,311.4,794.3,1588.6,540,1080,32.02,Lost,Aisha Patel,Enterprise,Healthcare,2024,Q3,Aug
+T0315,2024-08-15,C020,Polar Biotech,East,Hardware,Laptop Pro,2,1200,0.16,3.84,1198.08,2396.16,800,1600,33.23,Won,Aisha Patel,Enterprise,Healthcare,2024,Q3,Aug
+T0316,2024-08-15,C001,Apex Industries,North,Software,Security Suite,10,3200,7.43,2377.6,2962.24,29622.4,280,2800,90.55,Pending,Sarah Chen,Enterprise,Manufacturing,2024,Q3,Aug
+T0317,2024-08-16,C010,Stratos Media,North,Hardware,Network Switch,10,950,25.31,2404.4,709.56,7095.6,540,5400,23.9,Pending,Emily Foster,SMB,Media,2024,Q3,Aug
+T0318,2024-08-19,C009,BlueRock Mining,West,Hardware,Headset Pro,1,220,8.72,19.18,200.82,200.82,120,120,40.24,Won,Tom Walsh,Mid-Market,Mining,2024,Q3,Aug
+T0319,2024-08-20,C020,Polar Biotech,East,Software,Analytics Suite,1,4500,13.42,603.9,3896.1,3896.1,500,500,87.17,Won,Aisha Patel,Enterprise,Healthcare,2024,Q3,Aug
+T0320,2024-08-21,C015,Redwood Construction,South,Hardware,"Monitor 27""",2,350,12.23,85.6,307.19,614.38,210,420,31.64,Won,Marco Ruiz,SMB,Construction,2024,Q3,Aug
+T0321,2024-08-21,C001,Apex Industries,North,Software,CRM Platform,1,8500,2.26,192.1,8307.9,8307.9,600,600,92.78,Won,Sarah Chen,Enterprise,Manufacturing,2024,Q3,Aug
+T0322,2024-08-25,C012,Delta Aerospace,West,Hardware,Server Rack,10,6200,25.44,15772.8,4622.72,46227.2,4100,41000,11.31,Won,David Evans,Enterprise,Aerospace,2024,Q3,Aug
+T0323,2024-08-29,C020,Polar Biotech,East,Software,BI Dashboard,10,5500,10.57,5813.5,4918.65,49186.5,500,5000,89.83,Won,Aisha Patel,Enterprise,Healthcare,2024,Q3,Aug
+T0324,2024-09-02,C011,Pinnacle Consulting,North,Hardware,"Monitor 27""",10,350,34.16,1195.6,230.44,2304.4,210,2100,8.87,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q3,Sep
+T0325,2024-09-02,C018,Ember Analytics,North,Furniture,Office Chair,2,180,23.97,86.3,136.85,273.7,80,160,41.54,Lost,Emily Foster,SMB,Technology,2024,Q3,Sep
+T0326,2024-09-02,C011,Pinnacle Consulting,North,Hardware,"Monitor 27""",3,350,27.74,291.27,252.91,758.73,210,630,16.97,Pending,Emily Foster,Mid-Market,Professional Svcs,2024,Q3,Sep
+T0327,2024-09-03,C003,Meridian Health,North,Furniture,Desk Pro,2,420,9.19,77.2,381.4,762.8,180,360,52.81,Won,Sarah Chen,Enterprise,Healthcare,2024,Q3,Sep
+T0328,2024-09-03,C019,Coastline Hotels,West,Software,Cloud Storage 1TB,3,380,10.04,114.45,341.85,1025.55,45,135,86.84,Won,Tom Walsh,Mid-Market,Hospitality,2024,Q3,Sep
+T0329,2024-09-03,C004,Solaris Energy,West,Software,Cloud Storage 1TB,1,380,3.7,14.06,365.94,365.94,45,45,87.7,Won,Tom Walsh,Mid-Market,Energy,2024,Q3,Sep
+T0330,2024-09-03,C015,Redwood Construction,South,Furniture,Office Chair,2,180,6.91,24.88,167.56,335.12,80,160,52.26,Won,Marco Ruiz,SMB,Construction,2024,Q3,Sep
+T0331,2024-09-04,C009,BlueRock Mining,West,Software,Cloud Storage 1TB,10,380,9.68,367.8,343.22,3432.2,45,450,86.89,Won,Tom Walsh,Mid-Market,Mining,2024,Q3,Sep
+T0332,2024-09-08,C012,Delta Aerospace,West,Software,BI Dashboard,3,5500,19.63,3238.95,4420.35,13261.05,500,1500,88.69,Won,David Evans,Enterprise,Aerospace,2024,Q3,Sep
+T0333,2024-09-09,C002,Horizon Tech,East,Software,CRM Platform,5,8500,4.36,1853.0,8129.4,40647.0,600,3000,92.62,Won,Priya Sharma,Enterprise,Technology,2024,Q3,Sep
+T0334,2024-09-12,C020,Polar Biotech,East,Furniture,Office Chair,2,180,12.4,44.64,157.68,315.36,80,160,49.26,Won,Aisha Patel,Enterprise,Healthcare,2024,Q3,Sep
+T0335,2024-09-15,C007,Vertex Logistics,South,Software,Mobile Device Mgmt,1,2800,8.13,227.64,2572.36,2572.36,250,250,90.28,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q3,Sep
+T0336,2024-09-19,C017,Granite Automotive,West,Hardware,Server Rack,1,6200,16.78,1040.36,5159.64,5159.64,4100,4100,20.54,Won,David Evans,Enterprise,Automotive,2024,Q3,Sep
+T0337,2024-09-24,C010,Stratos Media,North,Hardware,Laptop Pro,5,1200,28.15,1689.0,862.2,4311.0,800,4000,7.21,Lost,Emily Foster,SMB,Media,2024,Q3,Sep
+T0338,2024-09-24,C003,Meridian Health,North,Hardware,Headset Pro,1,220,12.74,28.03,191.97,191.97,120,120,37.49,Won,Sarah Chen,Enterprise,Healthcare,2024,Q3,Sep
+T0339,2024-09-25,C003,Meridian Health,North,Software,Cloud Storage 1TB,2,380,3.08,23.4,368.3,736.6,45,90,87.78,Lost,Sarah Chen,Enterprise,Healthcare,2024,Q3,Sep
+T0340,2024-09-25,C010,Stratos Media,North,Hardware,Laptop Pro,2,1200,30.76,738.24,830.88,1661.76,800,1600,3.72,Won,Emily Foster,SMB,Media,2024,Q3,Sep
+T0341,2024-09-26,C014,Quantum Devices,North,Software,Security Suite,1,3200,8.78,280.96,2919.04,2919.04,280,280,90.41,Pending,Sarah Chen,Enterprise,Technology,2024,Q3,Sep
+T0342,2024-09-28,C012,Delta Aerospace,West,Hardware,Laptop Pro,2,1200,16.3,391.2,1004.4,2008.8,800,1600,20.35,Lost,David Evans,Enterprise,Aerospace,2024,Q3,Sep
+T0343,2024-09-29,C011,Pinnacle Consulting,North,Furniture,Desk Pro,5,420,19.83,416.45,336.71,1683.55,180,900,46.54,Pending,Emily Foster,Mid-Market,Professional Svcs,2024,Q3,Sep
+T0344,2024-10-01,C003,Meridian Health,North,Services,Training Package,1,1800,7.01,126.18,1673.82,1673.82,400,400,76.1,Won,Sarah Chen,Enterprise,Healthcare,2024,Q4,Oct
+T0345,2024-10-01,C006,Nimbus Financial,East,Software,Security Suite,1,3200,10.4,332.8,2867.2,2867.2,280,280,90.23,Won,Priya Sharma,Enterprise,Financial Services,2024,Q4,Oct
+T0346,2024-10-02,C003,Meridian Health,North,Furniture,Desk Pro,2,420,8.67,72.82,383.59,767.18,180,360,53.07,Pending,Sarah Chen,Enterprise,Healthcare,2024,Q4,Oct
+T0347,2024-10-05,C006,Nimbus Financial,East,Software,Security Suite,1,3200,8.37,267.84,2932.16,2932.16,280,280,90.45,Won,Priya Sharma,Enterprise,Financial Services,2024,Q4,Oct
+T0348,2024-10-08,C013,Harbor Insurance,East,Software,ERP Module,10,12000,8.75,10500.0,10950.0,109500.0,1200,12000,89.04,Won,Aisha Patel,Enterprise,Financial Services,2024,Q4,Oct
+T0349,2024-10-10,C001,Apex Industries,North,Hardware,"Monitor 27""",1,350,4.3,15.05,334.95,334.95,210,210,37.3,Won,Sarah Chen,Enterprise,Manufacturing,2024,Q4,Oct
+T0350,2024-10-10,C008,Orion Pharma,East,Software,ERP Module,1,12000,7.4,888.0,11112.0,11112.0,1200,1200,89.2,Won,Aisha Patel,Enterprise,Healthcare,2024,Q4,Oct
+T0351,2024-10-11,C020,Polar Biotech,East,Furniture,Office Chair,3,180,3.79,20.46,173.18,519.54,80,240,53.81,Won,Aisha Patel,Enterprise,Healthcare,2024,Q4,Oct
+T0352,2024-10-11,C009,BlueRock Mining,West,Software,Cloud Storage 1TB,10,380,7.94,301.7,349.83,3498.3,45,450,87.14,Won,Tom Walsh,Mid-Market,Mining,2024,Q4,Oct
+T0353,2024-10-12,C011,Pinnacle Consulting,North,Software,Analytics Suite,5,4500,19.03,4281.75,3643.65,18218.25,500,2500,86.28,Pending,Emily Foster,Mid-Market,Professional Svcs,2024,Q4,Oct
+T0354,2024-10-15,C008,Orion Pharma,East,Hardware,Server Rack,1,6200,9.42,584.04,5615.96,5615.96,4100,4100,26.99,Won,Aisha Patel,Enterprise,Healthcare,2024,Q4,Oct
+T0355,2024-10-16,C017,Granite Automotive,West,Software,BI Dashboard,1,5500,18.68,1027.4,4472.6,4472.6,500,500,88.82,Won,David Evans,Enterprise,Automotive,2024,Q4,Oct
+T0356,2024-10-16,C018,Ember Analytics,North,Hardware,"Monitor 27""",1,350,15.98,55.93,294.07,294.07,210,210,28.59,Won,Emily Foster,SMB,Technology,2024,Q4,Oct
+T0357,2024-10-18,C020,Polar Biotech,East,Software,ERP Module,1,12000,8.44,1012.8,10987.2,10987.2,1200,1200,89.08,Won,Aisha Patel,Enterprise,Healthcare,2024,Q4,Oct
+T0358,2024-10-19,C017,Granite Automotive,West,Hardware,Network Switch,5,950,23.22,1102.95,729.41,3647.05,540,2700,25.97,Pending,David Evans,Enterprise,Automotive,2024,Q4,Oct
+T0359,2024-10-20,C007,Vertex Logistics,South,Furniture,Desk Pro,10,420,11.57,485.9,371.41,3714.1,180,1800,51.54,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q4,Oct
+T0360,2024-10-22,C004,Solaris Energy,West,Software,Cloud Storage 1TB,2,380,11.08,84.2,337.9,675.8,45,90,86.68,Lost,Tom Walsh,Mid-Market,Energy,2024,Q4,Oct
+T0361,2024-10-22,C010,Stratos Media,North,Hardware,Server Rack,10,6200,23.57,14613.4,4738.66,47386.6,4100,41000,13.48,Won,Emily Foster,SMB,Media,2024,Q4,Oct
+T0362,2024-10-23,C016,Tidal Software,South,Software,Cloud Storage 1TB,2,380,7.73,58.74,350.63,701.26,45,90,87.17,Lost,James Okafor,Mid-Market,Technology,2024,Q4,Oct
+T0363,2024-10-23,C005,Cascade Retail,South,Furniture,Desk Pro,1,420,10.55,44.31,375.69,375.69,180,180,52.09,Pending,James Okafor,Mid-Market,Retail,2024,Q4,Oct
+T0364,2024-10-23,C007,Vertex Logistics,South,Software,BI Dashboard,2,5500,13.16,1447.6,4776.2,9552.4,500,1000,89.53,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q4,Oct
+T0365,2024-10-25,C014,Quantum Devices,North,Furniture,Desk Pro,3,420,3.05,38.43,407.19,1221.57,180,540,55.79,Won,Sarah Chen,Enterprise,Technology,2024,Q4,Oct
+T0366,2024-10-27,C012,Delta Aerospace,West,Hardware,Server Rack,1,6200,18.15,1125.3,5074.7,5074.7,4100,4100,19.21,Won,David Evans,Enterprise,Aerospace,2024,Q4,Oct
+T0367,2024-11-01,C015,Redwood Construction,South,Software,Analytics Suite,1,4500,2.05,92.25,4407.75,4407.75,500,500,88.66,Won,Marco Ruiz,SMB,Construction,2024,Q4,Nov
+T0368,2024-11-01,C019,Coastline Hotels,West,Hardware,Headset Pro,1,220,2.21,4.86,215.14,215.14,120,120,44.22,Pending,Tom Walsh,Mid-Market,Hospitality,2024,Q4,Nov
+T0369,2024-11-02,C013,Harbor Insurance,East,Hardware,Server Rack,5,6200,10.31,3196.1,5560.78,27803.9,4100,20500,26.27,Won,Aisha Patel,Enterprise,Financial Services,2024,Q4,Nov
+T0370,2024-11-05,C017,Granite Automotive,West,Software,Security Suite,1,3200,17.27,552.64,2647.36,2647.36,280,280,89.42,Won,David Evans,Enterprise,Automotive,2024,Q4,Nov
+T0371,2024-11-06,C008,Orion Pharma,East,Software,Security Suite,3,3200,8.5,816.0,2928.0,8784.0,280,840,90.44,Won,Aisha Patel,Enterprise,Healthcare,2024,Q4,Nov
+T0372,2024-11-07,C014,Quantum Devices,North,Software,Security Suite,1,3200,4.62,147.84,3052.16,3052.16,280,280,90.83,Won,Sarah Chen,Enterprise,Technology,2024,Q4,Nov
+T0373,2024-11-10,C006,Nimbus Financial,East,Furniture,Desk Pro,1,420,8.94,37.55,382.45,382.45,180,180,52.94,Won,Priya Sharma,Enterprise,Financial Services,2024,Q4,Nov
+T0374,2024-11-14,C010,Stratos Media,North,Software,Security Suite,1,3200,21.52,688.64,2511.36,2511.36,280,280,88.85,Won,Emily Foster,SMB,Media,2024,Q4,Nov
+T0375,2024-11-18,C007,Vertex Logistics,South,Hardware,Headset Pro,2,220,5.96,26.22,206.89,413.78,120,240,42.0,Won,Marco Ruiz,Mid-Market,Logistics,2024,Q4,Nov
+T0376,2024-11-19,C019,Coastline Hotels,West,Software,Security Suite,1,3200,2.58,82.56,3117.44,3117.44,280,280,91.02,Pending,Tom Walsh,Mid-Market,Hospitality,2024,Q4,Nov
+T0377,2024-11-21,C009,BlueRock Mining,West,Hardware,Headset Pro,1,220,11.61,25.54,194.46,194.46,120,120,38.29,Won,Tom Walsh,Mid-Market,Mining,2024,Q4,Nov
+T0378,2024-11-25,C006,Nimbus Financial,East,Software,Analytics Suite,1,4500,10.59,476.55,4023.45,4023.45,500,500,87.57,Lost,Priya Sharma,Enterprise,Financial Services,2024,Q4,Nov
+T0379,2024-11-26,C009,BlueRock Mining,West,Furniture,Desk Pro,1,420,13.08,54.94,365.06,365.06,180,180,50.69,Won,Tom Walsh,Mid-Market,Mining,2024,Q4,Nov
+T0380,2024-11-27,C003,Meridian Health,North,Hardware,Network Switch,10,950,8.29,787.5,871.25,8712.5,540,5400,38.02,Pending,Sarah Chen,Enterprise,Healthcare,2024,Q4,Nov
+T0381,2024-11-28,C011,Pinnacle Consulting,North,Hardware,"Monitor 27""",10,350,27.46,961.1,253.89,2538.9,210,2100,17.29,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q4,Nov
+T0382,2024-12-02,C011,Pinnacle Consulting,North,Software,Mobile Device Mgmt,1,2800,10.47,293.16,2506.84,2506.84,250,250,90.03,Lost,Emily Foster,Mid-Market,Professional Svcs,2024,Q4,Dec
+T0383,2024-12-02,C011,Pinnacle Consulting,North,Furniture,Office Chair,5,180,19.77,177.95,144.41,722.05,80,400,44.6,Won,Emily Foster,Mid-Market,Professional Svcs,2024,Q4,Dec
+T0384,2024-12-03,C012,Delta Aerospace,West,Furniture,Office Chair,10,180,17.17,309.1,149.09,1490.9,80,800,46.34,Won,David Evans,Enterprise,Aerospace,2024,Q4,Dec
+T0385,2024-12-03,C004,Solaris Energy,West,Hardware,Server Rack,2,6200,11.77,1459.48,5470.26,10940.52,4100,8200,25.05,Won,Tom Walsh,Mid-Market,Energy,2024,Q4,Dec
+T0386,2024-12-05,C011,Pinnacle Consulting,North,Furniture,Desk Pro,1,420,20.83,87.49,332.51,332.51,180,180,45.87,Lost,Emily Foster,Mid-Market,Professional Svcs,2024,Q4,Dec
+T0387,2024-12-06,C003,Meridian Health,North,Hardware,"Monitor 27""",1,350,9.64,33.74,316.26,316.26,210,210,33.6,Won,Sarah Chen,Enterprise,Healthcare,2024,Q4,Dec
+T0388,2024-12-07,C009,BlueRock Mining,West,Software,Cloud Storage 1TB,5,380,16.97,322.45,315.51,1577.55,45,225,85.74,Lost,Tom Walsh,Mid-Market,Mining,2024,Q4,Dec
+T0389,2024-12-07,C004,Solaris Energy,West,Software,Mobile Device Mgmt,10,2800,0.93,260.4,2773.96,27739.6,250,2500,90.99,Won,Tom Walsh,Mid-Market,Energy,2024,Q4,Dec
+T0390,2024-12-08,C001,Apex Industries,North,Hardware,Laptop Pro,1,1200,11.67,140.04,1059.96,1059.96,800,800,24.53,Pending,Sarah Chen,Enterprise,Manufacturing,2024,Q4,Dec
+T0391,2024-12-10,C013,Harbor Insurance,East,Hardware,"Monitor 27""",1,350,1.04,3.64,346.36,346.36,210,210,39.37,Won,Aisha Patel,Enterprise,Financial Services,2024,Q4,Dec
+T0392,2024-12-13,C001,Apex Industries,North,Services,Training Package,1,1800,8.5,153.0,1647.0,1647.0,400,400,75.71,Lost,Sarah Chen,Enterprise,Manufacturing,2024,Q4,Dec
+T0393,2024-12-13,C011,Pinnacle Consulting,North,Software,BI Dashboard,1,5500,26.38,1450.9,4049.1,4049.1,500,500,87.65,Lost,Emily Foster,Mid-Market,Professional Svcs,2024,Q4,Dec
+T0394,2024-12-14,C020,Polar Biotech,East,Software,Mobile Device Mgmt,1,2800,0.0,0.0,2800.0,2800.0,250,250,91.07,Won,Aisha Patel,Enterprise,Healthcare,2024,Q4,Dec
+T0395,2024-12-16,C005,Cascade Retail,South,Services,Training Package,2,1800,3.21,115.56,1742.22,3484.44,400,800,77.04,Won,James Okafor,Mid-Market,Retail,2024,Q4,Dec
+T0396,2024-12-18,C003,Meridian Health,North,Software,Cloud Storage 1TB,2,380,14.06,106.86,326.57,653.14,45,90,86.22,Lost,Sarah Chen,Enterprise,Healthcare,2024,Q4,Dec
+T0397,2024-12-18,C017,Granite Automotive,West,Furniture,Desk Pro,5,420,30.47,639.85,292.03,1460.15,180,900,38.36,Won,David Evans,Enterprise,Automotive,2024,Q4,Dec
+T0398,2024-12-24,C011,Pinnacle Consulting,North,Software,ERP Module,1,12000,25.88,3105.6,8894.4,8894.4,1200,1200,86.51,Lost,Emily Foster,Mid-Market,Professional Svcs,2024,Q4,Dec
+T0399,2024-12-26,C014,Quantum Devices,North,Software,Security Suite,1,3200,4.06,129.92,3070.08,3070.08,280,280,90.88,Won,Sarah Chen,Enterprise,Technology,2024,Q4,Dec
+T0400,2024-12-27,C015,Redwood Construction,South,Hardware,Laptop Pro,3,1200,10.06,362.16,1079.28,3237.84,800,2400,25.88,Won,Marco Ruiz,SMB,Construction,2024,Q4,Dec`;
 
-const SAMPLE_CUSTOMER_CSV = `customer_id,customer_name,industry,tier,account_manager,country,annual_contract_value,onboarded_date
-C042,Acme Corp,Manufacturing,Enterprise,Sarah Chen,USA,45000,2021-03-15
-C055,Delta Co,Retail,Mid-Market,Tom Walsh,USA,18000,2022-01-10
-C108,Beta Ltd,Financial Services,Enterprise,James Okafor,UK,32000,2020-11-20
-C217,Gamma Inc,Technology,Enterprise,Priya Sharma,USA,55000,2019-06-05
-C301,Epsilon LLC,Healthcare,Mid-Market,Sarah Chen,USA,22000,2022-08-14
-C412,Zeta Corp,Technology,Enterprise,Priya Sharma,Singapore,67000,2018-04-22
-C520,Eta Partners,Consulting,Mid-Market,James Okafor,UK,15000,2023-02-01
-C630,Theta Inc,Manufacturing,Enterprise,Sarah Chen,USA,38000,2021-09-30
-C750,Iota Systems,Retail,SMB,Tom Walsh,USA,8000,2023-05-12
-C810,Kappa Group,Financial Services,Mid-Market,James Okafor,Australia,19500,2022-11-08
-`;
+const SAMPLE_CUSTOMER_CSV = `customer_id,customer_name,industry,tier,account_manager,country,annual_contract_value,onboarded_date,days_as_customer,segment
+C001,Apex Industries,Manufacturing,Enterprise,Sarah Chen,USA,78000,2020-03-10,2246,Strategic
+C002,Horizon Tech,Technology,Enterprise,Priya Sharma,USA,92000,2019-07-22,2478,Strategic
+C003,Meridian Health,Healthcare,Enterprise,Sarah Chen,USA,55000,2021-01-15,1935,Growth
+C004,Solaris Energy,Energy,Mid-Market,Tom Walsh,USA,28000,2022-04-08,1487,Emerging
+C005,Cascade Retail,Retail,Mid-Market,James Okafor,USA,22000,2022-08-30,1343,Emerging
+C006,Nimbus Financial,Financial Services,Enterprise,Priya Sharma,UK,65000,2020-11-05,2006,Growth
+C007,Vertex Logistics,Logistics,Mid-Market,Marco Ruiz,USA,19000,2023-01-20,1200,Emerging
+C008,Orion Pharma,Healthcare,Enterprise,Aisha Patel,USA,88000,2019-05-14,2547,Strategic
+C009,BlueRock Mining,Mining,Mid-Market,Tom Walsh,USA,24000,2022-02-11,1543,Emerging
+C010,Stratos Media,Media,SMB,Emily Foster,USA,9500,2023-05-01,1099,Emerging
+C011,Pinnacle Consulting,Professional Svcs,Mid-Market,Emily Foster,USA,31000,2021-09-18,1689,Growth
+C012,Delta Aerospace,Aerospace,Enterprise,David Evans,USA,71000,2020-08-25,2078,Strategic
+C013,Harbor Insurance,Financial Services,Enterprise,Aisha Patel,UK,58000,2020-12-03,1978,Growth
+C014,Quantum Devices,Technology,Enterprise,Sarah Chen,USA,83000,2019-03-30,2592,Strategic
+C015,Redwood Construction,Construction,SMB,Marco Ruiz,USA,11000,2023-03-12,1149,Emerging
+C016,Tidal Software,Technology,Mid-Market,James Okafor,USA,37000,2021-06-07,1792,Growth
+C017,Granite Automotive,Automotive,Enterprise,David Evans,USA,95000,2018-11-19,2723,Strategic
+C018,Ember Analytics,Technology,SMB,Emily Foster,USA,14000,2022-11-28,1253,Emerging
+C019,Coastline Hotels,Hospitality,Mid-Market,Tom Walsh,USA,26000,2022-07-14,1390,Emerging
+C020,Polar Biotech,Healthcare,Enterprise,Aisha Patel,USA,61000,2020-04-22,2203,Growth`;
+
+const SAMPLE_PRODUCT_CSV = `product,category,list_price,unit_cost,target_margin_pct,floor_discount_pct,max_discount_pct
+Analytics Suite,Software,4500,500,89.0,10.0,20.0
+Laptop Pro,Hardware,1200,800,33.0,5.0,12.0
+"Monitor 27""",Hardware,350,210,40.0,5.0,12.0
+Office Chair,Furniture,180,80,56.0,5.0,12.0
+CRM Platform,Software,8500,600,93.0,10.0,20.0
+ERP Module,Software,12000,1200,90.0,10.0,20.0
+Network Switch,Hardware,950,540,43.0,5.0,12.0
+Server Rack,Hardware,6200,4100,34.0,5.0,12.0
+Cloud Storage 1TB,Software,380,45,88.0,10.0,20.0
+Security Suite,Software,3200,280,91.0,10.0,20.0
+Desk Pro,Furniture,420,180,57.0,5.0,12.0
+Headset Pro,Hardware,220,120,45.0,5.0,12.0
+BI Dashboard,Software,5500,500,91.0,10.0,20.0
+Mobile Device Mgmt,Software,2800,250,91.0,10.0,20.0
+Training Package,Services,1800,400,78.0,8.0,15.0`;
+
+const SAMPLE_REP_CSV = `sales_rep,region,annual_target,actual_revenue,attainment_pct,deal_count,avg_discount_pct,leakage_flag
+Sarah Chen,North,420000,310156.49,73.8,40,8.37,No
+James Okafor,South,380000,128893.72,33.9,18,8.16,No
+Priya Sharma,East,400000,468161.78,117.0,26,7.59,No
+Tom Walsh,West,350000,345061.43,98.6,38,8.76,No
+Marco Ruiz,South,310000,151315.31,48.8,28,7.52,No
+Emily Foster,North,290000,338648.51,116.8,44,25.42,Yes
+David Evans,West,360000,172170.13,47.8,32,19.95,Yes
+Aisha Patel,East,395000,567202.87,143.6,47,7.37,No`;
+
+const SAMPLE_PA_DEMO_CSV = `transaction_id,date,year,quarter,month,customer,customer_id,customer_tier,industry,region,product,category,units,list_price,discount_pct,discount_amt,pocket_price,revenue,unit_cost,total_cost,margin_pct,sales_rep
+T0001,2023-01-03,2023,Q1,Jan,Meridian Health,C003,Enterprise,Healthcare,North,CRM Platform,Software,5,8500,4.23,1797.75,8140.45,40702.25,600,3000,92.63,Sarah Chen
+T0004,2023-01-17,2023,Q1,Jan,Polar Biotech,C020,Enterprise,Healthcare,East,Training Package,Services,10,1800,8.27,1488.6,1651.14,16511.4,400,4000,75.77,Aisha Patel
+T0006,2023-02-01,2023,Q1,Feb,Horizon Tech,C002,Enterprise,Technology,East,ERP Module,Software,2,12000,3.91,938.4,11530.8,23061.6,1200,2400,89.59,Priya Sharma
+T0007,2023-02-02,2023,Q1,Feb,Ember Analytics,C018,SMB,Technology,North,Office Chair,Furniture,3,180,28.67,154.83,128.39,385.17,80,240,37.69,Emily Foster
+T0008,2023-02-07,2023,Q1,Feb,Harbor Insurance,C013,Enterprise,Financial Services,East,Network Switch,Hardware,1,950,4.77,45.31,904.69,904.69,540,540,40.31,Aisha Patel
+T0011,2023-02-09,2023,Q1,Feb,Quantum Devices,C014,Enterprise,Technology,North,BI Dashboard,Software,2,5500,7.26,798.6,5100.7,10201.4,500,1000,90.2,Sarah Chen
+T0014,2023-02-15,2023,Q1,Feb,Delta Aerospace,C012,Enterprise,Aerospace,West,Office Chair,Furniture,1,180,10.69,19.24,160.76,160.76,80,80,50.24,David Evans
+T0015,2023-02-16,2023,Q1,Feb,Orion Pharma,C008,Enterprise,Healthcare,East,ERP Module,Software,1,12000,5.98,717.6,11282.4,11282.4,1200,1200,89.36,Aisha Patel
+T0017,2023-02-18,2023,Q1,Feb,Horizon Tech,C002,Enterprise,Technology,East,BI Dashboard,Software,2,5500,6.84,752.4,5123.8,10247.6,500,1000,90.24,Priya Sharma
+T0020,2023-02-23,2023,Q1,Feb,Horizon Tech,C002,Enterprise,Technology,East,Desk Pro,Furniture,2,420,12.2,102.48,368.76,737.52,180,360,51.19,Priya Sharma
+T0021,2023-02-26,2023,Q1,Feb,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,1,1800,8.23,148.14,1651.86,1651.86,400,400,75.78,James Okafor
+T0023,2023-03-03,2023,Q1,Mar,Coastline Hotels,C019,Mid-Market,Hospitality,West,Laptop Pro,Hardware,1,1200,2.49,29.88,1170.12,1170.12,800,800,31.63,Tom Walsh
+T0025,2023-03-08,2023,Q1,Mar,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,10,8500,5.98,5083.0,7991.7,79917.0,600,6000,92.49,Priya Sharma
+T0026,2023-03-11,2023,Q1,Mar,Ember Analytics,C018,SMB,Technology,North,Office Chair,Furniture,2,180,22.5,81.0,139.5,279.0,80,160,42.65,Emily Foster
+T0027,2023-03-11,2023,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Headset Pro,Hardware,1,220,7.15,15.73,204.27,204.27,120,120,41.25,Tom Walsh
+T0029,2023-03-12,2023,Q1,Mar,Apex Industries,C001,Enterprise,Manufacturing,North,Analytics Suite,Software,3,4500,8.08,1090.8,4136.4,12409.2,500,1500,87.91,Sarah Chen
+T0030,2023-03-13,2023,Q1,Mar,Quantum Devices,C014,Enterprise,Technology,North,Analytics Suite,Software,2,4500,11.46,1031.4,3984.3,7968.6,500,1000,87.45,Sarah Chen
+T0032,2023-03-16,2023,Q1,Mar,Tidal Software,C016,Mid-Market,Technology,South,Office Chair,Furniture,5,180,8.07,72.65,165.47,827.35,80,400,51.65,James Okafor
+T0033,2023-03-17,2023,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Security Suite,Software,1,3200,9.22,295.04,2904.96,2904.96,280,280,90.36,Tom Walsh
+T0034,2023-03-19,2023,Q1,Mar,Nimbus Financial,C006,Enterprise,Financial Services,East,CRM Platform,Software,10,8500,10.6,9010.0,7599.0,75990.0,600,6000,92.1,Priya Sharma
+T0035,2023-03-22,2023,Q1,Mar,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,2,1800,27.19,978.84,1310.58,2621.16,400,800,69.48,David Evans
+T0038,2023-03-24,2023,Q1,Mar,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,5,1800,7.19,647.1,1670.58,8352.9,400,2000,76.06,David Evans
+T0039,2023-03-25,2023,Q1,Mar,Meridian Health,C003,Enterprise,Healthcare,North,Training Package,Services,1,1800,11.75,211.5,1588.5,1588.5,400,400,74.82,Sarah Chen
+T0041,2023-03-29,2023,Q1,Mar,Quantum Devices,C014,Enterprise,Technology,North,Analytics Suite,Software,3,4500,8.25,1113.75,4128.75,12386.25,500,1500,87.89,Sarah Chen
+T0042,2023-04-06,2023,Q2,Apr,Meridian Health,C003,Enterprise,Healthcare,North,Security Suite,Software,5,3200,10.19,1630.4,2873.92,14369.6,280,1400,90.26,Sarah Chen
+T0045,2023-04-07,2023,Q2,Apr,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,10,350,22.35,782.3,271.77,2717.7,210,2100,22.73,Emily Foster
+T0046,2023-04-12,2023,Q2,Apr,Stratos Media,C010,SMB,Media,North,Mobile Device Mgmt,Software,5,2800,31.17,4363.8,1927.24,9636.2,250,1250,87.03,Emily Foster
+T0047,2023-04-12,2023,Q2,Apr,Meridian Health,C003,Enterprise,Healthcare,North,ERP Module,Software,2,12000,10.05,2412.0,10794.0,21588.0,1200,2400,88.88,Sarah Chen
+T0048,2023-04-13,2023,Q2,Apr,Redwood Construction,C015,SMB,Construction,South,ERP Module,Software,1,12000,13.56,1627.2,10372.8,10372.8,1200,1200,88.43,Marco Ruiz
+T0049,2023-04-13,2023,Q2,Apr,Stratos Media,C010,SMB,Media,North,Office Chair,Furniture,1,180,19.08,34.34,145.66,145.66,80,80,45.08,Emily Foster
+T0050,2023-04-15,2023,Q2,Apr,Harbor Insurance,C013,Enterprise,Financial Services,East,Headset Pro,Hardware,2,220,13.44,59.14,190.43,380.86,120,240,36.98,Aisha Patel
+T0052,2023-04-19,2023,Q2,Apr,Redwood Construction,C015,SMB,Construction,South,Mobile Device Mgmt,Software,3,2800,8.46,710.64,2563.12,7689.36,250,750,90.25,Marco Ruiz
+T0053,2023-04-20,2023,Q2,Apr,Horizon Tech,C002,Enterprise,Technology,East,Analytics Suite,Software,2,4500,14.13,1271.7,3864.15,7728.3,500,1000,87.06,Priya Sharma
+T0054,2023-04-25,2023,Q2,Apr,Apex Industries,C001,Enterprise,Manufacturing,North,Security Suite,Software,3,3200,13.56,1301.76,2766.08,8298.24,280,840,89.88,Sarah Chen
+T0058,2023-05-05,2023,Q2,May,Nimbus Financial,C006,Enterprise,Financial Services,East,BI Dashboard,Software,3,5500,3.07,506.55,5331.15,15993.45,500,1500,90.62,Priya Sharma
+T0059,2023-05-09,2023,Q2,May,Meridian Health,C003,Enterprise,Healthcare,North,Headset Pro,Hardware,10,220,12.45,273.9,192.61,1926.1,120,1200,37.7,Sarah Chen
+T0061,2023-05-11,2023,Q2,May,Cascade Retail,C005,Mid-Market,Retail,South,Cloud Storage 1TB,Software,1,380,10.68,40.58,339.42,339.42,45,45,86.74,James Okafor
+T0062,2023-05-11,2023,Q2,May,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,3,350,38.17,400.77,216.41,649.23,210,630,2.96,Emily Foster
+T0063,2023-05-13,2023,Q2,May,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,3,1800,5.84,315.36,1694.88,5084.64,400,1200,76.4,James Okafor
+T0065,2023-05-16,2023,Q2,May,Meridian Health,C003,Enterprise,Healthcare,North,Cloud Storage 1TB,Software,2,380,8.33,63.3,348.35,696.7,45,90,87.08,Sarah Chen
+T0066,2023-05-16,2023,Q2,May,Coastline Hotels,C019,Mid-Market,Hospitality,West,Server Rack,Hardware,1,6200,11.5,713.0,5487.0,5487.0,4100,4100,25.28,Tom Walsh
+T0067,2023-05-17,2023,Q2,May,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,1,6200,7.37,456.94,5743.06,5743.06,4100,4100,28.61,David Evans
+T0068,2023-05-18,2023,Q2,May,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,CRM Platform,Software,10,8500,21.4,18190.0,6681.0,66810.0,600,6000,91.02,Emily Foster
+T0071,2023-05-22,2023,Q2,May,Quantum Devices,C014,Enterprise,Technology,North,Training Package,Services,5,1800,13.09,1178.1,1564.38,7821.9,400,2000,74.43,Sarah Chen
+T0073,2023-05-28,2023,Q2,May,Horizon Tech,C002,Enterprise,Technology,East,"Monitor 27""",Hardware,10,350,4.14,144.9,335.51,3355.1,210,2100,37.41,Priya Sharma
+T0074,2023-05-30,2023,Q2,May,Vertex Logistics,C007,Mid-Market,Logistics,South,ERP Module,Software,3,12000,3.59,1292.4,11569.2,34707.6,1200,3600,89.63,Marco Ruiz
+T0075,2023-06-02,2023,Q2,Jun,Stratos Media,C010,SMB,Media,North,Headset Pro,Hardware,2,220,26.82,118.0,161.0,322.0,120,240,25.47,Emily Foster
+T0076,2023-06-06,2023,Q2,Jun,Harbor Insurance,C013,Enterprise,Financial Services,East,Network Switch,Hardware,1,950,6.67,63.36,886.63,886.63,540,540,39.1,Aisha Patel
+T0077,2023-06-12,2023,Q2,Jun,Tidal Software,C016,Mid-Market,Technology,South,Laptop Pro,Hardware,1,1200,13.4,160.8,1039.2,1039.2,800,800,23.02,James Okafor
+T0078,2023-06-13,2023,Q2,Jun,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,1,6200,8.1,502.2,5697.8,5697.8,4100,4100,28.04,David Evans
+T0079,2023-06-14,2023,Q2,Jun,Meridian Health,C003,Enterprise,Healthcare,North,Server Rack,Hardware,3,6200,5.05,939.3,5886.9,17660.7,4100,12300,30.35,Sarah Chen
+T0080,2023-06-15,2023,Q2,Jun,Solaris Energy,C004,Mid-Market,Energy,West,Cloud Storage 1TB,Software,1,380,5.91,22.46,357.54,357.54,45,45,87.41,Tom Walsh
+T0083,2023-06-22,2023,Q2,Jun,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,CRM Platform,Software,10,8500,19.91,16923.5,6807.65,68076.5,600,6000,91.19,Emily Foster
+T0084,2023-06-24,2023,Q2,Jun,Coastline Hotels,C019,Mid-Market,Hospitality,West,Office Chair,Furniture,1,180,13.81,24.86,155.14,155.14,80,80,48.43,Tom Walsh
+T0085,2023-06-26,2023,Q2,Jun,Polar Biotech,C020,Enterprise,Healthcare,East,CRM Platform,Software,10,8500,8.67,7369.5,7763.05,77630.5,600,6000,92.27,Aisha Patel
+T0086,2023-07-01,2023,Q3,Jul,Polar Biotech,C020,Enterprise,Healthcare,East,Headset Pro,Hardware,1,220,10.63,23.39,196.61,196.61,120,120,38.97,Aisha Patel
+T0087,2023-07-08,2023,Q3,Jul,Tidal Software,C016,Mid-Market,Technology,South,Laptop Pro,Hardware,1,1200,3.98,47.76,1152.24,1152.24,800,800,30.57,James Okafor
+T0088,2023-07-15,2023,Q3,Jul,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Desk Pro,Furniture,1,420,33.98,142.72,277.28,277.28,180,180,35.08,Emily Foster
+T0089,2023-07-16,2023,Q3,Jul,Stratos Media,C010,SMB,Media,North,Desk Pro,Furniture,5,420,31.6,663.6,287.28,1436.4,180,900,37.34,Emily Foster
+T0090,2023-07-18,2023,Q3,Jul,Orion Pharma,C008,Enterprise,Healthcare,East,Cloud Storage 1TB,Software,2,380,5.34,40.58,359.71,719.42,45,90,87.49,Aisha Patel
+T0091,2023-07-20,2023,Q3,Jul,Apex Industries,C001,Enterprise,Manufacturing,North,CRM Platform,Software,5,8500,10.65,4526.25,7594.75,37973.75,600,3000,92.1,Sarah Chen
+T0092,2023-07-22,2023,Q3,Jul,Cascade Retail,C005,Mid-Market,Retail,South,Office Chair,Furniture,1,180,5.93,10.67,169.33,169.33,80,80,52.75,James Okafor
+T0093,2023-07-24,2023,Q3,Jul,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,2,8500,6.66,1132.2,7933.9,15867.8,600,1200,92.44,Priya Sharma
+T0094,2023-07-28,2023,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,Office Chair,Furniture,1,180,4.12,7.42,172.58,172.58,80,80,53.64,Tom Walsh
+T0095,2023-07-28,2023,Q3,Jul,Ember Analytics,C018,SMB,Technology,North,Network Switch,Hardware,5,950,18.48,877.8,774.44,3872.2,540,2700,30.27,Emily Foster
+T0096,2023-07-30,2023,Q3,Jul,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,1,350,29.48,103.18,246.82,246.82,210,210,14.92,Emily Foster
+T0097,2023-07-31,2023,Q3,Jul,Vertex Logistics,C007,Mid-Market,Logistics,South,Laptop Pro,Hardware,5,1200,3.82,229.2,1154.16,5770.8,800,4000,30.69,Marco Ruiz
+T0098,2023-08-04,2023,Q3,Aug,Harbor Insurance,C013,Enterprise,Financial Services,East,Cloud Storage 1TB,Software,1,380,0.25,0.95,379.05,379.05,45,45,88.13,Aisha Patel
+T0099,2023-08-07,2023,Q3,Aug,Orion Pharma,C008,Enterprise,Healthcare,East,"Monitor 27""",Hardware,5,350,12.76,223.3,305.34,1526.7,210,1050,31.22,Aisha Patel
+T0100,2023-08-08,2023,Q3,Aug,Horizon Tech,C002,Enterprise,Technology,East,Mobile Device Mgmt,Software,3,2800,10.66,895.44,2501.52,7504.56,250,750,90.01,Priya Sharma
+T0101,2023-08-08,2023,Q3,Aug,Granite Automotive,C017,Enterprise,Automotive,West,Laptop Pro,Hardware,5,1200,21.93,1315.8,936.84,4684.2,800,4000,14.61,David Evans
+T0104,2023-08-19,2023,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,ERP Module,Software,1,12000,10.78,1293.6,10706.4,10706.4,1200,1200,88.79,Aisha Patel
+T0105,2023-08-20,2023,Q3,Aug,Stratos Media,C010,SMB,Media,North,Headset Pro,Hardware,3,220,24.63,162.57,165.81,497.43,120,360,27.63,Emily Foster
+T0106,2023-08-23,2023,Q3,Aug,Horizon Tech,C002,Enterprise,Technology,East,Training Package,Services,5,1800,7.47,672.3,1665.54,8327.7,400,2000,75.98,Priya Sharma
+T0107,2023-08-25,2023,Q3,Aug,Quantum Devices,C014,Enterprise,Technology,North,Headset Pro,Hardware,3,220,5.37,35.43,208.19,624.57,120,360,42.36,Sarah Chen
+T0109,2023-08-28,2023,Q3,Aug,Harbor Insurance,C013,Enterprise,Financial Services,East,Mobile Device Mgmt,Software,3,2800,9.68,813.12,2528.96,7586.88,250,750,90.11,Aisha Patel
+T0111,2023-09-01,2023,Q3,Sep,Polar Biotech,C020,Enterprise,Healthcare,East,BI Dashboard,Software,1,5500,7.78,427.9,5072.1,5072.1,500,500,90.14,Aisha Patel
+T0113,2023-09-02,2023,Q3,Sep,Orion Pharma,C008,Enterprise,Healthcare,East,Office Chair,Furniture,1,180,2.35,4.23,175.77,175.77,80,80,54.49,Aisha Patel
+T0115,2023-09-02,2023,Q3,Sep,Granite Automotive,C017,Enterprise,Automotive,West,Network Switch,Hardware,1,950,16.91,160.65,789.36,789.36,540,540,31.59,David Evans
+T0117,2023-09-06,2023,Q3,Sep,Ember Analytics,C018,SMB,Technology,North,Headset Pro,Hardware,2,220,28.3,124.52,157.74,315.48,120,240,23.93,Emily Foster
+T0119,2023-09-10,2023,Q3,Sep,BlueRock Mining,C009,Mid-Market,Mining,West,Security Suite,Software,10,3200,6.08,1945.6,3005.44,30054.4,280,2800,90.68,Tom Walsh
+T0120,2023-09-11,2023,Q3,Sep,Delta Aerospace,C012,Enterprise,Aerospace,West,Cloud Storage 1TB,Software,1,380,18.7,71.06,308.94,308.94,45,45,85.43,David Evans
+T0122,2023-09-15,2023,Q3,Sep,Quantum Devices,C014,Enterprise,Technology,North,Security Suite,Software,1,3200,3.97,127.04,3072.96,3072.96,280,280,90.89,Sarah Chen
+T0123,2023-09-17,2023,Q3,Sep,Horizon Tech,C002,Enterprise,Technology,East,ERP Module,Software,2,12000,0.0,0.0,12000.0,24000.0,1200,2400,90.0,Priya Sharma
+T0125,2023-09-20,2023,Q3,Sep,Cascade Retail,C005,Mid-Market,Retail,South,BI Dashboard,Software,10,5500,7.61,4185.5,5081.45,50814.5,500,5000,90.16,James Okafor
+T0126,2023-09-24,2023,Q3,Sep,Cascade Retail,C005,Mid-Market,Retail,South,Mobile Device Mgmt,Software,10,2800,4.78,1338.4,2666.16,26661.6,250,2500,90.62,James Okafor
+T0128,2023-09-29,2023,Q3,Sep,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Analytics Suite,Software,1,4500,25.9,1165.5,3334.5,3334.5,500,500,85.01,Emily Foster
+T0129,2023-09-29,2023,Q3,Sep,Orion Pharma,C008,Enterprise,Healthcare,East,Security Suite,Software,3,3200,13.11,1258.56,2780.48,8341.44,280,840,89.93,Aisha Patel
+T0130,2023-09-30,2023,Q3,Sep,Coastline Hotels,C019,Mid-Market,Hospitality,West,Desk Pro,Furniture,2,420,3.53,29.66,405.17,810.34,180,360,55.57,Tom Walsh
+T0131,2023-10-01,2023,Q4,Oct,Nimbus Financial,C006,Enterprise,Financial Services,East,ERP Module,Software,3,12000,5.09,1832.4,11389.2,34167.6,1200,3600,89.46,Priya Sharma
+T0133,2023-10-04,2023,Q4,Oct,Meridian Health,C003,Enterprise,Healthcare,North,Security Suite,Software,1,3200,5.07,162.24,3037.76,3037.76,280,280,90.78,Sarah Chen
+T0136,2023-10-06,2023,Q4,Oct,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,2,6200,24.78,3072.72,4663.64,9327.28,4100,8200,12.09,David Evans
+T0138,2023-10-09,2023,Q4,Oct,Stratos Media,C010,SMB,Media,North,Training Package,Services,1,1800,30.46,548.28,1251.72,1251.72,400,400,68.04,Emily Foster
+T0141,2023-10-13,2023,Q4,Oct,Delta Aerospace,C012,Enterprise,Aerospace,West,CRM Platform,Software,2,8500,32.13,5462.1,5768.95,11537.9,600,1200,89.6,David Evans
+T0142,2023-10-16,2023,Q4,Oct,Cascade Retail,C005,Mid-Market,Retail,South,CRM Platform,Software,1,8500,13.07,1110.95,7389.05,7389.05,600,600,91.88,James Okafor
+T0143,2023-10-17,2023,Q4,Oct,Orion Pharma,C008,Enterprise,Healthcare,East,Headset Pro,Hardware,2,220,5.64,24.82,207.59,415.18,120,240,42.19,Aisha Patel
+T0144,2023-10-18,2023,Q4,Oct,Quantum Devices,C014,Enterprise,Technology,North,CRM Platform,Software,2,8500,8.06,1370.2,7814.9,15629.8,600,1200,92.32,Sarah Chen
+T0145,2023-10-18,2023,Q4,Oct,Polar Biotech,C020,Enterprise,Healthcare,East,Analytics Suite,Software,3,4500,9.63,1300.05,4066.65,12199.95,500,1500,87.7,Aisha Patel
+T0147,2023-10-21,2023,Q4,Oct,Apex Industries,C001,Enterprise,Manufacturing,North,Cloud Storage 1TB,Software,5,380,12.9,245.1,330.98,1654.9,45,225,86.4,Sarah Chen
+T0148,2023-10-22,2023,Q4,Oct,BlueRock Mining,C009,Mid-Market,Mining,West,Server Rack,Hardware,2,6200,3.73,462.52,5968.74,11937.48,4100,8200,31.31,Tom Walsh
+T0149,2023-10-23,2023,Q4,Oct,Horizon Tech,C002,Enterprise,Technology,East,Security Suite,Software,2,3200,1.27,81.28,3159.36,6318.72,280,560,91.14,Priya Sharma
+T0150,2023-10-23,2023,Q4,Oct,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,2,380,9.69,73.64,343.18,686.36,45,90,86.89,Tom Walsh
+T0151,2023-10-24,2023,Q4,Oct,Delta Aerospace,C012,Enterprise,Aerospace,West,Security Suite,Software,2,3200,19.94,1276.16,2561.92,5123.84,280,560,89.07,David Evans
+T0153,2023-10-24,2023,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,BI Dashboard,Software,1,5500,9.2,506.0,4994.0,4994.0,500,500,89.99,Marco Ruiz
+T0154,2023-10-26,2023,Q4,Oct,Redwood Construction,C015,SMB,Construction,South,Laptop Pro,Hardware,1,1200,7.43,89.16,1110.84,1110.84,800,800,27.98,Marco Ruiz
+T0156,2023-10-30,2023,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,Network Switch,Hardware,10,950,11.07,1051.7,844.84,8448.4,540,5400,36.08,Marco Ruiz
+T0157,2023-10-30,2023,Q4,Oct,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,10,8500,11.73,9970.5,7502.95,75029.5,600,6000,92.0,Priya Sharma
+T0158,2023-10-30,2023,Q4,Oct,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,BI Dashboard,Software,10,5500,45.0,24750.0,3025.0,30250.0,500,5000,83.47,Emily Foster
+T0161,2023-11-04,2023,Q4,Nov,BlueRock Mining,C009,Mid-Market,Mining,West,Network Switch,Hardware,1,950,6.92,65.74,884.26,884.26,540,540,38.93,Tom Walsh
+T0162,2023-11-05,2023,Q4,Nov,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,5,420,4.19,88.0,402.4,2012.0,180,900,55.27,Sarah Chen
+T0163,2023-11-06,2023,Q4,Nov,Quantum Devices,C014,Enterprise,Technology,North,Headset Pro,Hardware,2,220,9.32,41.0,199.5,399.0,120,240,39.85,Sarah Chen
+T0164,2023-11-06,2023,Q4,Nov,Polar Biotech,C020,Enterprise,Healthcare,East,Desk Pro,Furniture,1,420,2.38,10.0,410.0,410.0,180,180,56.1,Aisha Patel
+T0165,2023-11-07,2023,Q4,Nov,Polar Biotech,C020,Enterprise,Healthcare,East,ERP Module,Software,3,12000,8.88,3196.8,10934.4,32803.2,1200,3600,89.03,Aisha Patel
+T0167,2023-11-11,2023,Q4,Nov,Cascade Retail,C005,Mid-Market,Retail,South,Laptop Pro,Hardware,1,1200,10.27,123.24,1076.76,1076.76,800,800,25.7,James Okafor
+T0168,2023-11-12,2023,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Office Chair,Furniture,1,180,13.58,24.44,155.56,155.56,80,80,48.57,Emily Foster
+T0169,2023-11-12,2023,Q4,Nov,Granite Automotive,C017,Enterprise,Automotive,West,Network Switch,Hardware,10,950,13.76,1307.2,819.28,8192.8,540,5400,34.09,David Evans
+T0170,2023-11-18,2023,Q4,Nov,Horizon Tech,C002,Enterprise,Technology,East,Laptop Pro,Hardware,5,1200,5.83,349.8,1130.04,5650.2,800,4000,29.21,Priya Sharma
+T0171,2023-11-19,2023,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Network Switch,Hardware,2,950,36.16,687.04,606.48,1212.96,540,1080,10.96,Emily Foster
+T0173,2023-11-28,2023,Q4,Nov,Horizon Tech,C002,Enterprise,Technology,East,Server Rack,Hardware,1,6200,17.36,1076.32,5123.68,5123.68,4100,4100,19.98,Priya Sharma
+T0174,2023-11-28,2023,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Laptop Pro,Hardware,5,1200,18.09,1085.4,982.92,4914.6,800,4000,18.61,Emily Foster
+T0175,2023-12-04,2023,Q4,Dec,Orion Pharma,C008,Enterprise,Healthcare,East,Analytics Suite,Software,2,4500,4.76,428.4,4285.8,8571.6,500,1000,88.33,Aisha Patel
+T0178,2023-12-08,2023,Q4,Dec,Quantum Devices,C014,Enterprise,Technology,North,Mobile Device Mgmt,Software,2,2800,16.74,937.44,2331.28,4662.56,250,500,89.28,Sarah Chen
+T0180,2023-12-11,2023,Q4,Dec,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,"Monitor 27""",Hardware,5,350,21.32,373.1,275.38,1376.9,210,1050,23.74,Emily Foster
+T0181,2023-12-13,2023,Q4,Dec,Granite Automotive,C017,Enterprise,Automotive,West,Security Suite,Software,1,3200,33.81,1081.92,2118.08,2118.08,280,280,86.78,David Evans
+T0182,2023-12-14,2023,Q4,Dec,Orion Pharma,C008,Enterprise,Healthcare,East,Network Switch,Hardware,5,950,4.03,191.45,911.72,4558.6,540,2700,40.77,Aisha Patel
+T0183,2023-12-19,2023,Q4,Dec,Solaris Energy,C004,Mid-Market,Energy,West,Laptop Pro,Hardware,5,1200,9.96,597.6,1080.48,5402.4,800,4000,25.96,Tom Walsh
+T0184,2023-12-19,2023,Q4,Dec,Coastline Hotels,C019,Mid-Market,Hospitality,West,ERP Module,Software,10,12000,9.56,11472.0,10852.8,108528.0,1200,12000,88.94,Tom Walsh
+T0187,2023-12-21,2023,Q4,Dec,Redwood Construction,C015,SMB,Construction,South,Desk Pro,Furniture,5,420,0.7,14.7,417.06,2085.3,180,900,56.84,Marco Ruiz
+T0188,2023-12-24,2023,Q4,Dec,Vertex Logistics,C007,Mid-Market,Logistics,South,Headset Pro,Hardware,10,220,18.61,409.4,179.06,1790.6,120,1200,32.98,Marco Ruiz
+T0191,2024-01-02,2024,Q1,Jan,BlueRock Mining,C009,Mid-Market,Mining,West,BI Dashboard,Software,1,5500,14.19,780.45,4719.55,4719.55,500,500,89.41,Tom Walsh
+T0192,2024-01-04,2024,Q1,Jan,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,3,6200,9.79,1820.94,5593.02,16779.06,4100,12300,26.69,Aisha Patel
+T0193,2024-01-06,2024,Q1,Jan,Redwood Construction,C015,SMB,Construction,South,Network Switch,Hardware,1,950,2.4,22.8,927.2,927.2,540,540,41.76,Marco Ruiz
+T0194,2024-01-06,2024,Q1,Jan,Horizon Tech,C002,Enterprise,Technology,East,"Monitor 27""",Hardware,5,350,1.47,25.7,344.85,1724.25,210,1050,39.1,Priya Sharma
+T0195,2024-01-09,2024,Q1,Jan,Meridian Health,C003,Enterprise,Healthcare,North,Mobile Device Mgmt,Software,2,2800,10.61,594.16,2502.92,5005.84,250,500,90.01,Sarah Chen
+T0196,2024-01-10,2024,Q1,Jan,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Headset Pro,Hardware,5,220,23.68,260.5,167.9,839.5,120,600,28.53,Emily Foster
+T0200,2024-01-15,2024,Q1,Jan,Coastline Hotels,C019,Mid-Market,Hospitality,West,Analytics Suite,Software,1,4500,10.85,488.25,4011.75,4011.75,500,500,87.54,Tom Walsh
+T0201,2024-01-18,2024,Q1,Jan,Ember Analytics,C018,SMB,Technology,North,Analytics Suite,Software,5,4500,23.46,5278.5,3444.3,17221.5,500,2500,85.48,Emily Foster
+T0203,2024-01-21,2024,Q1,Jan,Polar Biotech,C020,Enterprise,Healthcare,East,Headset Pro,Hardware,1,220,13.43,29.55,190.45,190.45,120,120,36.99,Aisha Patel
+T0204,2024-01-21,2024,Q1,Jan,Cascade Retail,C005,Mid-Market,Retail,South,Cloud Storage 1TB,Software,2,380,0.0,0.0,380.0,760.0,45,90,88.16,James Okafor
+T0206,2024-01-25,2024,Q1,Jan,Stratos Media,C010,SMB,Media,North,ERP Module,Software,1,12000,33.59,4030.8,7969.2,7969.2,1200,1200,84.94,Emily Foster
+T0207,2024-01-28,2024,Q1,Jan,Redwood Construction,C015,SMB,Construction,South,Analytics Suite,Software,1,4500,14.33,644.85,3855.15,3855.15,500,500,87.03,Marco Ruiz
+T0208,2024-01-29,2024,Q1,Jan,Cascade Retail,C005,Mid-Market,Retail,South,Laptop Pro,Hardware,1,1200,12.07,144.84,1055.16,1055.16,800,800,24.18,James Okafor
+T0209,2024-01-31,2024,Q1,Jan,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,1,1800,15.95,287.1,1512.9,1512.9,400,400,73.56,David Evans
+T0210,2024-02-03,2024,Q1,Feb,Ember Analytics,C018,SMB,Technology,North,Headset Pro,Hardware,2,220,16.43,72.3,183.85,367.7,120,240,34.73,Emily Foster
+T0212,2024-02-09,2024,Q1,Feb,Harbor Insurance,C013,Enterprise,Financial Services,East,Mobile Device Mgmt,Software,3,2800,3.76,315.84,2694.72,8084.16,250,750,90.72,Aisha Patel
+T0213,2024-02-09,2024,Q1,Feb,Coastline Hotels,C019,Mid-Market,Hospitality,West,Server Rack,Hardware,2,6200,6.03,747.72,5826.14,11652.28,4100,8200,29.63,Tom Walsh
+T0214,2024-02-09,2024,Q1,Feb,Ember Analytics,C018,SMB,Technology,North,Training Package,Services,2,1800,30.88,1111.68,1244.16,2488.32,400,800,67.85,Emily Foster
+T0215,2024-02-12,2024,Q1,Feb,Cascade Retail,C005,Mid-Market,Retail,South,Laptop Pro,Hardware,10,1200,8.62,1034.4,1096.56,10965.6,800,8000,27.04,James Okafor
+T0216,2024-02-15,2024,Q1,Feb,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,2,1800,7.04,253.44,1673.28,3346.56,400,800,76.09,James Okafor
+T0218,2024-02-17,2024,Q1,Feb,Redwood Construction,C015,SMB,Construction,South,Mobile Device Mgmt,Software,1,2800,2.67,74.76,2725.24,2725.24,250,250,90.83,Marco Ruiz
+T0219,2024-02-17,2024,Q1,Feb,Polar Biotech,C020,Enterprise,Healthcare,East,Headset Pro,Hardware,2,220,3.83,16.86,211.57,423.14,120,240,43.28,Aisha Patel
+T0220,2024-02-21,2024,Q1,Feb,Delta Aerospace,C012,Enterprise,Aerospace,West,Office Chair,Furniture,2,180,16.33,58.78,150.61,301.22,80,160,46.88,David Evans
+T0221,2024-02-21,2024,Q1,Feb,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,1,380,5.41,20.56,359.44,359.44,45,45,87.48,Tom Walsh
+T0222,2024-02-23,2024,Q1,Feb,Meridian Health,C003,Enterprise,Healthcare,North,Training Package,Services,10,1800,10.86,1954.8,1604.52,16045.2,400,4000,75.07,Sarah Chen
+T0223,2024-02-25,2024,Q1,Feb,Solaris Energy,C004,Mid-Market,Energy,West,Desk Pro,Furniture,5,420,12.52,262.9,367.42,1837.1,180,900,51.01,Tom Walsh
+T0227,2024-03-05,2024,Q1,Mar,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,1,6200,11.15,691.3,5508.7,5508.7,4100,4100,25.57,Aisha Patel
+T0229,2024-03-06,2024,Q1,Mar,Nimbus Financial,C006,Enterprise,Financial Services,East,BI Dashboard,Software,1,5500,9.1,500.5,4999.5,4999.5,500,500,90.0,Priya Sharma
+T0230,2024-03-08,2024,Q1,Mar,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,BI Dashboard,Software,1,5500,22.04,1212.2,4287.8,4287.8,500,500,88.34,Emily Foster
+T0232,2024-03-13,2024,Q1,Mar,Horizon Tech,C002,Enterprise,Technology,East,Cloud Storage 1TB,Software,1,380,7.56,28.73,351.27,351.27,45,45,87.19,Priya Sharma
+T0233,2024-03-14,2024,Q1,Mar,Ember Analytics,C018,SMB,Technology,North,Analytics Suite,Software,5,4500,13.35,3003.75,3899.25,19496.25,500,2500,87.18,Emily Foster
+T0235,2024-03-21,2024,Q1,Mar,Redwood Construction,C015,SMB,Construction,South,Analytics Suite,Software,3,4500,5.47,738.45,4253.85,12761.55,500,1500,88.25,Marco Ruiz
+T0236,2024-03-26,2024,Q1,Mar,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,CRM Platform,Software,1,8500,14.86,1263.1,7236.9,7236.9,600,600,91.71,Emily Foster
+T0237,2024-03-28,2024,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Security Suite,Software,1,3200,8.2,262.4,2937.6,2937.6,280,280,90.47,Tom Walsh
+T0238,2024-03-28,2024,Q1,Mar,BlueRock Mining,C009,Mid-Market,Mining,West,Server Rack,Hardware,5,6200,13.56,4203.6,5359.28,26796.4,4100,20500,23.5,Tom Walsh
+T0240,2024-03-29,2024,Q1,Mar,Orion Pharma,C008,Enterprise,Healthcare,East,BI Dashboard,Software,5,5500,12.61,3467.75,4806.45,24032.25,500,2500,89.6,Aisha Patel
+T0241,2024-03-30,2024,Q1,Mar,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,1,420,7.21,30.28,389.72,389.72,180,180,53.81,Sarah Chen
+T0242,2024-04-02,2024,Q2,Apr,Vertex Logistics,C007,Mid-Market,Logistics,South,Laptop Pro,Hardware,1,1200,1.8,21.6,1178.4,1178.4,800,800,32.11,Marco Ruiz
+T0245,2024-04-09,2024,Q2,Apr,Polar Biotech,C020,Enterprise,Healthcare,East,Server Rack,Hardware,2,6200,11.23,1392.52,5503.74,11007.48,4100,8200,25.51,Aisha Patel
+T0246,2024-04-09,2024,Q2,Apr,Ember Analytics,C018,SMB,Technology,North,Headset Pro,Hardware,2,220,28.23,124.22,157.89,315.78,120,240,24.0,Emily Foster
+T0247,2024-04-09,2024,Q2,Apr,Apex Industries,C001,Enterprise,Manufacturing,North,Laptop Pro,Hardware,2,1200,6.36,152.64,1123.68,2247.36,800,1600,28.81,Sarah Chen
+T0248,2024-04-10,2024,Q2,Apr,Harbor Insurance,C013,Enterprise,Financial Services,East,Training Package,Services,1,1800,8.13,146.34,1653.66,1653.66,400,400,75.81,Aisha Patel
+T0250,2024-04-12,2024,Q2,Apr,Granite Automotive,C017,Enterprise,Automotive,West,Headset Pro,Hardware,2,220,26.07,114.7,162.65,325.3,120,240,26.22,David Evans
+T0252,2024-04-14,2024,Q2,Apr,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,2,6200,25.2,3124.8,4637.6,9275.2,4100,8200,11.59,David Evans
+T0253,2024-04-15,2024,Q2,Apr,Harbor Insurance,C013,Enterprise,Financial Services,East,Mobile Device Mgmt,Software,1,2800,7.99,223.72,2576.28,2576.28,250,250,90.3,Aisha Patel
+T0255,2024-04-20,2024,Q2,Apr,Tidal Software,C016,Mid-Market,Technology,South,Analytics Suite,Software,3,4500,10.44,1409.4,4030.2,12090.6,500,1500,87.59,James Okafor
+T0257,2024-04-29,2024,Q2,Apr,Quantum Devices,C014,Enterprise,Technology,North,BI Dashboard,Software,3,5500,3.78,623.7,5292.1,15876.3,500,1500,90.55,Sarah Chen
+T0258,2024-04-29,2024,Q2,Apr,Coastline Hotels,C019,Mid-Market,Hospitality,West,Network Switch,Hardware,2,950,10.54,200.26,849.87,1699.74,540,1080,36.46,Tom Walsh
+T0259,2024-04-30,2024,Q2,Apr,Granite Automotive,C017,Enterprise,Automotive,West,Network Switch,Hardware,1,950,23.07,219.16,730.84,730.84,540,540,26.11,David Evans
+T0260,2024-05-01,2024,Q2,May,Vertex Logistics,C007,Mid-Market,Logistics,South,"Monitor 27""",Hardware,1,350,1.94,6.79,343.21,343.21,210,210,38.81,Marco Ruiz
+T0262,2024-05-02,2024,Q2,May,Redwood Construction,C015,SMB,Construction,South,Training Package,Services,2,1800,9.18,330.48,1634.76,3269.52,400,800,75.53,Marco Ruiz
+T0264,2024-05-05,2024,Q2,May,Delta Aerospace,C012,Enterprise,Aerospace,West,Server Rack,Hardware,1,6200,19.73,1223.26,4976.74,4976.74,4100,4100,17.62,David Evans
+T0267,2024-05-18,2024,Q2,May,BlueRock Mining,C009,Mid-Market,Mining,West,"Monitor 27""",Hardware,5,350,5.53,96.8,330.64,1653.2,210,1050,36.49,Tom Walsh
+T0268,2024-05-19,2024,Q2,May,Stratos Media,C010,SMB,Media,North,Desk Pro,Furniture,5,420,23.58,495.2,320.96,1604.8,180,900,43.92,Emily Foster
+T0269,2024-05-21,2024,Q2,May,Redwood Construction,C015,SMB,Construction,South,Security Suite,Software,5,3200,6.51,1041.6,2991.68,14958.4,280,1400,90.64,Marco Ruiz
+T0270,2024-05-29,2024,Q2,May,BlueRock Mining,C009,Mid-Market,Mining,West,Office Chair,Furniture,2,180,10.4,37.44,161.28,322.56,80,160,50.4,Tom Walsh
+T0275,2024-06-12,2024,Q2,Jun,BlueRock Mining,C009,Mid-Market,Mining,West,Analytics Suite,Software,10,4500,11.58,5211.0,3978.9,39789.0,500,5000,87.43,Tom Walsh
+T0278,2024-06-21,2024,Q2,Jun,Nimbus Financial,C006,Enterprise,Financial Services,East,Office Chair,Furniture,2,180,7.77,27.98,166.01,332.02,80,160,51.81,Priya Sharma
+T0279,2024-06-21,2024,Q2,Jun,Ember Analytics,C018,SMB,Technology,North,Server Rack,Hardware,1,6200,19.11,1184.82,5015.18,5015.18,4100,4100,18.25,Emily Foster
+T0280,2024-06-22,2024,Q2,Jun,Cascade Retail,C005,Mid-Market,Retail,South,Cloud Storage 1TB,Software,3,380,13.56,154.59,328.47,985.41,45,135,86.3,James Okafor
+T0281,2024-06-24,2024,Q2,Jun,Delta Aerospace,C012,Enterprise,Aerospace,West,Desk Pro,Furniture,10,420,16.47,691.7,350.83,3508.3,180,1800,48.69,David Evans
+T0282,2024-06-24,2024,Q2,Jun,Polar Biotech,C020,Enterprise,Healthcare,East,Mobile Device Mgmt,Software,1,2800,0.81,22.68,2777.32,2777.32,250,250,91.0,Aisha Patel
+T0283,2024-06-27,2024,Q2,Jun,Granite Automotive,C017,Enterprise,Automotive,West,Security Suite,Software,2,3200,28.8,1843.2,2278.4,4556.8,280,560,87.71,David Evans
+T0284,2024-06-27,2024,Q2,Jun,Ember Analytics,C018,SMB,Technology,North,Analytics Suite,Software,3,4500,30.68,4141.8,3119.4,9358.2,500,1500,83.97,Emily Foster
+T0285,2024-06-27,2024,Q2,Jun,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,BI Dashboard,Software,1,5500,28.53,1569.15,3930.85,3930.85,500,500,87.28,Emily Foster
+T0286,2024-06-29,2024,Q2,Jun,Stratos Media,C010,SMB,Media,North,Mobile Device Mgmt,Software,1,2800,24.59,688.52,2111.48,2111.48,250,250,88.16,Emily Foster
+T0288,2024-07-02,2024,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,Headset Pro,Hardware,2,220,11.53,50.74,194.63,389.26,120,240,38.34,Tom Walsh
+T0289,2024-07-02,2024,Q3,Jul,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,10,420,15.03,631.3,356.87,3568.7,180,1800,49.56,Sarah Chen
+T0290,2024-07-03,2024,Q3,Jul,Meridian Health,C003,Enterprise,Healthcare,North,BI Dashboard,Software,2,5500,5.17,568.7,5215.65,10431.3,500,1000,90.41,Sarah Chen
+T0291,2024-07-04,2024,Q3,Jul,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Headset Pro,Hardware,5,220,25.22,277.4,164.52,822.6,120,600,27.06,Emily Foster
+T0292,2024-07-06,2024,Q3,Jul,Quantum Devices,C014,Enterprise,Technology,North,CRM Platform,Software,1,8500,9.02,766.7,7733.3,7733.3,600,600,92.24,Sarah Chen
+T0293,2024-07-06,2024,Q3,Jul,Polar Biotech,C020,Enterprise,Healthcare,East,Desk Pro,Furniture,1,420,8.04,33.77,386.23,386.23,180,180,53.4,Aisha Patel
+T0295,2024-07-09,2024,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,BI Dashboard,Software,5,5500,12.94,3558.5,4788.3,23941.5,500,2500,89.56,Tom Walsh
+T0297,2024-07-10,2024,Q3,Jul,Delta Aerospace,C012,Enterprise,Aerospace,West,Training Package,Services,1,1800,17.37,312.66,1487.34,1487.34,400,400,73.11,David Evans
+T0298,2024-07-12,2024,Q3,Jul,Solaris Energy,C004,Mid-Market,Energy,West,Analytics Suite,Software,2,4500,8.07,726.3,4136.85,8273.7,500,1000,87.91,Tom Walsh
+T0299,2024-07-16,2024,Q3,Jul,Polar Biotech,C020,Enterprise,Healthcare,East,BI Dashboard,Software,10,5500,3.23,1776.5,5322.35,53223.5,500,5000,90.61,Aisha Patel
+T0301,2024-07-19,2024,Q3,Jul,Vertex Logistics,C007,Mid-Market,Logistics,South,Desk Pro,Furniture,2,420,7.85,65.94,387.03,774.06,180,360,53.49,Marco Ruiz
+T0302,2024-07-19,2024,Q3,Jul,Redwood Construction,C015,SMB,Construction,South,Cloud Storage 1TB,Software,10,380,3.51,133.4,366.66,3666.6,45,450,87.73,Marco Ruiz
+T0303,2024-07-23,2024,Q3,Jul,Granite Automotive,C017,Enterprise,Automotive,West,Office Chair,Furniture,1,180,17.84,32.11,147.89,147.89,80,80,45.91,David Evans
+T0306,2024-07-29,2024,Q3,Jul,Quantum Devices,C014,Enterprise,Technology,North,Laptop Pro,Hardware,3,1200,9.93,357.48,1080.84,3242.52,800,2400,25.98,Sarah Chen
+T0307,2024-07-29,2024,Q3,Jul,BlueRock Mining,C009,Mid-Market,Mining,West,Office Chair,Furniture,1,180,10.53,18.95,161.05,161.05,80,80,50.33,Tom Walsh
+T0308,2024-07-30,2024,Q3,Jul,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,1,6200,2.61,161.82,6038.18,6038.18,4100,4100,32.1,Aisha Patel
+T0310,2024-08-09,2024,Q3,Aug,Vertex Logistics,C007,Mid-Market,Logistics,South,BI Dashboard,Software,1,5500,8.39,461.45,5038.55,5038.55,500,500,90.08,Marco Ruiz
+T0311,2024-08-09,2024,Q3,Aug,Delta Aerospace,C012,Enterprise,Aerospace,West,Laptop Pro,Hardware,1,1200,25.34,304.08,895.92,895.92,800,800,10.71,David Evans
+T0313,2024-08-14,2024,Q3,Aug,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,2,8500,12.32,2094.4,7452.8,14905.6,600,1200,91.95,Priya Sharma
+T0315,2024-08-15,2024,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,Laptop Pro,Hardware,2,1200,0.16,3.84,1198.08,2396.16,800,1600,33.23,Aisha Patel
+T0318,2024-08-19,2024,Q3,Aug,BlueRock Mining,C009,Mid-Market,Mining,West,Headset Pro,Hardware,1,220,8.72,19.18,200.82,200.82,120,120,40.24,Tom Walsh
+T0319,2024-08-20,2024,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,Analytics Suite,Software,1,4500,13.42,603.9,3896.1,3896.1,500,500,87.17,Aisha Patel
+T0320,2024-08-21,2024,Q3,Aug,Redwood Construction,C015,SMB,Construction,South,"Monitor 27""",Hardware,2,350,12.23,85.6,307.19,614.38,210,420,31.64,Marco Ruiz
+T0321,2024-08-21,2024,Q3,Aug,Apex Industries,C001,Enterprise,Manufacturing,North,CRM Platform,Software,1,8500,2.26,192.1,8307.9,8307.9,600,600,92.78,Sarah Chen
+T0322,2024-08-25,2024,Q3,Aug,Delta Aerospace,C012,Enterprise,Aerospace,West,Server Rack,Hardware,10,6200,25.44,15772.8,4622.72,46227.2,4100,41000,11.31,David Evans
+T0323,2024-08-29,2024,Q3,Aug,Polar Biotech,C020,Enterprise,Healthcare,East,BI Dashboard,Software,10,5500,10.57,5813.5,4918.65,49186.5,500,5000,89.83,Aisha Patel
+T0324,2024-09-02,2024,Q3,Sep,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,"Monitor 27""",Hardware,10,350,34.16,1195.6,230.44,2304.4,210,2100,8.87,Emily Foster
+T0327,2024-09-03,2024,Q3,Sep,Meridian Health,C003,Enterprise,Healthcare,North,Desk Pro,Furniture,2,420,9.19,77.2,381.4,762.8,180,360,52.81,Sarah Chen
+T0328,2024-09-03,2024,Q3,Sep,Coastline Hotels,C019,Mid-Market,Hospitality,West,Cloud Storage 1TB,Software,3,380,10.04,114.45,341.85,1025.55,45,135,86.84,Tom Walsh
+T0329,2024-09-03,2024,Q3,Sep,Solaris Energy,C004,Mid-Market,Energy,West,Cloud Storage 1TB,Software,1,380,3.7,14.06,365.94,365.94,45,45,87.7,Tom Walsh
+T0330,2024-09-03,2024,Q3,Sep,Redwood Construction,C015,SMB,Construction,South,Office Chair,Furniture,2,180,6.91,24.88,167.56,335.12,80,160,52.26,Marco Ruiz
+T0331,2024-09-04,2024,Q3,Sep,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,10,380,9.68,367.8,343.22,3432.2,45,450,86.89,Tom Walsh
+T0332,2024-09-08,2024,Q3,Sep,Delta Aerospace,C012,Enterprise,Aerospace,West,BI Dashboard,Software,3,5500,19.63,3238.95,4420.35,13261.05,500,1500,88.69,David Evans
+T0333,2024-09-09,2024,Q3,Sep,Horizon Tech,C002,Enterprise,Technology,East,CRM Platform,Software,5,8500,4.36,1853.0,8129.4,40647.0,600,3000,92.62,Priya Sharma
+T0334,2024-09-12,2024,Q3,Sep,Polar Biotech,C020,Enterprise,Healthcare,East,Office Chair,Furniture,2,180,12.4,44.64,157.68,315.36,80,160,49.26,Aisha Patel
+T0335,2024-09-15,2024,Q3,Sep,Vertex Logistics,C007,Mid-Market,Logistics,South,Mobile Device Mgmt,Software,1,2800,8.13,227.64,2572.36,2572.36,250,250,90.28,Marco Ruiz
+T0336,2024-09-19,2024,Q3,Sep,Granite Automotive,C017,Enterprise,Automotive,West,Server Rack,Hardware,1,6200,16.78,1040.36,5159.64,5159.64,4100,4100,20.54,David Evans
+T0338,2024-09-24,2024,Q3,Sep,Meridian Health,C003,Enterprise,Healthcare,North,Headset Pro,Hardware,1,220,12.74,28.03,191.97,191.97,120,120,37.49,Sarah Chen
+T0340,2024-09-25,2024,Q3,Sep,Stratos Media,C010,SMB,Media,North,Laptop Pro,Hardware,2,1200,30.76,738.24,830.88,1661.76,800,1600,3.72,Emily Foster
+T0344,2024-10-01,2024,Q4,Oct,Meridian Health,C003,Enterprise,Healthcare,North,Training Package,Services,1,1800,7.01,126.18,1673.82,1673.82,400,400,76.1,Sarah Chen
+T0345,2024-10-01,2024,Q4,Oct,Nimbus Financial,C006,Enterprise,Financial Services,East,Security Suite,Software,1,3200,10.4,332.8,2867.2,2867.2,280,280,90.23,Priya Sharma
+T0347,2024-10-05,2024,Q4,Oct,Nimbus Financial,C006,Enterprise,Financial Services,East,Security Suite,Software,1,3200,8.37,267.84,2932.16,2932.16,280,280,90.45,Priya Sharma
+T0348,2024-10-08,2024,Q4,Oct,Harbor Insurance,C013,Enterprise,Financial Services,East,ERP Module,Software,10,12000,8.75,10500.0,10950.0,109500.0,1200,12000,89.04,Aisha Patel
+T0349,2024-10-10,2024,Q4,Oct,Apex Industries,C001,Enterprise,Manufacturing,North,"Monitor 27""",Hardware,1,350,4.3,15.05,334.95,334.95,210,210,37.3,Sarah Chen
+T0350,2024-10-10,2024,Q4,Oct,Orion Pharma,C008,Enterprise,Healthcare,East,ERP Module,Software,1,12000,7.4,888.0,11112.0,11112.0,1200,1200,89.2,Aisha Patel
+T0351,2024-10-11,2024,Q4,Oct,Polar Biotech,C020,Enterprise,Healthcare,East,Office Chair,Furniture,3,180,3.79,20.46,173.18,519.54,80,240,53.81,Aisha Patel
+T0352,2024-10-11,2024,Q4,Oct,BlueRock Mining,C009,Mid-Market,Mining,West,Cloud Storage 1TB,Software,10,380,7.94,301.7,349.83,3498.3,45,450,87.14,Tom Walsh
+T0354,2024-10-15,2024,Q4,Oct,Orion Pharma,C008,Enterprise,Healthcare,East,Server Rack,Hardware,1,6200,9.42,584.04,5615.96,5615.96,4100,4100,26.99,Aisha Patel
+T0355,2024-10-16,2024,Q4,Oct,Granite Automotive,C017,Enterprise,Automotive,West,BI Dashboard,Software,1,5500,18.68,1027.4,4472.6,4472.6,500,500,88.82,David Evans
+T0356,2024-10-16,2024,Q4,Oct,Ember Analytics,C018,SMB,Technology,North,"Monitor 27""",Hardware,1,350,15.98,55.93,294.07,294.07,210,210,28.59,Emily Foster
+T0357,2024-10-18,2024,Q4,Oct,Polar Biotech,C020,Enterprise,Healthcare,East,ERP Module,Software,1,12000,8.44,1012.8,10987.2,10987.2,1200,1200,89.08,Aisha Patel
+T0359,2024-10-20,2024,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,Desk Pro,Furniture,10,420,11.57,485.9,371.41,3714.1,180,1800,51.54,Marco Ruiz
+T0361,2024-10-22,2024,Q4,Oct,Stratos Media,C010,SMB,Media,North,Server Rack,Hardware,10,6200,23.57,14613.4,4738.66,47386.6,4100,41000,13.48,Emily Foster
+T0364,2024-10-23,2024,Q4,Oct,Vertex Logistics,C007,Mid-Market,Logistics,South,BI Dashboard,Software,2,5500,13.16,1447.6,4776.2,9552.4,500,1000,89.53,Marco Ruiz
+T0365,2024-10-25,2024,Q4,Oct,Quantum Devices,C014,Enterprise,Technology,North,Desk Pro,Furniture,3,420,3.05,38.43,407.19,1221.57,180,540,55.79,Sarah Chen
+T0366,2024-10-27,2024,Q4,Oct,Delta Aerospace,C012,Enterprise,Aerospace,West,Server Rack,Hardware,1,6200,18.15,1125.3,5074.7,5074.7,4100,4100,19.21,David Evans
+T0367,2024-11-01,2024,Q4,Nov,Redwood Construction,C015,SMB,Construction,South,Analytics Suite,Software,1,4500,2.05,92.25,4407.75,4407.75,500,500,88.66,Marco Ruiz
+T0369,2024-11-02,2024,Q4,Nov,Harbor Insurance,C013,Enterprise,Financial Services,East,Server Rack,Hardware,5,6200,10.31,3196.1,5560.78,27803.9,4100,20500,26.27,Aisha Patel
+T0370,2024-11-05,2024,Q4,Nov,Granite Automotive,C017,Enterprise,Automotive,West,Security Suite,Software,1,3200,17.27,552.64,2647.36,2647.36,280,280,89.42,David Evans
+T0371,2024-11-06,2024,Q4,Nov,Orion Pharma,C008,Enterprise,Healthcare,East,Security Suite,Software,3,3200,8.5,816.0,2928.0,8784.0,280,840,90.44,Aisha Patel
+T0372,2024-11-07,2024,Q4,Nov,Quantum Devices,C014,Enterprise,Technology,North,Security Suite,Software,1,3200,4.62,147.84,3052.16,3052.16,280,280,90.83,Sarah Chen
+T0373,2024-11-10,2024,Q4,Nov,Nimbus Financial,C006,Enterprise,Financial Services,East,Desk Pro,Furniture,1,420,8.94,37.55,382.45,382.45,180,180,52.94,Priya Sharma
+T0374,2024-11-14,2024,Q4,Nov,Stratos Media,C010,SMB,Media,North,Security Suite,Software,1,3200,21.52,688.64,2511.36,2511.36,280,280,88.85,Emily Foster
+T0375,2024-11-18,2024,Q4,Nov,Vertex Logistics,C007,Mid-Market,Logistics,South,Headset Pro,Hardware,2,220,5.96,26.22,206.89,413.78,120,240,42.0,Marco Ruiz
+T0377,2024-11-21,2024,Q4,Nov,BlueRock Mining,C009,Mid-Market,Mining,West,Headset Pro,Hardware,1,220,11.61,25.54,194.46,194.46,120,120,38.29,Tom Walsh
+T0379,2024-11-26,2024,Q4,Nov,BlueRock Mining,C009,Mid-Market,Mining,West,Desk Pro,Furniture,1,420,13.08,54.94,365.06,365.06,180,180,50.69,Tom Walsh
+T0381,2024-11-28,2024,Q4,Nov,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,"Monitor 27""",Hardware,10,350,27.46,961.1,253.89,2538.9,210,2100,17.29,Emily Foster
+T0383,2024-12-02,2024,Q4,Dec,Pinnacle Consulting,C011,Mid-Market,Professional Svcs,North,Office Chair,Furniture,5,180,19.77,177.95,144.41,722.05,80,400,44.6,Emily Foster
+T0384,2024-12-03,2024,Q4,Dec,Delta Aerospace,C012,Enterprise,Aerospace,West,Office Chair,Furniture,10,180,17.17,309.1,149.09,1490.9,80,800,46.34,David Evans
+T0385,2024-12-03,2024,Q4,Dec,Solaris Energy,C004,Mid-Market,Energy,West,Server Rack,Hardware,2,6200,11.77,1459.48,5470.26,10940.52,4100,8200,25.05,Tom Walsh
+T0387,2024-12-06,2024,Q4,Dec,Meridian Health,C003,Enterprise,Healthcare,North,"Monitor 27""",Hardware,1,350,9.64,33.74,316.26,316.26,210,210,33.6,Sarah Chen
+T0389,2024-12-07,2024,Q4,Dec,Solaris Energy,C004,Mid-Market,Energy,West,Mobile Device Mgmt,Software,10,2800,0.93,260.4,2773.96,27739.6,250,2500,90.99,Tom Walsh
+T0391,2024-12-10,2024,Q4,Dec,Harbor Insurance,C013,Enterprise,Financial Services,East,"Monitor 27""",Hardware,1,350,1.04,3.64,346.36,346.36,210,210,39.37,Aisha Patel
+T0394,2024-12-14,2024,Q4,Dec,Polar Biotech,C020,Enterprise,Healthcare,East,Mobile Device Mgmt,Software,1,2800,0.0,0.0,2800.0,2800.0,250,250,91.07,Aisha Patel
+T0395,2024-12-16,2024,Q4,Dec,Cascade Retail,C005,Mid-Market,Retail,South,Training Package,Services,2,1800,3.21,115.56,1742.22,3484.44,400,800,77.04,James Okafor
+T0397,2024-12-18,2024,Q4,Dec,Granite Automotive,C017,Enterprise,Automotive,West,Desk Pro,Furniture,5,420,30.47,639.85,292.03,1460.15,180,900,38.36,David Evans
+T0399,2024-12-26,2024,Q4,Dec,Quantum Devices,C014,Enterprise,Technology,North,Security Suite,Software,1,3200,4.06,129.92,3070.08,3070.08,280,280,90.88,Sarah Chen
+T0400,2024-12-27,2024,Q4,Dec,Redwood Construction,C015,SMB,Construction,South,Laptop Pro,Hardware,3,1200,10.06,362.16,1079.28,3237.84,800,2400,25.88,Marco Ruiz`;
 
 function loadSampleData() {
-  const txnResult = Papa.parse(SAMPLE_TRANSACTIONS_CSV.trim(), {
-    header: true, skipEmptyLines: true, dynamicTyping: true
-  });
-  const custResult = Papa.parse(SAMPLE_CUSTOMER_CSV.trim(), {
-    header: true, skipEmptyLines: true, dynamicTyping: true
-  });
+  const parse = csv => Papa.parse(csv.trim(), { header: true, skipEmptyLines: true, dynamicTyping: true });
 
-  tables['transactions_2023'] = txnResult.data;
-  tablesMeta['transactions_2023'] = {
-    ...buildMeta(txnResult.data, 'transactions_2023.csv'),
-    isDemo: true
-  };
+  const txnResult  = parse(SAMPLE_TRANSACTIONS_CSV);
+  const custResult = parse(SAMPLE_CUSTOMER_CSV);
+  const prodResult = parse(SAMPLE_PRODUCT_CSV);
+  const repResult  = parse(SAMPLE_REP_CSV);
+  const paResult   = parse(SAMPLE_PA_DEMO_CSV);
+
+  tables['transactions_2023_2024'] = txnResult.data;
+  tablesMeta['transactions_2023_2024'] = { ...buildMeta(txnResult.data), filename: 'transactions_2023_2024.csv' };
 
   tables['customer_master'] = custResult.data;
-  tablesMeta['customer_master'] = {
-    ...buildMeta(custResult.data, 'customer_master.csv'),
-    isDemo: true
-  };
+  tablesMeta['customer_master'] = { ...buildMeta(custResult.data), filename: 'customer_master.csv' };
+
+  tables['product_catalog'] = prodResult.data;
+  tablesMeta['product_catalog'] = { ...buildMeta(prodResult.data), filename: 'product_catalog.csv' };
+
+  tables['rep_targets'] = repResult.data;
+  tablesMeta['rep_targets'] = { ...buildMeta(repResult.data), filename: 'rep_targets.csv' };
+
+  tables['pa_demo_dataset'] = paResult.data;
+  tablesMeta['pa_demo_dataset'] = { ...buildMeta(paResult.data), filename: 'pa_demo_dataset.csv' };
 
   renderTableList();
-  setActiveTable('transactions_2023');
+  setActiveTable('transactions_2023_2024');
   showDemoBanner(true);
-  addAudit('Demo data loaded', '2 sample tables: transactions_2023 (120 rows) · customer_master (10 rows)', 'Load your own data to replace');
+  runQualityCheck(tables['transactions_2023_2024'], tablesMeta['transactions_2023_2024']);
+  showSchemaButton();
+  addAudit('Demo data loaded', '5 tables: transactions · customers · products · rep targets · PA demo', '400 transactions · 2023–2024 · 8 reps · leakage structure built in');
 }
 
 function clearDemoData() {
@@ -871,6 +1556,8 @@ function registerTable(name, data, filename) {
   renderTableList();
   setActiveTable(finalName);
   addAudit('Load', `"${filename}" → table "${finalName}"`, `${data.length.toLocaleString()} rows, ${Object.keys(data[0]||{}).length} columns`);
+  runQualityCheck(data, tablesMeta[finalName]);
+  showSchemaButton();
 }
 
 function buildMeta(data, filename='') {
@@ -1114,7 +1801,7 @@ function openOp(opId) {
   document.getElementById('modal-icon').textContent = op.icon;
   document.getElementById('modal-title').textContent = op.name;
   document.getElementById('modal-subtitle').textContent = op.desc;
-  document.getElementById('modal-body').innerHTML = buildModalBody(opId);
+  document.getElementById('modal-body').innerHTML = buildModalBodyFull(opId);
   document.getElementById('modal-overlay').classList.add('open');
 
   // Bind dynamic dropdowns AFTER modal HTML is in the DOM
@@ -1244,11 +1931,16 @@ function buildModalBody(opId) {
         <select id="lkp-col"><option>— select after choosing table —</option></select></div>
       <div class="field"><label>New column name</label><input id="lkp-name" placeholder="e.g. Product_Name"/></div>`;
 
-    case 'filter': return `
-      <div class="field"><label>Filter expression</label>
-        <textarea id="filter-expr" rows="3" placeholder="Examples:&#10;Revenue > 1000&#10;Region == 'North' AND Status != 'Closed'&#10;Category IN ['A','B','C']&#10;Name.contains('Smith')"></textarea>
-        <div class="hint">Columns: ${c.slice(0,8).join(', ')}${c.length>8?', ...':''}<br>Operators: ==  !=  >  >=  <  <=  IN [...]  .contains()  AND  OR  NOT</div>
-      </div>`;
+    case 'filter': return (()=>{
+      setTimeout(()=>{ if(document.getElementById('filter-rules') && !document.getElementById('filter-rules').children.length) addFilterRule(); },0);
+      return `<div class="field"><label>Logic between rules</label>
+        <select id="filter-logic" style="width:auto">
+          <option value="AND">AND — all conditions must match</option>
+          <option value="OR">OR — any condition must match</option>
+        </select></div>
+      <div class="rule-builder" id="filter-rules"></div>
+      <button class="add-rule-btn" onclick="addFilterRule()">+ Add condition</button>`;
+    })();
 
     case 'selectcols': return `
       <div class="field"><label>Action</label>
@@ -1278,12 +1970,14 @@ function buildModalBody(opId) {
       <div class="field"><label>Value</label><input id="samp-val" type="number" value="10" min="1"/><div class="hint">Enter % (1-100) or number of rows</div></div>
       <div class="field"><label>Random seed (for reproducibility)</label><input id="samp-seed" type="number" value="42"/></div>`;
 
-    case 'groupby': return `
-      ${colSelect('gb-cols','Group by columns', true)}
-      <div class="field"><label>Aggregations (one per line: ColumnName AggFunc NewName)</label>
-        <textarea id="gb-aggs" rows="5" placeholder="Revenue SUM Total_Revenue&#10;CustomerID COUNT_DISTINCT Unique_Customers&#10;Units AVG Avg_Units&#10;Price MIN Min_Price&#10;Price MAX Max_Price&#10;Discount MEDIAN Median_Discount"></textarea>
-        <div class="hint">Functions: SUM COUNT COUNT_DISTINCT AVG MIN MAX MEDIAN</div>
+    case 'groupby': return (()=>{
+      setTimeout(()=>{ const ab=document.getElementById('agg-rows'); if(ab&&!ab.children.length){addAggRow();addAggRow();} },0);
+      return `${colSelect('gb-cols','Group by columns', true)}
+      <div class="field"><label>Aggregations</label>
+        <div class="agg-builder" id="agg-rows"></div>
+        <button class="add-rule-btn" onclick="addAggRow()">+ Add aggregation</button>
       </div>`;
+    })();
 
     case 'pivot': return `
       ${colSelect('piv-rows','Row (index) column')}
@@ -1311,10 +2005,41 @@ function buildModalBody(opId) {
       <div class="field"><label>New column name</label><input id="pct-name" value="Pct_of_Total"/></div>`;
 
     case 'calcol': return `
-      <div class="field"><label>New column name</label><input id="cc-name" placeholder="e.g. Revenue_per_Unit"/></div>
-      <div class="field"><label>Formula</label>
-        <textarea id="cc-formula" rows="3" placeholder="Examples:&#10;[Revenue] / [Units]&#10;[Price] * (1 - [Discount])&#10;IF [Status] == 'Won' THEN 1 ELSE 0&#10;CASE WHEN [Score] > 80 THEN 'High' WHEN [Score] > 50 THEN 'Mid' ELSE 'Low'"></textarea>
-        <div class="hint">Use [ColumnName] for column references. Supports +−×÷, IF/THEN/ELSE, CASE/WHEN.</div>
+      <div class="field"><label>New column name</label><input id="cc-name" placeholder="e.g. Revenue_per_Unit" oninput="updateCalcPreview()"/></div>
+      <div class="field"><label>Formula type</label>
+        <select id="cc-type" onchange="updateCalcUI()">
+          <option value="arith">Arithmetic (column A  op  column B)</option>
+          <option value="if">IF condition THEN value ELSE value</option>
+          <option value="const">Constant value</option>
+        </select></div>
+      <div id="cc-builder">
+        <div class="calc-simple">
+          <select id="cc-col-a" onchange="updateCalcPreview()"><option value="">— column A —</option>${c.map(x=>'<option>'+x+'</option>').join('')}</select>
+          <select id="cc-op" onchange="updateCalcPreview()" style="padding:6px 4px;font-weight:600;color:var(--accent)"><option value="/">÷</option><option value="*">×</option><option value="+">+</option><option value="-">−</option></select>
+          <select id="cc-col-b" onchange="updateCalcPreview()"><option value="">— column B —</option>${c.map(x=>'<option>'+x+'</option>').join('')}<option value="__const__">— constant —</option></select>
+        </div>
+        <div id="cc-const-wrap" style="display:none;margin-top:6px"><input id="cc-const-val" placeholder="Constant value" oninput="updateCalcPreview()" style="width:100%;padding:6px 9px;border:1px solid var(--border);border-radius:5px;background:var(--surface2);font-family:var(--sans);font-size:12px"/></div>
+      </div>
+      <div id="cc-if-builder" style="display:none">
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+          <span style="font-size:11px;font-weight:600;color:var(--text3)">IF</span>
+          <select id="cc-if-col" style="flex:2;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px">${c.map(x=>'<option>'+x+'</option>').join('')}</select>
+          <select id="cc-if-op" style="flex:1;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"><option>==</option><option>!=</option><option>&gt;</option><option>&gt;=</option><option>&lt;</option><option>&lt;=</option></select>
+          <input id="cc-if-val" placeholder="value" style="flex:1.5;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"/>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span style="font-size:11px;font-weight:600;color:var(--success)">THEN</span>
+          <input id="cc-if-then" placeholder="value if true" style="flex:1;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"/>
+          <span style="font-size:11px;font-weight:600;color:var(--danger)">ELSE</span>
+          <input id="cc-if-else" placeholder="value if false" style="flex:1;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"/>
+        </div>
+      </div>
+      <div id="cc-const-builder" style="display:none">
+        <input id="cc-const-only" placeholder="Constant value for all rows" style="width:100%;padding:6px 9px;border:1px solid var(--border);border-radius:5px;background:var(--surface2);font-family:var(--sans);font-size:12px"/>
+      </div>
+      <div style="margin-top:8px">
+        <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Formula preview</div>
+        <div class="calc-preview" id="cc-preview">—</div>
       </div>`;
 
     case 'datepart': return `
@@ -1413,9 +2138,11 @@ function buildModalBody(opId) {
       <div class="field"><label>Constant value (if above = constant)</label><input id="fn-val" placeholder="0 or N/A or Unknown"/></div>`;
 
     case 'rename': return `
-      <div class="field"><label>Rename columns (one per line: OldName → NewName)</label>
-        <textarea id="ren-map" rows="6" placeholder="${c.slice(0,4).map(col=>`${col} → ${col}`).join('\n')}"></textarea>
-        <div class="hint">Format: OldName → NewName</div>
+      <div class="field">
+        <label>Rename columns <span style="font-weight:400;font-size:10px;color:var(--text3)">(edit new name — leave unchanged to keep)</span></label>
+        <div class="rename-grid">
+          ${c.map(col=>`<div class="rename-row"><div class="rename-old">${col}</div><div class="rename-arrow">→</div><input class="rename-new" data-old="${col}" value="${col}"/></div>`).join('')}
+        </div>
       </div>`;
 
     case 'changetype': return `
@@ -1460,12 +2187,18 @@ function buildModalBody(opId) {
       <div class="field"><label>Sort</label>
         <select id="par-sort"><option value="desc">Descending (standard Pareto)</option><option value="asc">Ascending</option></select></div>`;
 
-    case 'condtag': return `
-      <div class="field"><label>New tag column name</label><input id="ctag-name" value="Segment"/></div>
-      <div class="field"><label>Tagging rules (one per line: Condition → Label)</label>
-        <textarea id="ctag-rules" rows="5" placeholder="[Revenue] > 100000 → High Value&#10;[Revenue] > 10000 → Medium Value&#10;[Region] == 'North' AND [Category] == 'A' → Priority North-A&#10;→ Other"></textarea>
-        <div class="hint">Last line with blank condition (→ Label) is the default/else. Use [ColumnName] references.</div>
+    case 'condtag': return (()=>{
+      setTimeout(()=>{ const cr=document.getElementById('ctag-rules-ui'); if(cr&&!cr.children.length){addTagRule();addTagRule();addTagRule();} },0);
+      return `<div class="field"><label>New tag column name</label><input id="ctag-name" value="Segment"/></div>
+      <div class="field"><label>Tagging rules <span style="font-weight:400;font-size:10px;color:var(--text3)">(top to bottom — first match wins)</span></label>
+        <div class="rule-builder" id="ctag-rules-ui"></div>
+        <button class="add-rule-btn" onclick="addTagRule()">+ Add rule</button>
+        <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+          <span style="font-size:11px;color:var(--text3)">Default (no match):</span>
+          <input id="ctag-default" placeholder="Other" style="flex:1;border:1px solid var(--border);border-radius:5px;padding:4px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"/>
+        </div>
       </div>`;
+    })();
 
     case 'percentile': return `
       ${colSelect('pct2-col','Value column')}
@@ -1592,10 +2325,29 @@ function applyOperation() {
         fn=data=>{const mp=new Map(tables[tbl].map(r=>[r[rk],r[vc]]));return data.map(r=>Object.assign({},r,{[nn]:mp.get(r[lk])??null}));};break;}
 
       case 'filter': {
-        const expr=document.getElementById('filter-expr').value.trim();
-        if(!expr){showToast('Enter a filter expression','error');return;}
-        label=`Filter: ${expr.slice(0,30)}`;
-        fn=data=>data.filter(row=>evalFilter(expr,row));break;}
+        const logic=document.getElementById('filter-logic')?.value||'AND';
+        const ruleEls=[...document.querySelectorAll('#filter-rules .rule-row')];
+        if(!ruleEls.length){showToast('Add at least one condition','error');return;}
+        const rules=ruleEls.map(r=>({col:r.querySelector('.r-col')?.value,op:r.querySelector('.r-op')?.value,val:r.querySelector('.r-val')?.value})).filter(r=>r.col);
+        if(!rules.length){showToast('Select a column for each condition','error');return;}
+        label=`Filter: ${rules.slice(0,2).map(r=>r.col+' '+r.op+' '+r.val).join(' '+logic+' ')}${rules.length>2?'…':''}`;
+        fn=data=>data.filter(row=>{
+          const res=rules.map(r=>{
+            const v=row[r.col],rv=r.val;
+            switch(r.op){
+              case '==':return String(v)===String(rv)||+v===+rv;
+              case '!=':return String(v)!==String(rv)&&+v!==+rv;
+              case '>':return+v>+rv;case '>=':return+v>=+rv;case '<':return+v<+rv;case '<=':return+v<=+rv;
+              case 'contains':return String(v||'').toLowerCase().includes(String(rv).toLowerCase());
+              case 'not contains':return!String(v||'').toLowerCase().includes(String(rv).toLowerCase());
+              case 'starts with':return String(v||'').toLowerCase().startsWith(String(rv).toLowerCase());
+              case 'is empty':return v==null||v==='';
+              case 'is not empty':return v!=null&&v!=='';
+              default:return true;
+            }
+          });
+          return logic==='AND'?res.every(Boolean):res.some(Boolean);
+        });break;}
 
       case 'selectcols': {
         const action=document.getElementById('sc-action').value;
@@ -1646,9 +2398,12 @@ function applyOperation() {
 
       case 'groupby': {
         const gcols=getChecked('gb-cols');
-        const aggText=document.getElementById('gb-aggs').value.trim();
-        if(!gcols.length||!aggText){showToast('Select group columns and aggregations','error');return;}
-        const aggs=aggText.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const p=l.split(/\s+/);return{col:p[0],fn:p[1]?.toUpperCase(),name:p[2]||p[0]+'_'+p[1]};});
+        const aggs=[...document.querySelectorAll('#agg-rows .agg-row')].map(r=>({
+          col:r.querySelector('.ag-col')?.value,
+          fn:r.querySelector('.ag-fn')?.value,
+          name:r.querySelector('.ag-name')?.value?.trim()||(r.querySelector('.ag-col')?.value+'_'+r.querySelector('.ag-fn')?.value)
+        })).filter(a=>a.col&&a.fn);
+        if(!gcols.length||!aggs.length){showToast('Select group columns and add at least one aggregation','error');return;}
         label=`Group by ${gcols.join(',')}`;
         fn=data=>{
           const groups=new Map();
@@ -1726,9 +2481,29 @@ function applyOperation() {
         };break;}
 
       case 'calcol': {
-        const nn=document.getElementById('cc-name').value;
-        const formula=document.getElementById('cc-formula').value.trim();
-        if(!nn||!formula){showToast('Enter column name and formula','error');return;}
+        const nn=document.getElementById('cc-name').value.trim();
+        const ctype=document.getElementById('cc-type')?.value||'arith';
+        let formula='';
+        if(ctype==='arith'){
+          const ca=document.getElementById('cc-col-a')?.value;
+          const op=document.getElementById('cc-op')?.value||'/';
+          const cbEl=document.getElementById('cc-col-b')?.value;
+          const isConst=cbEl==='__const__';
+          const cb=isConst?document.getElementById('cc-const-val')?.value||'1':cbEl;
+          if(!ca){showToast('Select column A','error');return;}
+          formula=isConst?`[${ca}] ${op} ${cb}`:`[${ca}] ${op} [${cb}]`;
+        } else if(ctype==='if'){
+          const ic=document.getElementById('cc-if-col')?.value;
+          const iop=document.getElementById('cc-if-op')?.value;
+          const iv=document.getElementById('cc-if-val')?.value;
+          const ithen=document.getElementById('cc-if-then')?.value;
+          const ielse=document.getElementById('cc-if-else')?.value||'';
+          if(!ic||!ithen){showToast('Fill IF condition and THEN value','error');return;}
+          formula=`IF [${ic}] ${iop} '${iv}' THEN '${ithen}' ELSE '${ielse}'`;
+        } else {
+          formula=`'${document.getElementById('cc-const-only')?.value}'`;
+        }
+        if(!nn){showToast('Enter a column name','error');return;}
         label=`Calc: ${nn}`;
         fn=data=>data.map(row=>Object.assign({},row,{[nn]:evalFormula(formula,row)}));break;}
 
@@ -1886,9 +2661,14 @@ function applyOperation() {
         };break;}
 
       case 'rename': {
-        const mapText=document.getElementById('ren-map').value.trim();
-        const mp={};mapText.split('\n').forEach(l=>{const [a,,b]=l.split(' ');if(a&&b)mp[a.trim()]=b.trim();});
-        label=`Rename ${Object.keys(mp).length} column(s)`;
+        const mp={};
+        document.querySelectorAll('.rename-new').forEach(el=>{
+          const o=el.dataset.old,n=el.value.trim();
+          if(o&&n&&n!==o)mp[o]=n;
+        });
+        const changed=Object.keys(mp).length;
+        if(!changed){showToast('No columns renamed — edit at least one name','error');return;}
+        label=`Rename ${changed} column(s)`;
         fn=data=>data.map(row=>{const o={};Object.entries(row).forEach(([k,v])=>o[mp[k]||k]=v);return o;});break;}
 
       case 'changetype': {
@@ -1974,9 +2754,28 @@ function applyOperation() {
 
       case 'condtag': {
         const tn=document.getElementById('ctag-name').value||'Segment';
-        const rules=document.getElementById('ctag-rules').value.trim().split('\n').map(l=>{const parts=l.split('→');return{cond:parts[0].trim(),label:(parts[1]||'').trim()};}).filter(r=>r.label);
+        const defLabel=document.getElementById('ctag-default')?.value||'Other';
+        const rules=[...document.querySelectorAll('#ctag-rules-ui .rule-row')].map(r=>({
+          col:r.querySelector('.r-col')?.value,op:r.querySelector('.r-op')?.value,
+          val:r.querySelector('.r-val')?.value,label:r.querySelector('.lbl-inp')?.value||'Tagged'
+        })).filter(r=>r.col&&r.label);
         label=`Tag: ${tn}`;
-        fn=data=>data.map(row=>{let tag=null;for(const rule of rules){if(!rule.cond||evalFilter(rule.cond,row)){tag=rule.label;break;}}return Object.assign({},row,{[tn]:tag});});break;}
+        fn=data=>data.map(row=>{
+          for(const rule of rules){
+            const v=row[rule.col],rv=rule.val;let m=false;
+            switch(rule.op){
+              case '==':m=String(v)===String(rv)||+v===+rv;break;
+              case '!=':m=String(v)!==String(rv);break;
+              case '>':m=+v>+rv;break;case '>=':m=+v>=+rv;break;
+              case '<':m=+v<+rv;break;case '<=':m=+v<=+rv;break;
+              case 'contains':m=String(v||'').toLowerCase().includes(rv.toLowerCase());break;
+              case 'is empty':m=v==null||v==='';break;
+              case 'is not empty':m=v!=null&&v!=='';break;
+            }
+            if(m)return Object.assign({},row,{[tn]:rule.label});
+          }
+          return Object.assign({},row,{[tn]:defLabel});
+        });break;}
 
       case 'percentile': {
         const pc2=document.getElementById('pct2-col').value;
@@ -2250,6 +3049,290 @@ document.getElementById('modal-overlay').addEventListener('click', e => {
 renderOps();
 // Load sample data so the tool opens ready to use
 loadSampleData();
+
+
+// ════════════════════════════════════════════════
+// SQL TOGGLE + MODAL WRAPPER
+// ════════════════════════════════════════════════
+function buildModalBodyFull(opId) {
+  const body = buildModalBody(opId);
+  const sqlToggle = `<button class="sql-toggle" onclick="toggleSQL(this)">
+    <span style="font-size:14px">⟨/⟩</span>
+    <span style="flex:1">View equivalent SQL</span>
+    <span class="sql-arrow">▼</span>
+  </button>
+  <div class="sql-panel"></div>`;
+  return body + sqlToggle;
+}
+
+function toggleSQL(btn) {
+  const panel = btn.nextElementSibling;
+  btn.classList.toggle('open');
+  panel.classList.toggle('open');
+  if(panel.classList.contains('open')) panel.innerHTML = generateSQL(currentOp);
+}
+
+function generateSQL(opId) {
+  const tbl = activeTable || 'your_table';
+  const c = cols();
+  const kw = s => `<span class="sql-kw">${s}</span>`;
+  const fn = s => `<span class="sql-fn">${s}</span>`;
+  const st = s => `<span class="sql-str">'${s}'</span>`;
+  const cm = s => `<span class="sql-cm">-- ${s}</span>`;
+  try {
+    switch(opId) {
+      case 'filter': {
+        const logic=document.getElementById('filter-logic')?.value||'AND';
+        const rows=[...document.querySelectorAll('#filter-rules .rule-row')];
+        if(!rows.length) return cm('Add conditions above to see SQL');
+        const clauses=rows.map(r=>{
+          const col=r.querySelector('.r-col')?.value||'col';
+          const op=r.querySelector('.r-op')?.value||'==';
+          const val=r.querySelector('.r-val')?.value||'val';
+          const sop=op==='=='?'=':op==='!='?'<>':op==='contains'?'LIKE':op==='is empty'?'IS NULL':op==='is not empty'?'IS NOT NULL':op;
+          if(op==='contains') return `${col} ${sop} ${st('%'+val+'%')}`;
+          if(op==='is empty'||op==='is not empty') return `${col} ${sop}`;
+          return isNaN(val)?`${col} ${sop} ${st(val)}`:`${col} ${sop} ${val}`;
+        });
+        return `${kw('SELECT')} *\n${kw('FROM')}   ${tbl}\n${kw('WHERE')}  ${clauses.join('\n  '+kw(logic)+'  ')};`;
+      }
+      case 'groupby': {
+        const gcols=getChecked('gb-cols');
+        const aggs=[...document.querySelectorAll('#agg-rows .agg-row')].map(r=>({col:r.querySelector('.ag-col')?.value,fn:r.querySelector('.ag-fn')?.value,name:r.querySelector('.ag-name')?.value||(r.querySelector('.ag-col')?.value+'_'+r.querySelector('.ag-fn')?.value)})).filter(a=>a.col&&a.fn);
+        if(!gcols.length&&!aggs.length) return cm('Configure above to see SQL');
+        const aggStr=aggs.map(a=>a.fn==='COUNT'?`  ${fn('COUNT')}(*) ${kw('AS')} ${a.name}`:a.fn==='COUNT_DISTINCT'?`  ${fn('COUNT')}(${kw('DISTINCT')} ${a.col}) ${kw('AS')} ${a.name}`:`  ${fn(a.fn)}(${a.col}) ${kw('AS')} ${a.name}`);
+        return `${kw('SELECT')}\n  ${gcols.join(',\n  ')},\n${aggStr.join(',\n')}\n${kw('FROM')}   ${tbl}\n${kw('GROUP BY')} ${gcols.join(', ')};`;
+      }
+      case 'join': {
+        const jt=document.getElementById('join-type')?.value||'inner';
+        const lk=document.getElementById('join-left')?.value||'key';
+        const rk=document.getElementById('join-right')?.value||'key';
+        const rt=document.getElementById('join-table')?.value||'other_table';
+        const jw=jt==='inner'?'INNER JOIN':jt==='left'?'LEFT JOIN':jt==='right'?'RIGHT JOIN':'FULL OUTER JOIN';
+        return `${kw('SELECT')} a.*, b.*\n${kw('FROM')}   ${tbl} a\n${kw(jw)} ${rt} b\n  ${kw('ON')}  a.${lk} = b.${rk};`;
+      }
+      case 'calcol': {
+        const nn=document.getElementById('cc-name')?.value||'new_col';
+        const ctype=document.getElementById('cc-type')?.value||'arith';
+        let expr='';
+        if(ctype==='arith'){const ca=document.getElementById('cc-col-a')?.value||'col_a';const op=document.getElementById('cc-op')?.value||'/';const cbEl=document.getElementById('cc-col-b')?.value;const cb=cbEl==='__const__'?(document.getElementById('cc-const-val')?.value||'1'):(cbEl||'col_b');expr=`${ca} ${op} ${isNaN(cb)?"'"+cb+"'":cb}`;}
+        else if(ctype==='if'){const ic=document.getElementById('cc-if-col')?.value||'col';const iop=document.getElementById('cc-if-op')?.value||'==';const iv=document.getElementById('cc-if-val')?.value||'v';const it=document.getElementById('cc-if-then')?.value||1;const ie=document.getElementById('cc-if-else')?.value||0;const sop=iop==='=='?'=':iop;expr=`${kw('CASE')} ${kw('WHEN')} ${ic} ${sop} ${isNaN(iv)?"'"+iv+"'":iv} ${kw('THEN')} ${isNaN(it)?"'"+it+"'":it} ${kw('ELSE')} ${isNaN(ie)?"'"+ie+"'":ie} ${kw('END')}`;}
+        return `${kw('SELECT')} *,\n  ${expr} ${kw('AS')} ${nn}\n${kw('FROM')} ${tbl};`;
+      }
+      case 'condtag': {
+        const tn=document.getElementById('ctag-name')?.value||'Segment';
+        const def=document.getElementById('ctag-default')?.value||'Other';
+        const rows=[...document.querySelectorAll('#ctag-rules-ui .rule-row')];
+        const whens=rows.map(r=>{const col=r.querySelector('.r-col')?.value||'col';const op=r.querySelector('.r-op')?.value||'==';const val=r.querySelector('.r-val')?.value||'val';const lbl=r.querySelector('.lbl-inp')?.value||'Tag';const sop=op==='=='?'=':op==='contains'?'LIKE':op;const sv=op==='contains'?st('%'+val+'%'):isNaN(val)?st(val):val;return `  ${kw('WHEN')} ${col} ${sop} ${sv} ${kw('THEN')} ${st(lbl)}`;});
+        return `${kw('SELECT')} *,\n  ${kw('CASE')}\n${whens.join('\n')}\n  ${kw('ELSE')} ${st(def)}\n  ${kw('END')} ${kw('AS')} ${tn}\n${kw('FROM')} ${tbl};`;
+      }
+      case 'rename': {
+        const renames=[...document.querySelectorAll('.rename-new')].filter(e=>e.value.trim()&&e.value.trim()!==e.dataset.old).map(e=>`  ${e.dataset.old} ${kw('AS')} ${e.value.trim()}`);
+        const rest=c.filter(col=>!renames.find(r=>r.includes(col+' ')));
+        return `${kw('SELECT')}\n${renames.length?renames.join(',\n')+',\n':''}  ${rest.join(', ')}\n${kw('FROM')} ${tbl};`;
+      }
+      case 'selectcols':{const act=document.getElementById('sc-action')?.value;const sel=getChecked('sc-cols');const keep=act==='keep'?sel:c.filter(x=>!sel.includes(x));return `${kw('SELECT')} ${keep.join(', ')}\n${kw('FROM')} ${tbl};`;}
+      case 'dedup':{const mode=document.getElementById('dedup-mode')?.value;const kc=mode==='key'?getChecked('dedup-cols'):c;return `${kw('SELECT DISTINCT')} ${kc.join(', ')}\n${kw('FROM')} ${tbl};\n${cm('or use ROW_NUMBER() OVER (PARTITION BY ...) for more control')}`;}
+      case 'topn':{const n=document.getElementById('topn-n')?.value||10;const sc=document.getElementById('topn-sortcol')?.value||c[0];const dir=document.getElementById('topn-dir')?.value==='top'?'DESC':'ASC';return `${kw('SELECT')} *\n${kw('FROM')} ${tbl}\n${kw('ORDER BY')} ${sc} ${kw(dir)}\n${kw('LIMIT')} ${n};`;}
+      case 'pivot':{const rk=document.getElementById('piv-rows')?.value||'row';const ck=document.getElementById('piv-cols')?.value||'col';const vk=document.getElementById('piv-vals')?.value||'val';const ag=document.getElementById('piv-agg')?.value||'SUM';return `${cm('Use CASE WHEN for each pivot value')}\n${kw('SELECT')} ${rk},\n  ${fn(ag)}(${kw('CASE')} ${kw('WHEN')} ${ck}=${st('v1')} ${kw('THEN')} ${vk} ${kw('END')}) ${kw('AS')} v1\n${kw('FROM')} ${tbl}\n${kw('GROUP BY')} ${rk};`;}
+      case 'runningtot':{const vc=document.getElementById('rt-val')?.value||'val';const sc=document.getElementById('rt-sort')?.value||'ord';const grp=document.getElementById('rt-group')?.value;const pb=grp?`${kw('PARTITION BY')} ${grp} `:'';return `${kw('SELECT')} *,\n  ${fn('SUM')}(${vc}) ${kw('OVER')} (${pb}${kw('ORDER BY')} ${sc}) ${kw('AS')} Running_Total\n${kw('FROM')} ${tbl};`;}
+      case 'rank':{const sc=document.getElementById('rank-sortcol')?.value||'val';const rt=document.getElementById('rank-type')?.value||'rank';const rd=document.getElementById('rank-dir')?.value==='desc'?'DESC':'ASC';const grp=document.getElementById('rank-group')?.value;const fnm=rt==='dense'?'DENSE_RANK':rt==='row'?'ROW_NUMBER':'RANK';const pb=grp?`${kw('PARTITION BY')} ${grp} `:'';return `${kw('SELECT')} *,\n  ${fn(fnm)}() ${kw('OVER')} (${pb}${kw('ORDER BY')} ${sc} ${kw(rd)}) ${kw('AS')} Rank\n${kw('FROM')} ${tbl};`;}
+      case 'rolling':{const rv=document.getElementById('roll-val')?.value||'val';const rn=document.getElementById('roll-n')?.value||3;const rfn=document.getElementById('roll-fn')?.value||'AVG';return `${kw('SELECT')} *,\n  ${fn(rfn)}(${rv}) ${kw('OVER')} (\n    ${kw('ORDER BY')} order_col\n    ${kw('ROWS BETWEEN')} ${rn-1} ${kw('PRECEDING AND CURRENT ROW')}\n  ) ${kw('AS')} Rolling\n${kw('FROM')} ${tbl};`;}
+      case 'pctotal':{const vc=document.getElementById('pct-val')?.value||'val';return `${kw('SELECT')} *,\n  ${vc} * 100.0 / ${fn('SUM')}(${vc}) ${kw('OVER')} () ${kw('AS')} Pct_of_Total\n${kw('FROM')} ${tbl};`;}
+      case 'nullaudit':return `${kw('SELECT')}\n  ${c.slice(0,5).map(col=>`${fn('SUM')}(${kw('CASE')} ${kw('WHEN')} ${col} ${kw('IS NULL')} ${kw('THEN')} 1 ${kw('ELSE')} 0 ${kw('END')}) ${kw('AS')} ${col}_nulls`).join(',\n  ')}\n${kw('FROM')} ${tbl};`;
+      case 'freqdist':{const fc=document.getElementById('fd-col')?.value||c[0];const n=document.getElementById('fd-n')?.value||20;return `${kw('SELECT')} ${fc}, ${fn('COUNT')}(*) ${kw('AS')} frequency\n${kw('FROM')} ${tbl}\n${kw('GROUP BY')} ${fc}\n${kw('ORDER BY')} frequency ${kw('DESC')}\n${kw('LIMIT')} ${n};`;}
+      case 'datepart':{const dc=document.getElementById('dp-col')?.value||'date_col';return `${kw('SELECT')} *,\n  ${fn('YEAR')}(${dc}) ${kw('AS')} ${dc}_year,\n  ${fn('MONTH')}(${dc}) ${kw('AS')} ${dc}_month\n${kw('FROM')} ${tbl};`;}
+      case 'datediff':{const s=document.getElementById('dd-start')?.value||'start';const e=document.getElementById('dd-end')?.value||'end';return `${kw('SELECT')} *,\n  ${fn('DATEDIFF')}(${e}, ${s}) ${kw('AS')} Date_Diff\n${kw('FROM')} ${tbl};\n${cm('DATEDIFF syntax varies by database')}`;}
+      case 'periodcomp':{const pv=document.getElementById('pc-val')?.value||'val';return `${kw('SELECT')} *,\n  ${fn('LAG')}(${pv},1) ${kw('OVER')} (${kw('ORDER BY')} date_col) ${kw('AS')} Prior_Val\n${kw('FROM')} ${tbl};`;}
+      default: return cm('SQL not available for this operation');
+    }
+  } catch(err) { return '<span class="sql-cm">-- Configure the operation above to see SQL</span>'; }
+}
+
+// ════════════════════════════════════════════════
+// VISUAL BUILDER HELPERS
+// ════════════════════════════════════════════════
+function addFilterRule() {
+  const container = document.getElementById('filter-rules');
+  if(!container) return;
+  const c = cols();
+  if(container.children.length > 0) {
+    const logic = document.getElementById('filter-logic')?.value || 'AND';
+    const conn = document.createElement('div');
+    conn.className = 'logic-connector';
+    conn.textContent = logic;
+    container.appendChild(conn);
+    document.getElementById('filter-logic')?.addEventListener('change', function() {
+      document.querySelectorAll('.logic-connector').forEach(el => el.textContent = this.value);
+    }, {once: true});
+  }
+  const row = document.createElement('div');
+  row.className = 'rule-row';
+  row.innerHTML = `<select class="r-col"><option value="">— column —</option>${c.map(x=>`<option>${x}</option>`).join('')}</select>
+    <select class="r-op">
+      <option value="==">=  equals</option><option value="!=">≠  not equals</option>
+      <option value=">">›  greater than</option><option value=">=">≥  ≥</option>
+      <option value="<">‹  less than</option><option value="<=">≤  ≤</option>
+      <option value="contains">contains</option><option value="not contains">not contains</option>
+      <option value="starts with">starts with</option>
+      <option value="is empty">is empty</option><option value="is not empty">is not empty</option>
+    </select>
+    <input class="r-val" placeholder="value" style="flex:2"/>
+    <button class="rm-rule" onclick="this.closest('.rule-row').remove()">✕</button>`;
+  container.appendChild(row);
+}
+
+function addTagRule() {
+  const container = document.getElementById('ctag-rules-ui');
+  if(!container) return;
+  const c = cols();
+  const row = document.createElement('div');
+  row.className = 'rule-row';
+  row.innerHTML = `<select class="r-col"><option value="">— column —</option>${c.map(x=>`<option>${x}</option>`).join('')}</select>
+    <select class="r-op"><option value="==">=  equals</option><option value="!=">≠</option><option value=">">›</option><option value=">=">≥</option><option value="<">‹</option><option value="<=">≤</option><option value="contains">contains</option><option value="is empty">is empty</option><option value="is not empty">is not empty</option></select>
+    <input class="r-val" placeholder="value" style="flex:1.5"/>
+    <span style="font-size:11px;color:var(--text3);flex-shrink:0">→</span>
+    <input class="lbl-inp" placeholder="Label" style="flex:1.5;border:1px solid var(--border);border-radius:5px;padding:4px 7px;background:var(--surface);font-family:var(--sans);font-size:11px;color:var(--text)"/>
+    <button class="rm-rule" onclick="this.closest('.rule-row').remove()">✕</button>`;
+  container.appendChild(row);
+}
+
+function addAggRow() {
+  const container = document.getElementById('agg-rows');
+  if(!container) return;
+  const c = cols();
+  const row = document.createElement('div');
+  row.className = 'agg-row';
+  row.innerHTML = `<select class="ag-col" style="flex:2"><option value="">— column —</option>${c.map(x=>`<option>${x}</option>`).join('')}</select>
+    <select class="ag-fn" style="flex:1.5"><option value="SUM">SUM</option><option value="COUNT">COUNT</option><option value="COUNT_DISTINCT">COUNT DISTINCT</option><option value="AVG">AVG</option><option value="MIN">MIN</option><option value="MAX">MAX</option><option value="MEDIAN">MEDIAN</option></select>
+    <input class="ag-name" placeholder="Output name" style="flex:2;border:1px solid var(--border);border-radius:5px;padding:4px 7px;background:var(--surface);font-family:var(--sans);font-size:11px;color:var(--text)"/>
+    <button class="rm-rule" onclick="this.closest('.agg-row').remove()">✕</button>`;
+  const sel = row.querySelector('.ag-col'), fn = row.querySelector('.ag-fn'), nm = row.querySelector('.ag-name');
+  const auto = () => { if(sel.value && fn.value && !nm.value) nm.value = sel.value + '_' + fn.value; };
+  sel.addEventListener('change', auto); fn.addEventListener('change', auto);
+  container.appendChild(row);
+}
+
+function updateCalcUI() {
+  const t = document.getElementById('cc-type')?.value;
+  document.getElementById('cc-builder').style.display = t==='arith' ? '' : 'none';
+  document.getElementById('cc-if-builder').style.display = t==='if' ? '' : 'none';
+  document.getElementById('cc-const-builder').style.display = t==='const' ? '' : 'none';
+  updateCalcPreview();
+}
+function updateCalcPreview() {
+  const p = document.getElementById('cc-preview'); if(!p) return;
+  const t = document.getElementById('cc-type')?.value || 'arith';
+  const n = document.getElementById('cc-name')?.value || 'new_col';
+  let expr = '';
+  try {
+    if(t==='arith') {
+      const ca=document.getElementById('cc-col-a')?.value||'?';
+      const op=document.getElementById('cc-op')?.value||'/';
+      const cbEl=document.getElementById('cc-col-b')?.value;
+      const cb=cbEl==='__const__'?(document.getElementById('cc-const-val')?.value||'?'):(cbEl||'?');
+      const sym=op==='/'?'÷':op==='*'?'×':op;
+      expr=`[${ca}] ${sym} ${cbEl==='__const__'?cb:'['+cb+']'}`;
+    } else if(t==='if') {
+      const ic=document.getElementById('cc-if-col')?.value||'?';
+      const iop=document.getElementById('cc-if-op')?.value||'==';
+      const iv=document.getElementById('cc-if-val')?.value||'?';
+      expr=`IF [${ic}] ${iop} "${iv}" THEN … ELSE …`;
+    } else { expr=document.getElementById('cc-const-only')?.value||'…'; }
+    p.textContent = n + ' = ' + expr;
+  } catch(e) { p.textContent = '—'; }
+}
+document.addEventListener('change', e => {
+  if(!e.target) return;
+  if(e.target.id==='cc-col-b') {
+    const cw=document.getElementById('cc-const-wrap');
+    if(cw) cw.style.display=e.target.value==='__const__'?'':'none';
+  }
+  if(['cc-col-a','cc-op','cc-col-b','cc-const-val'].includes(e.target.id)) updateCalcPreview();
+});
+
+// ════════════════════════════════════════════════
+// DB-03: DATA QUALITY SCORING
+// ════════════════════════════════════════════════
+function runQualityCheck(data, meta) {
+  if(!data||!data.length) return;
+  const c=Object.keys(data[0]); let penalty=0; const issues=[];
+  const totalNulls=c.reduce((s,col)=>s+data.filter(r=>r[col]==null||r[col]==='').length,0);
+  const nullPct=totalNulls/(data.length*c.length)*100;
+  if(nullPct>20){issues.push(`${Math.round(nullPct)}% nulls`);penalty+=30;}
+  else if(nullPct>5){issues.push(`${Math.round(nullPct)}% nulls`);penalty+=10;}
+  const keys=data.map(r=>c.map(col=>r[col]).join('|||'));
+  const dups=keys.length-new Set(keys).size;
+  if(dups>0){const p=Math.round(dups/data.length*100);if(p>10){issues.push(`${p}% duplicates`);penalty+=20;}else{issues.push(`${dups} dupes`);penalty+=5;}}
+  const moneyLike=c.filter(col=>/price|cost|revenue|value|amount|total/i.test(col));
+  const neg=moneyLike.reduce((s,col)=>s+data.filter(r=>+r[col]<0).length,0);
+  if(neg>0){issues.push(`${neg} negative values`);penalty+=10;}
+  const score=Math.max(0,100-penalty);
+  const badge=document.getElementById('q-score-badge');
+  const issueEl=document.getElementById('q-issues');
+  const bar=document.getElementById('quality-bar');
+  if(badge){badge.textContent=score+'/100';badge.className='q-score '+(score>=80?'q-good':score>=60?'q-warn':'q-bad');}
+  if(issueEl)issueEl.innerHTML=issues.length?issues.map(i=>`<span class="q-issue">⚠ ${i}</span>`).join(' &nbsp;'):`<span style="color:var(--success);font-size:11px">✓ No issues detected</span>`;
+  if(bar)bar.classList.add('show');
+  const paBtn=document.getElementById('pa-send-btn');
+  if(paBtn)paBtn.style.display='';
+}
+
+// ════════════════════════════════════════════════
+// DB-04: SESSION STORAGE HANDOFF
+// ════════════════════════════════════════════════
+function sendToPricingAnalyser() {
+  if(!currentData||!currentData.length){showToast('No data to send','error');return;}
+  const payload={rows:currentData,columns:cols(currentData),source:activeTable||'DataBridge',rowCount:currentData.length,schema:window._pricingSchemaMap||{},sentAt:new Date().toISOString()};
+  try {
+    sessionStorage.setItem('pa_incoming_dataset',JSON.stringify(payload));
+    showToast('Dataset sent — opening Pricing Analyser…','success');
+    setTimeout(()=>window.open('https://archishman-b.github.io/pricing-analyser/','_blank'),600);
+  } catch(e){showToast('sessionStorage error: '+e.message,'error');}
+}
+
+// ════════════════════════════════════════════════
+// DB-01: PRICING SCHEMA WIZARD
+// ════════════════════════════════════════════════
+const PRICING_DIMENSIONS=[
+  {key:'listPrice',label:'List / invoice price',sub:'Nominal price before discounts',match:/list|invoice|price|msrp|rrp/i},
+  {key:'pocketPrice',label:'Pocket / net price',sub:'Actual price received after all discounts',match:/pocket|net|actual|final|received/i},
+  {key:'unitCost',label:'Unit cost / COGS',sub:'Variable cost per unit',match:/cost|cogs|variable/i},
+  {key:'discountPct',label:'Discount %',sub:'Discount as % of list price',match:/disc.*pct|disc.*perc|discount.*%/i},
+  {key:'discountAmt',label:'Discount amount',sub:'Discount in absolute terms',match:/disc.*amt|disc.*amount/i},
+  {key:'quantity',label:'Quantity / units',sub:'Number of units in the transaction',match:/qty|quantity|units|volume/i},
+  {key:'salesRep',label:'Sales rep',sub:'Person who closed the deal',match:/rep|sales.*rep|owner|seller/i},
+  {key:'customer',label:'Customer / account',sub:'Customer name or ID',match:/customer|account|client|company/i},
+  {key:'customerTier',label:'Customer tier',sub:'Account tier or segment',match:/tier|segment|class|grade/i},
+  {key:'region',label:'Region / territory',sub:'Geographic region or territory',match:/region|territory|area|zone/i},
+  {key:'product',label:'Product / SKU',sub:'Product name, SKU, or category',match:/product|sku|item|part|category/i},
+  {key:'date',label:'Transaction date',sub:'Date the transaction occurred',match:/date|period|time|month|year/i},
+];
+function autoMatchColumns(columns){const m={};PRICING_DIMENSIONS.forEach(d=>{const f=columns.find(c=>d.match.test(c));if(f)m[d.key]=f;});return m;}
+function openSchemaWizard(){
+  if(!currentData||!currentData.length){showToast('Load data first','error');return;}
+  const c=cols(),auto=autoMatchColumns(c),grid=document.getElementById('schema-grid');
+  if(!grid)return;
+  grid.innerHTML=PRICING_DIMENSIONS.map(d=>{const m=auto[d.key];return `<div class="schema-field"><label>${d.label}${m?' <span style="color:var(--success);font-weight:400">✓ auto</span>':''}</label><div class="sf-sub">${d.sub}</div><select data-dim="${d.key}"><option value="">— skip —</option>${c.map(col=>`<option value="${col}"${col===m?' selected':''}>${col}${col===m?' ✓':''}</option>`).join('')}</select></div>`;}).join('');
+  document.getElementById('schema-overlay').classList.add('open');
+}
+function closeSchemaWizard(){document.getElementById('schema-overlay').classList.remove('open');}
+function applySchemaMapping(){
+  const map={};document.querySelectorAll('.schema-grid select[data-dim]').forEach(s=>{if(s.value)map[s.dataset.dim]=s.value;});
+  window._pricingSchemaMap=map;
+  const count=Object.keys(map).length;
+  closeSchemaWizard();
+  showToast(`Schema: ${count} dimension${count!==1?'s':''} mapped`,'success');
+  addAudit('Schema mapped',`${count} pricing dimensions`,Object.entries(map).slice(0,4).map(([k,v])=>k+': '+v).join(' · '));
+}
+function showSchemaButton(){
+  if(document.getElementById('schema-wizard-btn'))return;
+  const btn=document.createElement('button');
+  btn.id='schema-wizard-btn';btn.className='btn btn-secondary btn-sm';
+  btn.textContent='◈ Pricing schema';btn.title='Map columns to pricing dimensions';
+  btn.onclick=openSchemaWizard;
+  document.querySelector('.topbar-right')?.insertBefore(btn,document.querySelector('.topbar-right').firstChild);
+}
 </script>
 </body>
 </html>
