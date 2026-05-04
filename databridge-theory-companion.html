@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataBridge — Theory Companion</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --paper:   #F6F3EC;
+  --paper-2: #EEE9DF;
+  --paper-3: #E4DDD0;
+  --ink:     #1C1A15;
+  --ink-2:   #4A4640;
+  --ink-3:   #8A8478;
+  --rule:    rgba(28,26,21,0.10);
+  --rule-2:  rgba(28,26,21,0.05);
+  --accent:  #B5621E;
+  --accent-lt: #FBF0E8;
+  --teal:    #1A6B52;
+  --teal-lt: #E6F3EE;
+  --navy:    #1C2F4A;
+  --navy-lt: #E8EEF6;
+  --mono: 'DM Mono', monospace;
+  --serif: 'DM Serif Display', serif;
+  --sans: 'DM Sans', sans-serif;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); background:var(--paper); color:var(--ink); font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased; }
+
+/* ── LAYOUT ── */
+.layout { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  background:var(--paper-2); border-right:1px solid var(--rule);
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+  display:flex; flex-direction:column; padding:0;
+}
+.sb-top { padding:28px 22px 20px; border-bottom:1px solid var(--rule); }
+.sb-tool { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+.sb-title { font-family:var(--serif); font-size:17px; font-weight:400; color:var(--ink); line-height:1.2; }
+.sb-sub { font-size:11px; color:var(--ink-3); margin-top:4px; line-height:1.5; }
+.sb-body { flex:1; padding:14px 0; overflow-y:auto; }
+.sb-section { font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); padding:12px 22px 4px; }
+.sb-link { display:block; padding:6px 22px; font-size:12px; color:var(--ink-2); text-decoration:none; border-left:2px solid transparent; transition:all .12s; line-height:1.4; }
+.sb-link:hover { color:var(--ink); background:rgba(28,26,21,0.04); }
+.sb-link.active { color:var(--accent); border-left-color:var(--accent); background:rgba(181,98,30,0.06); }
+.sb-div { height:1px; background:var(--rule); margin:8px 22px; }
+.sb-back { display:flex; align-items:center; gap:6px; padding:16px 22px; font-size:11px; color:var(--ink-3); text-decoration:none; border-top:1px solid var(--rule); margin-top:auto; transition:color .15s; }
+.sb-back:hover { color:var(--accent); }
+
+/* ── MAIN ── */
+.main { max-width:820px; padding:64px 72px 120px; }
+
+/* ── HERO ── */
+.hero { padding-bottom:48px; border-bottom:1px solid var(--rule); margin-bottom:56px; }
+.hero-eyebrow { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+.hero-title { font-family:var(--serif); font-size:clamp(36px,5vw,54px); font-weight:400; line-height:1.08; letter-spacing:-.01em; margin-bottom:20px; }
+.hero-title em { font-style:italic; color:var(--accent); }
+.hero-sub { font-size:16px; color:var(--ink-2); max-width:600px; line-height:1.8; margin-bottom:28px; }
+.hero-meta { display:flex; gap:24px; flex-wrap:wrap; }
+.meta-item { font-family:var(--mono); font-size:10px; color:var(--ink-3); letter-spacing:.06em; text-transform:uppercase; }
+.meta-item strong { color:var(--ink-2); }
+
+/* ── SECTIONS ── */
+.section { margin-bottom:64px; scroll-margin-top:24px; }
+.sec-eyebrow { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px; display:flex; align-items:center; gap:10px; }
+.sec-eyebrow::after { content:''; flex:0 0 32px; height:1px; background:var(--rule); }
+.sec-title { font-family:var(--serif); font-size:30px; font-weight:400; line-height:1.15; margin-bottom:6px; }
+.sec-title em { font-style:italic; color:var(--accent); }
+.sec-sub { font-size:13px; color:var(--ink-3); font-style:italic; margin-bottom:28px; line-height:1.6; }
+
+/* ── PROSE ── */
+.prose p { margin-bottom:18px; color:var(--ink-2); line-height:1.8; }
+.prose p:last-child { margin-bottom:0; }
+.prose strong { color:var(--ink); font-weight:500; }
+.prose em { font-style:italic; color:var(--accent); }
+
+/* ── PULL QUOTE ── */
+.pull-quote { margin:36px 0; padding:24px 28px; background:var(--paper-2); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; }
+.pull-quote p { font-family:var(--serif); font-size:19px; font-weight:400; line-height:1.55; color:var(--ink); font-style:italic; margin:0; }
+.pull-quote cite { display:block; font-family:var(--mono); font-size:10px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.08em; margin-top:12px; font-style:normal; }
+
+/* ── CONCEPT GRID ── */
+.concept-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0; }
+.concept-card { background:var(--paper-2); border:1px solid var(--rule); border-radius:10px; padding:18px 20px; }
+.cc-icon { font-size:20px; margin-bottom:10px; }
+.cc-title { font-family:var(--sans); font-size:13px; font-weight:600; color:var(--ink); margin-bottom:5px; }
+.cc-body { font-size:12px; color:var(--ink-2); line-height:1.65; }
+
+/* ── OP TABLE ── */
+.op-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:13px; }
+.op-table th { text-align:left; font-family:var(--mono); font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3); padding:8px 12px; border-bottom:1px solid var(--rule); }
+.op-table td { padding:9px 12px; border-bottom:1px solid var(--rule-2); color:var(--ink-2); vertical-align:top; line-height:1.5; }
+.op-table td:first-child { font-family:var(--mono); font-size:11px; color:var(--ink); font-weight:500; white-space:nowrap; }
+.op-table td strong { color:var(--ink); font-weight:500; }
+.op-table tr:last-child td { border:none; }
+.op-badge { display:inline-block; font-size:9px; padding:1px 6px; border-radius:3px; font-family:var(--mono); font-weight:500; }
+.badge-join { background:var(--navy-lt); color:var(--navy); }
+.badge-filter { background:var(--teal-lt); color:var(--teal); }
+.badge-agg { background:var(--accent-lt); color:var(--accent); }
+.badge-transform { background:var(--paper-3); color:var(--ink-2); border:1px solid var(--rule); }
+.badge-inspect { background:#F3EEFB; color:#5B3F9A; }
+.badge-segment { background:#FBF3E8; color:#8A4F0C; }
+.badge-time { background:#E8F6F3; color:#1A6B52; }
+
+/* ── SQL CALLOUT ── */
+.sql-box { background:#1E1E2E; border-radius:8px; padding:16px 18px; margin:20px 0; font-family:var(--mono); font-size:12px; color:#CDD6F4; line-height:1.7; overflow-x:auto; }
+.sql-box .kw { color:#89B4FA; font-weight:500; }
+.sql-box .fn { color:#A6E3A1; }
+.sql-box .cm { color:#6C7086; font-style:italic; }
+.sql-box .st { color:#F9E2AF; }
+
+/* ── PIPELINE DIAGRAM ── */
+.pipeline { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:20px 0; }
+.pipe-step { padding:7px 14px; border-radius:20px; border:1px solid var(--rule); background:var(--paper-2); font-size:12px; font-weight:500; color:var(--ink-2); }
+.pipe-step.source { background:var(--navy-lt); color:var(--navy); border-color:rgba(28,47,74,0.2); }
+.pipe-step.op { background:var(--accent-lt); color:var(--accent); border-color:rgba(181,98,30,0.2); }
+.pipe-step.result { background:var(--teal-lt); color:var(--teal); border-color:rgba(26,107,82,0.2); }
+.pipe-arrow { color:var(--ink-3); font-size:14px; }
+
+/* ── NOTE BLOCK ── */
+.note { background:var(--paper-2); border:1px solid var(--rule); border-radius:8px; padding:14px 16px; margin:20px 0; font-size:13px; color:var(--ink-2); line-height:1.7; }
+.note strong { color:var(--ink); font-weight:500; }
+.note.teal { border-left:3px solid var(--teal); }
+.note.accent { border-left:3px solid var(--accent); }
+
+/* ── GLOSSARY ── */
+.glossary-item { padding:12px 0; border-bottom:1px solid var(--rule-2); display:grid; grid-template-columns:180px 1fr; gap:16px; }
+.glossary-item:last-child { border:none; }
+.glossary-term { font-family:var(--mono); font-size:12px; font-weight:500; color:var(--ink); }
+.glossary-def { font-size:13px; color:var(--ink-2); line-height:1.65; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px) { .layout{grid-template-columns:1fr} .sidebar{display:none} .main{padding:40px 24px 80px} .concept-grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-top">
+    <div class="sb-tool">DataBridge · Theory</div>
+    <div class="sb-title">Data Transformation<br>for Strategy</div>
+    <div class="sb-sub">The intellectual framework behind the tool</div>
+  </div>
+  <div class="sb-body">
+    <div class="sb-section">Foundations</div>
+    <a class="sb-link" href="#problem">The access gap</a>
+    <a class="sb-link" href="#what-is-data">What data actually is</a>
+    <a class="sb-link" href="#pipeline">The pipeline model</a>
+    <div class="sb-div"></div>
+    <div class="sb-section">Operations</div>
+    <a class="sb-link" href="#joins">Joins — combining tables</a>
+    <a class="sb-link" href="#filter">Filter & select</a>
+    <a class="sb-link" href="#aggregate">Aggregate & group</a>
+    <a class="sb-link" href="#transform">Transform columns</a>
+    <a class="sb-link" href="#inspect">Inspect & profile</a>
+    <a class="sb-link" href="#segment">Segment & classify</a>
+    <a class="sb-link" href="#time">Time intelligence</a>
+    <div class="sb-div"></div>
+    <div class="sb-section">SQL</div>
+    <a class="sb-link" href="#sql-primer">SQL primer</a>
+    <a class="sb-link" href="#sql-patterns">Common patterns</a>
+    <div class="sb-div"></div>
+    <div class="sb-section">Craft</div>
+    <a class="sb-link" href="#data-quality">Data quality</a>
+    <a class="sb-link" href="#schema">Schema design</a>
+    <a class="sb-link" href="#glossary">Glossary</a>
+  </div>
+  <a class="sb-back" href="https://archishman-b.github.io/databridge/databridge.html" target="_blank">← Back to DataBridge ↗</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-eyebrow">DataBridge · Theory Companion</div>
+  <h1 class="hero-title">Data Transformation<br><em>for Strategy.</em></h1>
+  <p class="hero-sub">The concepts, patterns, and mental models behind every operation in DataBridge — written for strategy and MBA professionals who work with data every day but rarely have direct access to the tools that move it.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><strong>7</strong> operation categories</div>
+    <div class="meta-item"><strong>40+</strong> operations</div>
+    <div class="meta-item"><strong>SQL</strong> equivalent shown throughout</div>
+  </div>
+</div>
+
+<!-- SECTION 1: THE PROBLEM -->
+<div class="section" id="problem">
+  <div class="sec-eyebrow">Foundations</div>
+  <h2 class="sec-title">The <em>access gap</em></h2>
+  <p class="sec-sub">Why strategy professionals have always needed an intermediary to answer their own questions</p>
+  <div class="prose">
+    <p>Every meaningful commercial dataset — customer transaction history, discount by rep, revenue by SKU, retention by cohort — exists as rows and columns in a table somewhere. The question is almost never whether the data exists. It is whether the person who knows what question to ask can also run the analysis that answers it.</p>
+    <p>In a pricing transformation engagement at Monitor Deloitte, the most consequential analyses were not technically complex. They were: <strong>who is giving away the most discount? Which customers are receiving the worst pocket price? Which reps are most likely to break from price policy under pressure?</strong> These are straightforward aggregations and segment comparisons. But they depended on a cleaned, joined, deduplicated dataset sitting in SQL Server — and extracting it required an analyst queue, a data engineering team, and a 48-hour turnaround on every iteration.</p>
+    <p>The strategic insight did not require machine learning. It required <strong>filter, group by, and sort</strong>. The bottleneck was never analytical sophistication. It was infrastructure setup time, analyst queue lag, and the structural separation between the person who understood the business question and the person who could run the query.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>The analysis that changed the pricing strategy was a grouped aggregation on three columns. It took an analyst four hours to produce the first iteration. DataBridge runs it in four seconds.</p>
+    <cite>— Pricing transformation, US auto parts retail, Monitor Deloitte</cite>
+  </div>
+
+  <div class="prose">
+    <p>DataBridge is not a replacement for SQL expertise or data engineering. It is a <strong>direct path from raw data to strategic answer</strong> for the analyst-consultant hybrid who has the business question clearly in their head and needs to move quickly.</p>
+  </div>
+</div>
+
+<!-- SECTION 2: WHAT DATA IS -->
+<div class="section" id="what-is-data">
+  <div class="sec-eyebrow">Foundations</div>
+  <h2 class="sec-title">What data <em>actually is</em></h2>
+  <p class="sec-sub">Rows, columns, types, and the shape of a useful dataset</p>
+  <div class="prose">
+    <p>Every dataset DataBridge works with follows the same structure: a <strong>rectangular table</strong> where each row is one observation (a transaction, a customer, a product) and each column is one attribute of that observation. This is called <em>tidy data</em>, and almost every analytical operation in the world assumes it.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="cc-icon">📋</div>
+      <div class="cc-title">Rows = observations</div>
+      <div class="cc-body">One row is one instance of the thing being measured. One transaction, one customer, one survey response, one SKU at one time point.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">⬜</div>
+      <div class="cc-title">Columns = attributes</div>
+      <div class="cc-body">Each column describes one property of the observation. Revenue, region, date, customer tier, discount percentage.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">123</div>
+      <div class="cc-title">Types matter</div>
+      <div class="cc-body">Numbers, text, and dates behave differently. You cannot average a text column or filter a date with string logic. DataBridge infers and displays types automatically.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">∅</div>
+      <div class="cc-title">Nulls are real</div>
+      <div class="cc-body">A missing value (null) is not zero. Averaging over nulls gives a different result than averaging over zeros. Understanding null distribution is part of understanding the data.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Most raw datasets arriving from ERP systems, CRMs, or data warehouse exports are not tidy. They have <strong>mixed types</strong> (a revenue column with some text entries), <strong>structural nulls</strong> (deals without a close date because they never closed), and <strong>implicit joins</strong> (a customer ID that needs to be matched to a customer master table before you can do any segmentation). The first step in any analysis is getting the data into a state where your operations will produce reliable results.</p>
+  </div>
+</div>
+
+<!-- SECTION 3: PIPELINE MODEL -->
+<div class="section" id="pipeline">
+  <div class="sec-eyebrow">Foundations</div>
+  <h2 class="sec-title">The <em>pipeline model</em></h2>
+  <p class="sec-sub">Why operations are chained, not run in isolation</p>
+  <div class="prose">
+    <p>DataBridge uses a <strong>pipeline architecture</strong>: every operation you apply transforms the current state of the data and passes it to the next step. The result of step 3 feeds step 4. This is how professional data tools like dbt, Pandas, and SQL CTEs work — and for good reason.</p>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-step source">Raw transactions</div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step op">Join customer master</div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step op">Filter: Won deals only</div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step op">Group by rep + region</div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step result">Pricing diagnostic</div>
+  </div>
+
+  <div class="prose">
+    <p>Each step in the pipeline is <strong>recorded in the audit log</strong> and can be undone independently. This lets you explore multiple analytical paths from the same source data without losing your work. You can also <strong>save intermediate results as named tables</strong> in the sidebar, which allows branching — taking the same cleaned dataset in two different analytical directions simultaneously.</p>
+    <p>The pipeline model also makes the analysis <strong>auditable</strong>. A senior partner or client can follow the exact sequence of transformations that produced the output. There is no hidden formula cell, no macro, no "I ran it through the model." Every step is explicit and reversible.</p>
+  </div>
+
+  <div class="note teal">
+    <strong>In SQL terms:</strong> each pipeline step is equivalent to one CTE (Common Table Expression) in a WITH clause. The final result is what a SELECT * FROM the last CTE would return. DataBridge's pipeline is visual SQL.
+  </div>
+</div>
+
+<!-- SECTION 4: JOINS -->
+<div class="section" id="joins">
+  <div class="sec-eyebrow">Operations</div>
+  <h2 class="sec-title">Joins — <em>combining tables</em></h2>
+  <p class="sec-sub">The most consequential operation in commercial analytics</p>
+  <div class="prose">
+    <p>Almost no real analysis runs on a single flat table. A transaction table has customer IDs but not customer names or tiers. A CRM export has deal values but not product categories. A rep performance table has revenue but not territory. <strong>Joins are how you bring the right context into the right row.</strong></p>
+    <p>The core idea is simple: find rows in two tables that share a common key value, and combine their columns into one row. But the choice of join type determines what you keep when the keys don't perfectly match — which is most of the time in real commercial data.</p>
+  </div>
+
+  <table class="op-table">
+    <thead><tr><th>Join type</th><th>What it keeps</th><th>When to use it</th></tr></thead>
+    <tbody>
+      <tr><td>Inner join</td><td>Only rows where the key exists in both tables</td><td>When you only care about matched records — e.g. transactions with a known customer</td></tr>
+      <tr><td>Left join</td><td>All rows from the left table; null for unmatched right columns</td><td>Most common in strategy work. Keep all transactions, add customer attributes where available</td></tr>
+      <tr><td>Right join</td><td>All rows from the right table; null for unmatched left columns</td><td>Find which customers have no transactions — useful for lapsed account analysis</td></tr>
+      <tr><td>Full outer</td><td>All rows from both tables, nulls where unmatched</td><td>Reconciliation — find gaps in both directions simultaneously</td></tr>
+      <tr><td>Anti-join</td><td>Rows in the left table with <em>no</em> match in the right</td><td>Find orphan records — transactions with no customer master, leads with no account</td></tr>
+      <tr><td>Lookup</td><td>All left rows, one additional column from the right</td><td>Equivalent to VLOOKUP — bring in customer tier, territory name, manager, etc.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="prose">
+    <p>The <strong>match rate</strong> of a join is diagnostic in itself. If you left join 10,000 transactions to a customer master and 2,000 rows have null customer names, that tells you 20% of your transactions have no master record — a data quality issue that will distort every subsequent segmentation and aggregation.</p>
+  </div>
+
+  <div class="sql-box"><span class="cm">-- Left join: all transactions, customer attributes where available</span>
+<span class="kw">SELECT</span> t.*, c.customer_name, c.tier, c.account_manager
+<span class="kw">FROM</span>   transactions t
+<span class="kw">LEFT JOIN</span> customer_master c
+  <span class="kw">ON</span>  t.customer_id = c.customer_id;</div>
+</div>
+
+<!-- SECTION 5: FILTER & SELECT -->
+<div class="section" id="filter">
+  <div class="sec-eyebrow">Operations</div>
+  <h2 class="sec-title">Filter <em>&amp; select</em></h2>
+  <p class="sec-sub">Scoping the dataset to the population that answers your question</p>
+  <div class="prose">
+    <p>Every analytical question has a scope. "Which enterprise accounts are at risk of churn?" requires filtering to enterprise tier before any further analysis makes sense. "What is the average discount on electronics deals?" requires filtering to category = Electronics first. <strong>Filtering is not data reduction — it is question definition.</strong></p>
+    <p>DataBridge's filter builder supports <strong>compound conditions</strong> (AND / OR logic across multiple columns), <strong>text matching</strong> (contains, starts with), <strong>numeric comparisons</strong> (greater than, less than, between), and <strong>null detection</strong> (is empty / is not empty). These cover the overwhelming majority of real scoping needs in commercial analytics.</p>
+  </div>
+
+  <div class="sql-box"><span class="cm">-- Compound filter: won deals in the North region above $5,000</span>
+<span class="kw">SELECT</span> *
+<span class="kw">FROM</span>   transactions
+<span class="kw">WHERE</span>  status = <span class="st">'Won'</span>
+  <span class="kw">AND</span>  region = <span class="st">'North'</span>
+  <span class="kw">AND</span>  revenue &gt; 5000;</div>
+
+  <div class="prose">
+    <p><strong>Column selection</strong> (keeping or dropping columns) is not just cosmetic. Wide datasets slow down every subsequent operation and make output tables hard to read. A disciplined approach to column selection — keeping only what the analysis needs — is a hallmark of clear analytical thinking.</p>
+    <p><strong>Deduplication</strong> is one of the most underused operations in commercial analytics. CRM exports frequently contain duplicate deal records from multiple pipeline stages. Customer master tables may have duplicate IDs from system migrations. Running a deduplication check before any aggregation prevents inflated counts and incorrect revenue figures.</p>
+  </div>
+</div>
+
+<!-- SECTION 6: AGGREGATE -->
+<div class="section" id="aggregate">
+  <div class="sec-eyebrow">Operations</div>
+  <h2 class="sec-title">Aggregate <em>&amp; group</em></h2>
+  <p class="sec-sub">Collapsing rows into summaries — the heart of most strategic diagnostics</p>
+  <div class="prose">
+    <p>Aggregation is the operation that turns a list of 10,000 transactions into a 5-row summary by region. It is the most frequently used operation in commercial analytics, and it is the one most commonly done incorrectly in spreadsheets — because spreadsheets encourage manual construction of aggregations rather than declarative grouping.</p>
+    <p>The <strong>GROUP BY</strong> pattern is: choose the dimensions you want to group by (region, rep, product category, customer tier), then choose what to measure within each group (total revenue, average discount, count of deals, number of unique customers). Every strategic dashboard is some variant of this pattern.</p>
+  </div>
+
+  <table class="op-table">
+    <thead><tr><th>Function</th><th>What it computes</th><th>Strategy use case</th></tr></thead>
+    <tbody>
+      <tr><td>SUM</td><td>Total of all values in the group</td><td>Total revenue by region, total discount by rep</td></tr>
+      <tr><td>COUNT</td><td>Number of rows in the group</td><td>Number of deals by stage, number of transactions by customer</td></tr>
+      <tr><td>COUNT DISTINCT</td><td>Number of unique values</td><td>Number of unique customers per rep, unique SKUs per account</td></tr>
+      <tr><td>AVG</td><td>Mean value within the group</td><td>Average deal size by tier, average discount % by product</td></tr>
+      <tr><td>MIN / MAX</td><td>Smallest or largest value</td><td>Floor and ceiling price by customer, date of first / last transaction</td></tr>
+      <tr><td>MEDIAN</td><td>Middle value (not affected by outliers)</td><td>Median discount — more robust than mean when there are outlier deals</td></tr>
+    </tbody>
+  </table>
+
+  <div class="prose">
+    <p>The choice between <strong>AVG and MEDIAN</strong> matters more than most strategy practitioners realise. In a deal dataset where one account received a 60% discount and the rest received 10–15%, the mean discount for that group will be significantly inflated. The median is immune to this distortion. For pricing diagnostics, median pocket price and median discount are almost always more meaningful than averages.</p>
+    <p><strong>Pivot tables</strong> are a special form of aggregation where the values of one column become the column headers of the result — for example, turning a transaction table into a matrix of revenue by region (rows) × product category (columns). Pivots are powerful for portfolio analysis and cross-dimensional diagnostic views.</p>
+  </div>
+
+  <div class="sql-box"><span class="cm">-- Classic pricing diagnostic: avg and median discount by sales rep</span>
+<span class="kw">SELECT</span>
+  sales_rep,
+  <span class="fn">COUNT</span>(*) <span class="kw">AS</span> deal_count,
+  <span class="fn">AVG</span>(discount_pct) <span class="kw">AS</span> avg_discount,
+  <span class="fn">PERCENTILE_CONT</span>(0.5) <span class="kw">WITHIN GROUP</span> (<span class="kw">ORDER BY</span> discount_pct) <span class="kw">AS</span> median_discount,
+  <span class="fn">SUM</span>(revenue) <span class="kw">AS</span> total_revenue
+<span class="kw">FROM</span>   transactions
+<span class="kw">WHERE</span>  status = <span class="st">'Won'</span>
+<span class="kw">GROUP BY</span> sales_rep
+<span class="kw">ORDER BY</span> avg_discount <span class="kw">DESC</span>;</div>
+</div>
+
+<!-- SECTION 7: TRANSFORM -->
+<div class="section" id="transform">
+  <div class="sec-eyebrow">Operations</div>
+  <h2 class="sec-title">Transform <em>columns</em></h2>
+  <p class="sec-sub">Creating derived metrics and reshaping data for analysis</p>
+  <div class="prose">
+    <p>Raw datasets rarely contain the exact columns your analysis needs. Pocket price must be derived from list price and discount percentage. Margin must be derived from revenue and cost. Customer tenure must be derived from onboarding date and today's date. <strong>Calculated columns are where analytical insight lives</strong> — they encode business logic into the data itself.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="cc-icon">ƒ</div>
+      <div class="cc-title">Arithmetic</div>
+      <div class="cc-body">Combine two columns with +, −, ×, ÷. Derive margin %, pocket price, revenue per unit, discount amount from existing columns.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">IF</div>
+      <div class="cc-title">Conditional logic</div>
+      <div class="cc-body">IF column meets condition THEN value A ELSE value B. Flag deals above policy, tag reps as compliant or non-compliant, mark accounts as at-risk.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">Aa</div>
+      <div class="cc-title">Text operations</div>
+      <div class="cc-body">Trim, standardise case, concatenate, split, extract characters. Essential for cleaning CRM data where rep names or region codes are inconsistently formatted.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">📅</div>
+      <div class="cc-title">Date extraction</div>
+      <div class="cc-body">Extract year, quarter, month, week, weekday from any date column. Enables period-based aggregations without manual calendar manipulation.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p><strong>Binning</strong> turns a continuous numeric column into discrete buckets — converting deal sizes into Small / Mid / Large / Enterprise buckets, for example, or discount percentages into 0–5% / 5–10% / 10–20% / 20%+ bands. Binned data is far more readable in pivot tables and segment analyses than raw numeric distributions.</p>
+    <p><strong>Ranking</strong> is essential for rep performance analysis, customer value ranking, and product contribution sorting. Dense rank (no gaps in rank numbers when there are ties) is usually preferable to standard rank for league table presentations.</p>
+  </div>
+</div>
+
+<!-- SECTION 8: INSPECT -->
+<div class="section" id="inspect">
+  <div class="sec-eyebrow">Operations</div>
+  <h2 class="sec-title"><em>Inspect</em> &amp; profile</h2>
+  <p class="sec-sub">Understanding the data before you trust the analysis</p>
+  <div class="prose">
+    <p>A data profiling step before any substantive analysis is not optional — it is the difference between a diagnostic that is reliable and one that presents confidently incorrect conclusions. Every experienced data analyst profiles the data before they analyse it. Every experienced strategy consultant who has been burned by data quality problems does the same.</p>
+  </div>
+
+  <table class="op-table">
+    <thead><tr><th>Operation</th><th>What it reveals</th></tr></thead>
+    <tbody>
+      <tr><td>Column summary</td><td>Min, max, mean, median, distinct count, null % for every column. The fastest way to understand a new dataset.</td></tr>
+      <tr><td>Null audit</td><td>Count and % of missing values per column. Informs which columns can be reliably used and which carry data quality risk.</td></tr>
+      <tr><td>Duplicate finder</td><td>Rows that appear more than once, optionally by key columns. Prevents double-counting in aggregations.</td></tr>
+      <tr><td>Value frequencies</td><td>Top N most common values in a column. Reveals category distributions, flags unexpected values, identifies data entry inconsistencies.</td></tr>
+      <tr><td>Crosstab</td><td>Two-way frequency table. Classic diagnostic for understanding the relationship between two categorical variables.</td></tr>
+      <tr><td>Correlation matrix</td><td>Pairwise correlation between numeric columns. Reveals which metrics move together — discount and deal size, tenure and churn, price and volume.</td></tr>
+      <tr><td>Pareto / 80-20</td><td>Cumulative contribution sorted descending. Instantly identifies which customers, products, or reps drive the majority of revenue or discount leakage.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note accent">
+    <strong>The Pareto operation</strong> is particularly powerful in pricing diagnostics. Sorting customers by total discount received descending and showing cumulative percentage almost always reveals that 10–15% of accounts receive 60–70% of all discount value. This is the starting point for a discount governance intervention.
+  </div>
+</div>
+
+<!-- SECTION 9: SEGMENT -->
+<div class="section" id="segment">
+  <div class="sec-eyebrow">Operations</div>
+  <h2 class="sec-title"><em>Segment</em> &amp; classify</h2>
+  <p class="sec-sub">Assigning rows to categories based on business logic</p>
+  <div class="prose">
+    <p>Segmentation is the process of assigning each row to a category based on one or more of its attributes. Almost all strategic frameworks reduce to a segmentation: accounts are High / Mid / Low value, deals are Above / Below policy, customers are New / Growth / At-risk / Lapsed. The question is always which attributes drive the assignment and where the boundaries are.</p>
+    <p><strong>Conditional tagging</strong> implements business-logic segmentation directly: define a sequence of rules (IF discount_pct > 20 THEN "High Risk", IF discount_pct > 10 THEN "Watch", ELSE "Compliant"), apply them top-to-bottom, and assign the first matching label. This produces a new column that can drive all subsequent aggregations and visualisations.</p>
+    <p><strong>Percentile bucketing</strong> produces data-driven segmentation. Quartile (Q1–Q4) and decile (D1–D10) assignments divide the dataset into equal-count groups based on the distribution of one metric. Decile analysis on customer revenue is a standard starting point for enterprise account prioritisation — the top decile typically accounts for 50–60% of revenue in most B2B portfolios.</p>
+  </div>
+</div>
+
+<!-- SECTION 10: TIME -->
+<div class="section" id="time">
+  <div class="sec-eyebrow">Operations</div>
+  <h2 class="sec-title">Time <em>intelligence</em></h2>
+  <p class="sec-sub">Turning timestamped data into trend and period analysis</p>
+  <div class="prose">
+    <p>Most commercial datasets are timestamped, but timestamps alone do not produce trend analysis. You need to extract period dimensions from dates (year, quarter, month), compare the same period across different time horizons (year-over-year, month-over-month), and calculate trailing averages to smooth out noise. This is what <em>time intelligence</em> means.</p>
+  </div>
+
+  <table class="op-table">
+    <thead><tr><th>Operation</th><th>What it enables</th></tr></thead>
+    <tbody>
+      <tr><td>Date parts</td><td>Extract Year, Quarter, Month, Week, Weekday from a date column. Enables GROUP BY period without manual calendar lookup.</td></tr>
+      <tr><td>Fiscal calendar</td><td>Map calendar dates to a fiscal year starting any month. Essential when your organisation reports on a non-January fiscal year.</td></tr>
+      <tr><td>Period comparison</td><td>Add columns for prior period value, delta, and % change. YoY, MoM, QoQ, WoW — the standard period-over-period view in any executive dashboard.</td></tr>
+      <tr><td>Rolling average</td><td>Trailing N-period average. Smooths weekly noise in revenue data to reveal the underlying trend. Standard in sales operations reporting.</td></tr>
+      <tr><td>Running total</td><td>Cumulative sum within a group, sorted by date. Tracks year-to-date performance against target, or cumulative discount spend against budget.</td></tr>
+      <tr><td>Lag / Lead</td><td>Previous or next row value within a group. Compares each transaction against the same customer's prior transaction — useful for detecting price erosion patterns.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sql-box"><span class="cm">-- Year-over-year revenue comparison using window functions</span>
+<span class="kw">SELECT</span> *,
+  <span class="fn">LAG</span>(monthly_revenue, 12) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> region <span class="kw">ORDER BY</span> year_month) <span class="kw">AS</span> prior_year_revenue,
+  monthly_revenue - <span class="fn">LAG</span>(monthly_revenue, 12) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> region <span class="kw">ORDER BY</span> year_month) <span class="kw">AS</span> yoy_delta
+<span class="kw">FROM</span>   monthly_revenue_by_region;</div>
+</div>
+
+<!-- SECTION 11: SQL PRIMER -->
+<div class="section" id="sql-primer">
+  <div class="sec-eyebrow">SQL</div>
+  <h2 class="sec-title">SQL <em>primer</em></h2>
+  <p class="sec-sub">What every strategy professional should understand about the language that runs commercial analytics</p>
+  <div class="prose">
+    <p>SQL (Structured Query Language) is the language that almost all commercial data operations ultimately run on. It is not a programming language — it is a <strong>declarative specification</strong>: you describe what you want, and the database engine decides how to produce it. This is why SQL is learnable for non-engineers in a way that Python or R are not.</p>
+    <p>Every DataBridge operation has an exact SQL equivalent, shown via the "View equivalent SQL" toggle in each modal. This is intentional — DataBridge is partly a learning tool that makes SQL readable in context, without requiring you to write it.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="cc-icon">SELECT</div>
+      <div class="cc-title">SELECT — what columns</div>
+      <div class="cc-body">Specify which columns to return, and any derived expressions. SELECT * returns everything. SELECT col1, col2 returns only those columns.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">FROM</div>
+      <div class="cc-title">FROM — which table</div>
+      <div class="cc-body">The source table. The JOIN clause extends FROM to combine multiple tables on a key column.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">WHERE</div>
+      <div class="cc-title">WHERE — which rows</div>
+      <div class="cc-body">Filter conditions. Only rows matching the WHERE clause are returned. Equivalent to DataBridge's Filter operation.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">GROUP</div>
+      <div class="cc-title">GROUP BY — aggregation</div>
+      <div class="cc-body">Collapse rows into groups. Every column in SELECT that is not an aggregate function must appear in GROUP BY.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">ORDER</div>
+      <div class="cc-title">ORDER BY — sort</div>
+      <div class="cc-body">Sort the result by one or more columns, ascending (ASC) or descending (DESC). LIMIT N returns the top N rows.</div>
+    </div>
+    <div class="concept-card">
+      <div class="cc-icon">OVER</div>
+      <div class="cc-title">OVER — window functions</div>
+      <div class="cc-body">Compute a value across a set of rows related to the current row — without collapsing them. Running totals, ranks, lag/lead, rolling averages are all window functions.</div>
+    </div>
+  </div>
+
+  <div class="sql-box"><span class="cm">-- The anatomy of a complete SQL query</span>
+<span class="kw">SELECT</span>   region, sales_rep,
+         <span class="fn">SUM</span>(revenue)     <span class="kw">AS</span> total_revenue,   <span class="cm">-- aggregate</span>
+         <span class="fn">AVG</span>(discount_pct) <span class="kw">AS</span> avg_discount,    <span class="cm">-- aggregate</span>
+         <span class="fn">COUNT</span>(*)          <span class="kw">AS</span> deal_count       <span class="cm">-- aggregate</span>
+<span class="kw">FROM</span>     transactions                             <span class="cm">-- source</span>
+<span class="kw">WHERE</span>    status = <span class="st">'Won'</span>                          <span class="cm">-- filter rows first</span>
+<span class="kw">GROUP BY</span> region, sales_rep                        <span class="cm">-- then group</span>
+<span class="kw">HAVING</span>   <span class="fn">SUM</span>(revenue) &gt; 10000                   <span class="cm">-- filter on aggregated result</span>
+<span class="kw">ORDER BY</span> total_revenue <span class="kw">DESC</span>                      <span class="cm">-- sort output</span>
+<span class="kw">LIMIT</span>    20;                                     <span class="cm">-- top 20 only</span></div>
+</div>
+
+<!-- SECTION 12: SQL PATTERNS -->
+<div class="section" id="sql-patterns">
+  <div class="sec-eyebrow">SQL</div>
+  <h2 class="sec-title">Common <em>patterns</em></h2>
+  <p class="sec-sub">The five SQL constructs that appear in 90% of commercial analytics work</p>
+
+  <div class="prose">
+    <p><strong>1. The segmentation CTE</strong> — build a derived column in a WITH clause, then filter or aggregate on it downstream. This is the SQL equivalent of DataBridge's pipeline: transform first, analyse second.</p>
+  </div>
+  <div class="sql-box"><span class="kw">WITH</span> tagged_deals <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> *,
+    <span class="kw">CASE</span>
+      <span class="kw">WHEN</span> discount_pct &gt; 20 <span class="kw">THEN</span> <span class="st">'High Risk'</span>
+      <span class="kw">WHEN</span> discount_pct &gt; 10 <span class="kw">THEN</span> <span class="st">'Watch'</span>
+      <span class="kw">ELSE</span> <span class="st">'Compliant'</span>
+    <span class="kw">END</span> <span class="kw">AS</span> compliance_tag
+  <span class="kw">FROM</span> transactions
+)
+<span class="kw">SELECT</span> compliance_tag, <span class="fn">COUNT</span>(*), <span class="fn">SUM</span>(revenue)
+<span class="kw">FROM</span>   tagged_deals
+<span class="kw">GROUP BY</span> compliance_tag;</div>
+
+  <div class="prose">
+    <p><strong>2. The self-join for period comparison</strong> — joining a table to itself on a different period to compare current vs. prior performance.</p>
+  </div>
+  <div class="sql-box"><span class="kw">SELECT</span> curr.region, curr.revenue <span class="kw">AS</span> this_year, prev.revenue <span class="kw">AS</span> last_year,
+       (curr.revenue - prev.revenue) / prev.revenue * 100 <span class="kw">AS</span> yoy_pct
+<span class="kw">FROM</span>   monthly_revenue curr
+<span class="kw">JOIN</span>   monthly_revenue prev
+  <span class="kw">ON</span>  curr.region = prev.region
+  <span class="kw">AND</span> curr.year = prev.year + 1;</div>
+
+  <div class="note teal">
+    <strong>DataBridge's Period Comparison operation</strong> automates this pattern. Understanding it as a self-join makes the logic transparent when you need to adapt it.
+  </div>
+</div>
+
+<!-- SECTION 13: DATA QUALITY -->
+<div class="section" id="data-quality">
+  <div class="sec-eyebrow">Craft</div>
+  <h2 class="sec-title">Data <em>quality</em></h2>
+  <p class="sec-sub">What to look for before trusting any analysis</p>
+  <div class="prose">
+    <p>DataBridge scores data quality automatically on load — but understanding what the score measures is more valuable than the score itself. The four dimensions that matter most in commercial analytics:</p>
+  </div>
+
+  <table class="op-table">
+    <thead><tr><th>Dimension</th><th>What to check</th><th>Impact if ignored</th></tr></thead>
+    <tbody>
+      <tr><td>Completeness</td><td>Null % per column. Any analysis column with >10% nulls needs scrutiny.</td><td>Aggregations silently exclude null rows, producing understated counts and means.</td></tr>
+      <tr><td>Uniqueness</td><td>Duplicate row check on key columns (transaction ID, customer ID).</td><td>Aggregations double-count. Revenue totals are inflated. Trend analysis shows false spikes.</td></tr>
+      <tr><td>Consistency</td><td>Mixed types in numeric columns. "1,200" vs 1200. "N/A" in a revenue field.</td><td>Averages and sums fail silently or return null. Filters on numeric ranges miss text-formatted values.</td></tr>
+      <tr><td>Validity</td><td>Negative values in price/revenue columns. Future dates in transaction history. Discount > 100%.</td><td>Margin calculations produce impossible results. Period comparisons are distorted by erroneous anchors.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 14: SCHEMA DESIGN -->
+<div class="section" id="schema">
+  <div class="sec-eyebrow">Craft</div>
+  <h2 class="sec-title">Schema <em>design</em></h2>
+  <p class="sec-sub">Why the pricing schema mapper exists and what it enables</p>
+  <div class="prose">
+    <p>A <strong>schema</strong> is a named mapping between column names in your data and semantic roles in an analytical framework. The same column might be called "unit_price", "list_price", "sale_price", "price_usd", or "Price" across different exports from the same CRM. Without a schema, every tool that tries to understand what the column means has to guess.</p>
+    <p>DataBridge's pricing schema mapper defines 12 standard dimensions — list price, pocket price, unit cost, discount %, quantity, sales rep, customer, tier, region, product, and date — and lets you map your columns to them. <strong>This mapping is stored and passed to the Pricing Analyser</strong> when you hand off the dataset, so the Pricing Analyser already knows which column is the discount percentage and which is the unit cost.</p>
+    <p>This is the same concept as a <strong>semantic layer</strong> in enterprise data stacks (dbt metrics, Looker's LookML, Tableau's data model). The schema mapper brings a lightweight version of this concept to the browser, without any infrastructure.</p>
+  </div>
+</div>
+
+<!-- SECTION 15: GLOSSARY -->
+<div class="section" id="glossary">
+  <div class="sec-eyebrow">Reference</div>
+  <h2 class="sec-title">Glossary</h2>
+  <p class="sec-sub">Key terms used throughout DataBridge and this companion</p>
+
+  <div class="glossary-item"><div class="glossary-term">Tidy data</div><div class="glossary-def">A dataset where each row is one observation and each column is one attribute. The standard input format for all DataBridge operations.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Pipeline</div><div class="glossary-def">A sequence of operations applied in order, where each step's output becomes the next step's input. DataBridge records every step and allows undo at any point.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Join</div><div class="glossary-def">An operation that combines rows from two tables based on matching values in a key column.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Aggregation</div><div class="glossary-def">Collapsing multiple rows into summary statistics (SUM, COUNT, AVG, etc.) grouped by one or more dimensions.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Window function</div><div class="glossary-def">A SQL computation that operates across a set of rows related to the current row without collapsing them. Running total, rank, lag, and rolling average are all window functions.</div></div>
+  <div class="glossary-item"><div class="glossary-term">CTE</div><div class="glossary-def">Common Table Expression. A named temporary result in a SQL query defined with WITH. Equivalent to one step in a DataBridge pipeline.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Null</div><div class="glossary-def">A missing or unknown value. Not the same as zero. Most aggregation functions ignore nulls, which can silently distort results.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Schema</div><div class="glossary-def">A named mapping between column names and semantic roles. DataBridge's pricing schema mapper defines which column is the discount %, which is the customer tier, etc.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Pocket price</div><div class="glossary-def">The actual price received after all discounts, rebates, and allowances are applied. The most economically meaningful price in a waterfall analysis.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Cardinality</div><div class="glossary-def">The number of distinct values in a column. High-cardinality columns (customer ID, transaction ID) are usually keys. Low-cardinality columns (region, tier, status) are usually dimensions.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Deduplication</div><div class="glossary-def">Removing rows that are identical on a set of key columns. Essential before any aggregation when duplicate records are suspected.</div></div>
+  <div class="glossary-item"><div class="glossary-term">sessionStorage</div><div class="glossary-def">A browser mechanism for passing data between tabs in the same session. DataBridge uses it to hand off datasets to the Pricing Analyser without any server.</div></div>
+</div>
+
+</main>
+</div>
+
+<script>
+// Scroll-tracking sidebar
+const sections = document.querySelectorAll('.section, .hero');
+const links = document.querySelectorAll('.sb-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting && e.intersectionRatio > 0.2) {
+      const id = e.target.id;
+      links.forEach(l => {
+        l.classList.remove('active');
+        if(l.getAttribute('href') === '#' + id) l.classList.add('active');
+      });
+    }
+  });
+}, { threshold: 0.2 });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
