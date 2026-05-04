@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Journal — DataBridge</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+
+:root {
+  --ink:       #1A1814;
+  --ink-2:     #4A4740;
+  --ink-3:     #8A8680;
+  --paper:     #F7F5F0;
+  --paper-2:   #EFEDE8;
+  --paper-3:   #E5E2DA;
+  --rule:      rgba(26,24,20,0.10);
+  --rule-2:    rgba(26,24,20,0.06);
+  --teal:      #0F6E56;
+  --teal-lt:   #E1F5EE;
+  --teal-dk:   #053D2E;
+  --amber:     #854F0B;
+  --amber-lt:  #FAEEDA;
+  --purple:    #534AB7;
+  --purple-lt: #EEEDFE;
+  --purple-dk: #26215C;
+  --red:       #A32D2D;
+  --red-lt:    #FCEBEB;
+  --blue:      #185FA5;
+  --blue-lt:   #E6F1FB;
+  --rust:      #993C1D;
+  --rust-lt:   #FAECE7;
+  --green:     #27500A;
+  --green-lt:  #EAF3DE;
+  --accent:    #C8A96E;
+  --done-bg:   #EAF3DE;
+  --done-tx:   #27500A;
+  --now-bg:    #E6F1FB;
+  --now-tx:    #0C447C;
+  --todo-bg:   #EFEDE8;
+  --todo-tx:   #8A8680;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; min-height: 100vh; }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--ink); color: var(--paper);
+  padding: 48px 40px 40px;
+  position: relative; overflow: hidden;
+}
+.site-header::before {
+  content: ''; position: absolute;
+  top: -60px; right: -60px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,169,110,0.15);
+}
+.site-header::after {
+  content: ''; position: absolute;
+  bottom: -40px; left: 120px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,169,110,0.08);
+}
+.header-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+}
+.header-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px,5vw,46px); font-weight: 400;
+  line-height: 1.15; margin-bottom: 16px; max-width: 680px;
+}
+.header-title em { font-style: italic; color: var(--accent); }
+.header-desc {
+  font-size: 14px; color: rgba(247,245,240,0.65);
+  max-width: 560px; line-height: 1.75; margin-bottom: 28px;
+}
+.header-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.header-meta-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .06em;
+  color: rgba(247,245,240,0.45); text-transform: uppercase;
+}
+.header-meta-item span { color: rgba(247,245,240,0.8); margin-left: 6px; }
+
+/* ── LAYOUT ── */
+.layout {
+  display: grid; grid-template-columns: 220px 1fr;
+  min-height: 100vh; max-width: 1200px; margin: 0 auto;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  background: var(--paper-2); border-right: 1px solid var(--rule);
+  padding: 32px 0; position: sticky; top: 0;
+  height: 100vh; overflow-y: auto;
+}
+.sidebar-label {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); padding: 0 20px; margin-bottom: 12px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 20px; cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all .15s; text-decoration: none;
+}
+.nav-item:hover { background: var(--paper-3); }
+.nav-item.active { border-left-color: var(--teal); background: var(--teal-lt); }
+.nav-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; flex-shrink: 0;
+}
+.nav-text { font-size: 11px; color: var(--ink-2); line-height: 1.3; flex: 1; }
+.nav-text strong { font-size: 11px; font-weight: 500; color: var(--ink); display: block; }
+.nav-badge { font-size: 9px; padding: 1px 6px; border-radius: 8px; font-weight: 500; flex-shrink: 0; }
+.badge-done { background: var(--done-bg); color: var(--done-tx); }
+.badge-now  { background: var(--now-bg);  color: var(--now-tx); }
+.badge-todo { background: var(--todo-bg); color: var(--todo-tx); }
+.nav-divider { height: 1px; background: var(--rule); margin: 12px 20px; }
+
+/* ── MAIN ── */
+.main { padding: 40px 48px; }
+
+/* ── STAGE ── */
+.stage-section { margin-bottom: 64px; scroll-margin-top: 24px; }
+.stage-header {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin-bottom: 24px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.stage-num-large {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px; flex-shrink: 0; margin-top: 2px;
+}
+.stage-hdr-body { flex: 1; }
+.stage-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 4px;
+}
+.stage-title { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
+.stage-sub { font-size: 13px; color: var(--ink-3); font-style: italic; }
+.stage-status-pill { font-size: 10px; padding: 3px 10px; border-radius: 12px; font-weight: 500; flex-shrink: 0; margin-top: 6px; }
+
+/* ── NARRATIVE ── */
+.narrative { font-size: 14px; color: var(--ink-2); line-height: 1.85; margin-bottom: 20px; max-width: 680px; }
+.narrative strong { color: var(--ink); font-weight: 500; }
+
+/* ── CALLOUT ── */
+.callout { border-left: 3px solid; border-radius: 0 6px 6px 0; padding: 14px 16px; margin: 16px 0; font-size: 13px; line-height: 1.7; }
+.callout strong { font-weight: 500; display: block; margin-bottom: 4px; }
+.callout-reality { border-color: var(--amber);  background: var(--amber-lt);  color: #412402; }
+.callout-insight  { border-color: var(--teal);   background: var(--teal-lt);   color: var(--teal-dk); }
+.callout-arch     { border-color: var(--purple);  background: var(--purple-lt); color: var(--purple-dk); }
+.callout-risk     { border-color: var(--red);     background: var(--red-lt);    color: #501313; }
+.callout-gate     { border-color: var(--accent);  background: #FBF6EC;          color: #412402; }
+
+/* ── DELIVERABLES ── */
+.deliv-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 10px; margin: 16px 0; }
+.deliv-card { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; }
+.deliv-name { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.deliv-desc { font-size: 11px; color: var(--ink-3); line-height: 1.5; }
+.deliv-status { font-size: 10px; margin-top: 6px; font-family: 'DM Mono', monospace; color: var(--ink-3); }
+
+/* ── TWO COL ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.col-block { border-radius: 8px; padding: 14px 16px; border: 1px solid var(--rule); }
+.col-block-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+.col-item { font-size: 12px; color: var(--ink-2); padding: 4px 0; border-bottom: 1px solid var(--rule-2); line-height: 1.5; display: flex; gap: 6px; }
+.col-item:last-child { border: none; }
+
+/* ── PERSONA ── */
+.persona-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 12px; margin: 16px 0; }
+.persona-card { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.persona-hdr { padding: 12px 14px 10px; border-bottom: 1px solid var(--rule); }
+.persona-role { font-size: 10px; color: var(--ink-3); margin-bottom: 4px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .05em; }
+.persona-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+.persona-body { padding: 12px 14px; }
+.persona-desc { font-size: 12px; color: var(--ink-2); line-height: 1.6; margin-bottom: 8px; }
+.persona-jtbd { font-size: 11px; color: var(--ink-2); background: var(--paper-2); border-radius: 5px; padding: 8px 10px; font-style: italic; line-height: 1.5; }
+.persona-jtbd strong { font-style: normal; font-weight: 500; color: var(--ink); }
+
+/* ── MODULE CHIPS ── */
+.module-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.module-chip { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--rule); font-size: 12px; font-weight: 500; background: var(--paper); display: flex; align-items: center; gap: 6px; }
+.module-chip .chip-badge { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; font-family: 'DM Mono', monospace; }
+
+/* ── CODE BLOCK ── */
+.code-block { background: var(--ink); color: #C8A96E; border-radius: 8px; padding: 16px 18px; font-family: 'DM Mono', monospace; font-size: 11px; line-height: 1.8; margin: 16px 0; overflow-x: auto; white-space: pre; }
+.code-comment { color: rgba(200,169,110,0.45); }
+
+/* ── DECISION LIST ── */
+.decision-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+.decision-row { display: flex; gap: 12px; align-items: flex-start; background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; }
+.decision-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+.decision-body {}
+.decision-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+.decision-desc { font-size: 12px; color: var(--ink-2); line-height: 1.6; }
+.decision-why { font-size: 11px; color: var(--ink-3); margin-top: 3px; font-style: italic; }
+
+/* ── SECTION LABEL ── */
+.section-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin: 24px 0 10px; display: flex; align-items: center; gap: 10px; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+/* ── HERO QUOTE ── */
+.hero-quote { background: var(--ink); color: var(--paper); border-radius: 10px; padding: 24px 28px; margin: 20px 0; position: relative; overflow: hidden; }
+.hero-quote::before { content: '"'; font-family: 'DM Serif Display', serif; font-size: 120px; color: rgba(200,169,110,0.1); position: absolute; top: -20px; left: 12px; line-height: 1; }
+.hero-quote-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.hero-quote-text { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; line-height: 1.6; color: var(--paper); max-width: 580px; position: relative; }
+.hero-quote-attr { font-size: 11px; color: rgba(247,245,240,0.5); margin-top: 12px; font-family: 'DM Mono', monospace; }
+
+/* ── BUILD TRACKER ── */
+.build-tracker { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 24px; margin-bottom: 40px; }
+.tracker-title { font-family: 'DM Serif Display', serif; font-size: 16px; margin-bottom: 16px; }
+.tracker-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; }
+.tracker-cell { border-radius: 6px; padding: 8px 6px; text-align: center; border: 1px solid var(--rule); }
+.tracker-cell-num { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; margin-bottom: 3px; }
+.tracker-cell-name { font-size: 9px; color: var(--ink-3); line-height: 1.3; }
+
+/* ── BACKLOG ── */
+.backlog-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--rule-2); }
+.backlog-item:last-child { border: none; }
+.backlog-id { font-family: 'DM Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 3px; background: var(--teal-lt); color: var(--teal-dk); flex-shrink: 0; margin-top: 2px; }
+.backlog-title { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.backlog-desc { font-size: 11px; color: var(--ink-3); line-height: 1.5; }
+.backlog-phase { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 500; flex-shrink: 0; margin-left: auto; margin-top: 2px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main { padding: 24px 20px; }
+  .two-col { grid-template-columns: 1fr; }
+  .tracker-grid { grid-template-columns: repeat(3,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="site-header">
+  <div class="header-eyebrow">PM Journal · DataBridge · Build-in-public</div>
+  <h1 class="header-title">Building the <em>last mile</em><br>between the question and the data</h1>
+  <p class="header-desc">A full PM lifecycle documentation of DataBridge — from the original access gap problem observed on a pricing engagement, through architecture decisions, to a browser-native no-code data workbench with 40+ operations and a live handoff to the Pricing Analyser.</p>
+  <div class="header-meta">
+    <div class="header-meta-item">Status <span>Live · v1.1</span></div>
+    <div class="header-meta-item">Operations <span>40+</span></div>
+    <div class="header-meta-item">Architecture <span>Single-file HTML</span></div>
+    <div class="header-meta-item">Dependencies <span>PapaParse · SheetJS</span></div>
+    <div class="header-meta-item">Handoff <span>Pricing Analyser v2</span></div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-label">PM Lifecycle</div>
+
+  <a class="nav-item" href="#stage0">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">0</div>
+    <div class="nav-text"><strong>Origin</strong>The access gap</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <a class="nav-item" href="#stage1">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">1</div>
+    <div class="nav-text"><strong>Problem</strong>Framing &amp; research</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <a class="nav-item" href="#stage2">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">2</div>
+    <div class="nav-text"><strong>Vision</strong>Strategic bets</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <a class="nav-item" href="#stage3">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">3</div>
+    <div class="nav-text"><strong>Personas</strong>Who it's for</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <a class="nav-item" href="#stage4">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">4</div>
+    <div class="nav-text"><strong>Design</strong>Principles &amp; layout</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <a class="nav-item" href="#stage5">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">5</div>
+    <div class="nav-text"><strong>Architecture</strong>Key decisions</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <a class="nav-item" href="#stage6">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">6</div>
+    <div class="nav-text"><strong>Build · v1.0</strong>Core workbench</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <a class="nav-item" href="#stage7">
+    <div class="nav-dot" style="background:var(--done-bg);color:var(--done-tx)">7</div>
+    <div class="nav-text"><strong>Build · v1.1</strong>Visual builders + PA</div>
+    <span class="nav-badge badge-done">Done</span>
+  </a>
+  <div class="nav-divider"></div>
+  <a class="nav-item" href="#backlog">
+    <div class="nav-dot" style="background:var(--todo-bg);color:var(--todo-tx)">→</div>
+    <div class="nav-text"><strong>Backlog</strong>DB-05 through DB-12</div>
+    <span class="nav-badge badge-todo">Next</span>
+  </a>
+  <div class="nav-divider"></div>
+  <a class="nav-item" href="https://archishman-b.github.io/databridge/databridge.html" target="_blank">
+    <div class="nav-dot" style="background:var(--teal-lt);color:var(--teal)">↗</div>
+    <div class="nav-text"><strong>Launch DataBridge</strong></div>
+  </a>
+  <a class="nav-item" href="https://archishman-b.github.io/pricing-analyser/" target="_blank">
+    <div class="nav-dot" style="background:var(--teal-lt);color:var(--teal)">↗</div>
+    <div class="nav-text"><strong>Pricing Analyser</strong></div>
+  </a>
+  <a class="nav-item" href="https://archishman-b.github.io/databridge/databridge-theory-companion.html" target="_blank">
+    <div class="nav-dot" style="background:var(--teal-lt);color:var(--teal)">↗</div>
+    <div class="nav-text"><strong>Theory companion</strong></div>
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- BUILD TRACKER -->
+<div class="build-tracker">
+  <div class="tracker-title">Build status</div>
+  <div class="tracker-grid">
+    <div class="tracker-cell" style="background:var(--done-bg);border-color:rgba(39,80,10,0.2)">
+      <div class="tracker-cell-num" style="color:var(--done-tx)">S0–S2</div>
+      <div class="tracker-cell-name">Origin · Problem · Vision</div>
+    </div>
+    <div class="tracker-cell" style="background:var(--done-bg);border-color:rgba(39,80,10,0.2)">
+      <div class="tracker-cell-num" style="color:var(--done-tx)">S3–S4</div>
+      <div class="tracker-cell-name">Personas · Design</div>
+    </div>
+    <div class="tracker-cell" style="background:var(--done-bg);border-color:rgba(39,80,10,0.2)">
+      <div class="tracker-cell-num" style="color:var(--done-tx)">S5</div>
+      <div class="tracker-cell-name">Architecture</div>
+    </div>
+    <div class="tracker-cell" style="background:var(--done-bg);border-color:rgba(39,80,10,0.2)">
+      <div class="tracker-cell-num" style="color:var(--done-tx)">S6</div>
+      <div class="tracker-cell-name">v1.0 · Core build</div>
+    </div>
+    <div class="tracker-cell" style="background:var(--done-bg);border-color:rgba(39,80,10,0.2)">
+      <div class="tracker-cell-num" style="color:var(--done-tx)">S7</div>
+      <div class="tracker-cell-name">v1.1 · PA handoff</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ STAGE 0: ORIGIN ════ -->
+<section class="stage-section" id="stage0">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">0</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 0 · Origin</div>
+      <div class="stage-title">The access gap — where DataBridge came from</div>
+      <div class="stage-sub">A specific problem, observed in a specific room, on a specific engagement</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Grounded</span>
+  </div>
+
+  <p class="narrative">During a pricing transformation engagement at Monitor Deloitte, the most important analysis we needed was structurally simple: group transactions by sales rep, compute average and median discount, sort descending, and identify the outliers. This is three SQL operations. It is roughly ten seconds of work for an analyst with access to the database.</p>
+
+  <p class="narrative">It took 48 hours. The data was in SQL Server. We had no direct query access. The analyst pool was shared across multiple workstreams. Every iteration required a ticket, a handoff, a round trip. By the time the output arrived, the framing had shifted and we needed a different cut. Another 48 hours.</p>
+
+  <div class="hero-quote">
+    <div class="hero-quote-label">The founding observation</div>
+    <div class="hero-quote-text">The bottleneck was never the analysis. It was the distance between the person who understood the business question and the person who could run the query. That distance has a name: the access gap.</div>
+    <div class="hero-quote-attr">— Pricing transformation, US auto parts retail · Monitor Deloitte</div>
+  </div>
+
+  <p class="narrative">The same pattern appeared at Mahindra, where a consumer analytics team ran CLTV models and segment analyses on a 2M+ customer dataset in SQL Server. The strategic questions — which customer segments are growing, which are churning, which are high-value but under-served — were owned by the brand and channel teams. The analytical execution was owned by a dedicated analyst pool. Every question required a queue. Every iteration required another queue entry.</p>
+
+  <p class="narrative">The tools that could close this gap — SQL, Python, Alteryx, Tableau Prep — all require either a licence, an installation, or a learning curve steep enough that most strategy practitioners never cross it. The gap persists not because better tools don't exist, but because <strong>the tools that close it are inaccessible to the people who need them most.</strong></p>
+
+  <div class="callout callout-insight">
+    <strong>The design brief in one sentence</strong>
+    Give strategy professionals direct access to the data operations they need — without code, without licences, without infrastructure — so that the person who has the question can also run the analysis.
+  </div>
+</section>
+
+<!-- ════ STAGE 1: PROBLEM FRAMING ════ -->
+<section class="stage-section" id="stage1">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">1</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 1 · Problem Framing</div>
+      <div class="stage-title">What the access gap actually costs</div>
+      <div class="stage-sub">Mapping the friction points with precision before designing anything</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Done</span>
+  </div>
+
+  <p class="narrative">Before building anything, the problem needed to be framed correctly. "Strategy professionals can't do data work" is too vague. The specific friction points are different, and they require different solutions.</p>
+
+  <div class="two-col">
+    <div class="col-block" style="background:var(--red-lt);border-color:rgba(163,45,45,0.15)">
+      <div class="col-block-label" style="color:var(--red)">The actual friction points</div>
+      <div class="col-item"><span>→</span>Analyst queue lag — 24–72 hours per iteration on shared pools</div>
+      <div class="col-item"><span>→</span>Infrastructure setup — SQL access requires DBA provisioning, VPN, credentials</div>
+      <div class="col-item"><span>→</span>Tool licences — Alteryx, Tableau Prep, SPSS are per-seat enterprise buys</div>
+      <div class="col-item"><span>→</span>Syntax dependency — even basic SQL requires learning a declarative language</div>
+      <div class="col-item"><span>→</span>Iteration cost — every refinement to the question requires another round trip</div>
+    </div>
+    <div class="col-block" style="background:var(--teal-lt);border-color:rgba(15,110,86,0.15)">
+      <div class="col-block-label" style="color:var(--teal)">What was NOT the problem</div>
+      <div class="col-item"><span>→</span>Excel limitations — most strategy work fits in 50K rows; volume is rarely the issue</div>
+      <div class="col-item"><span>→</span>Analytical complexity — the operations needed are join, filter, group, sort — not ML</div>
+      <div class="col-item"><span>→</span>Visualisation — the output is a table for a slide, not an interactive dashboard</div>
+      <div class="col-item"><span>→</span>Data storage — datasets are transient; nobody needs a database for one engagement</div>
+      <div class="col-item"><span>→</span>Collaboration at scale — one person needs the answer, not a team of fifty</div>
+    </div>
+  </div>
+
+  <p class="narrative">This framing is important. The solution space for "analysts can't do data work at scale" is a data warehouse. The solution space for "strategy professionals can't answer their own questions quickly" is a lightweight, self-contained, zero-infrastructure tool that runs the 15 operations that cover 90% of commercial analytics needs.</p>
+
+  <div class="callout callout-reality">
+    <strong>The scope boundary</strong>
+    DataBridge is not trying to replace SQL Server, dbt, or Alteryx. It is trying to close the last mile — the gap between having a clean CSV export and having the answer to a specific business question. That last mile is 15 minutes of analyst work that costs 48 hours because of the queue.
+  </div>
+
+  <div class="section-label">Problem statement</div>
+  <p class="narrative">Strategy professionals working on commercial analytics engagements — pricing, GTM, customer segmentation, post-M&A commercial architecture — routinely need to perform straightforward data transformations (filter, join, aggregate, segment) on datasets of 1,000–100,000 rows. These transformations require either SQL access (unavailable on most client engagements) or specialised tools (unlicensed or inaccessible). The result is a structural dependency on analyst pools for work that is not analytically complex, creating 24–72 hour delays per iteration that constrain the pace of strategic inquiry.</p>
+</section>
+
+<!-- ════ STAGE 2: VISION ════ -->
+<section class="stage-section" id="stage2">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">2</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 2 · Product Vision</div>
+      <div class="stage-title">Strategic bets &amp; design philosophy</div>
+      <div class="stage-sub">The four choices that define what DataBridge is and isn't</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Done</span>
+  </div>
+
+  <p class="narrative">A product vision is not just a description of the tool. It is a set of explicit bets — choices that have consequences, that foreclose other options, and that define what success looks like. DataBridge made four.</p>
+
+  <div class="decision-list">
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">1</div>
+      <div class="decision-body">
+        <div class="decision-title">Zero infrastructure — the tool runs entirely in the browser</div>
+        <div class="decision-desc">No server, no database, no authentication, no installation. A single HTML file that works offline, on any machine, with no setup time. Data never leaves the user's machine.</div>
+        <div class="decision-why">This is the only architecture that is actually accessible in every engagement context — client laptops, restricted networks, air-gapped environments, consultants working on trains.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">2</div>
+      <div class="decision-body">
+        <div class="decision-title">Visual-first — no syntax, no expressions, no format to remember</div>
+        <div class="decision-desc">Every operation is configured through dropdowns, pickers, and form inputs. The user never types a column reference or an operator. The interface encodes the grammar of data operations so the user doesn't have to learn it.</div>
+        <div class="decision-why">Syntax errors are the single largest source of friction for non-technical users. If a tool requires you to type [Revenue] &gt; 1000 AND [Region] == 'North', it has not solved the access gap — it has just moved it one step to the right.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">3</div>
+      <div class="decision-body">
+        <div class="decision-title">SQL as a learning layer — not a requirement</div>
+        <div class="decision-desc">Every operation in DataBridge shows its SQL equivalent on demand. This is not required to use the tool — it is available for users who want to understand what they're doing at a deeper level, or who want to graduate to direct SQL access over time.</div>
+        <div class="decision-why">DataBridge's audience includes people who are analytically literate but not SQL-literate. The SQL companion bridges the gap without gating the tool behind it.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">4</div>
+      <div class="decision-body">
+        <div class="decision-title">The data layer for the portfolio — not a standalone tool</div>
+        <div class="decision-desc">DataBridge is designed to feed the Pricing Analyser and future analytical tools in the portfolio. The sessionStorage handoff protocol, the pricing schema mapper, and the named dataset architecture are all expressions of this role as the upstream data preparation layer.</div>
+        <div class="decision-why">The most valuable analytical tools are end-to-end workflows, not isolated operations. DataBridge → Pricing Analyser is a complete workflow from raw transaction export to boardroom-ready pricing diagnostic.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STAGE 3: PERSONAS ════ -->
+<section class="stage-section" id="stage3">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">3</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 3 · Personas &amp; User Stories</div>
+      <div class="stage-title">Who uses DataBridge and why</div>
+      <div class="stage-sub">Four distinct users, one shared problem</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Done</span>
+  </div>
+
+  <p class="narrative">The access gap manifests differently for different users. Framing the personas precisely helps scope the operation set, the UX decisions, and the sequencing of backlog items.</p>
+
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-hdr" style="background:var(--teal-lt)">
+        <div class="persona-role">Primary</div>
+        <div class="persona-name">The engagement consultant</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-desc">MBA-trained, 3–8 years in strategy consulting. Comfortable in Excel, familiar with SQL concepts but no direct access. Works on client-provided data exports. Time-constrained and iteration-hungry.</div>
+        <div class="persona-jtbd"><strong>Job to be done:</strong> "I have a client CSV and a question. I need the answer in the next 20 minutes without filing a ticket."</div>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-hdr" style="background:var(--amber-lt)">
+        <div class="persona-role">Primary</div>
+        <div class="persona-name">The in-house pricing manager</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-desc">In-house commercial or pricing role. Has CRM or ERP exports but no BI team access. Runs monthly price review cycles. Needs repeatable analysis, not one-off scripts.</div>
+        <div class="persona-jtbd"><strong>Job to be done:</strong> "I want to run the same discount-by-rep analysis every month without asking IT to pull a report."</div>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-hdr" style="background:var(--purple-lt)">
+        <div class="persona-role">Secondary</div>
+        <div class="persona-name">The strategy analyst</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-desc">Junior analyst supporting a senior strategy team. Technically capable of writing SQL but doesn't have access on this engagement. Needs to move fast and produce clean output for slides.</div>
+        <div class="persona-jtbd"><strong>Job to be done:</strong> "I need to join these two tables and group by region before my 3pm call. I can't wait for a BI request."</div>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-hdr" style="background:var(--blue-lt)">
+        <div class="persona-role">Secondary</div>
+        <div class="persona-name">The SaaS founder / head of revenue</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-desc">Early-stage company, no dedicated data team. Has Stripe or CRM exports. Needs to understand cohort behaviour, segment revenue, and identify at-risk accounts without building a data stack.</div>
+        <div class="persona-jtbd"><strong>Job to be done:</strong> "Show me which customers are at risk of churning based on their purchase history — without setting up a data warehouse."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Scope boundary</div>
+  <div class="callout callout-gate">
+    <strong>What DataBridge does not try to do</strong>
+    DataBridge is scoped to datasets up to approximately 1M rows, operations that produce a table output (not a chart), and single-session analyses (no persistent storage of results). It is not a BI tool, not a dashboard builder, and not a replacement for a data warehouse. The tool knows its lane.
+  </div>
+</section>
+
+<!-- ════ STAGE 4: DESIGN ════ -->
+<section class="stage-section" id="stage4">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">4</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 4 · Design Principles &amp; Layout</div>
+      <div class="stage-title">How the interface encodes the principles</div>
+      <div class="stage-sub">Every layout decision is a consequence of a design principle</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Done</span>
+  </div>
+
+  <p class="narrative">DataBridge has five design principles. They are not aesthetic preferences — they are constraints that resolve ambiguous design decisions.</p>
+
+  <div class="decision-list">
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">P1</div>
+      <div class="decision-body">
+        <div class="decision-title">Zero syntax dependency</div>
+        <div class="decision-desc">No user should ever need to type a column name, an operator, or an expression. Every configurable element is a dropdown, picker, or structured input. If a form field accepts free text, it is for a label or a value — never for a column reference or logical expression.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">P2</div>
+      <div class="decision-body">
+        <div class="decision-title">Pipeline transparency</div>
+        <div class="decision-desc">Every operation applied is recorded in the audit log with its parameters. The user can see exactly what has been done to the data, in what order, and undo any step. The pipeline is the analysis — it should be as readable as a bullet-pointed method section.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">P3</div>
+      <div class="decision-body">
+        <div class="decision-title">SQL as optional depth</div>
+        <div class="decision-desc">The SQL companion is always available but never required. Users who want to understand the mechanics can expand it; users who just want the answer ignore it. It never appears unless requested.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">P4</div>
+      <div class="decision-body">
+        <div class="decision-title">Data quality before analysis</div>
+        <div class="decision-desc">The quality scoring panel runs automatically on every data load. The user sees the quality score and issue summary before they run a single operation. This is not optional — a tool that lets you aggregate over a dataset with 40% nulls without warning is producing false confidence, not insight.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--teal-lt);color:var(--teal)">P5</div>
+      <div class="decision-body">
+        <div class="decision-title">Warm, legible, anti-intimidating</div>
+        <div class="decision-desc">The visual aesthetic is deliberately warm and paper-like rather than the cold monochrome of engineering tools. The audience is strategy professionals who are not engineers — the interface should feel familiar and professional, not technical and foreign.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Three-zone layout</div>
+  <p class="narrative">The layout encodes the workflow: tables and data loading on the left, operations panel on the right, and the result table in the centre. The topbar carries global actions (undo, audit log, export, PA handoff). The quality bar sits below the topbar and is only visible after data is loaded. The modal system handles all operation configuration without navigating away from the main view.</p>
+
+  <div class="callout callout-arch">
+    <strong>Layout decision: modal-based configuration</strong>
+    Every operation is configured in a modal overlay rather than in an expanded panel or a dedicated page. This keeps the result table always visible in the background, so the user can see the current state of the data while configuring the next operation. Context is never lost.
+  </div>
+</section>
+
+<!-- ════ STAGE 5: ARCHITECTURE ════ -->
+<section class="stage-section" id="stage5">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">5</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 5 · Architecture</div>
+      <div class="stage-title">Five decisions that determined everything</div>
+      <div class="stage-sub">Architecture is product strategy expressed in code structure</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Done</span>
+  </div>
+
+  <div class="decision-list">
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--amber-lt);color:var(--amber)">A1</div>
+      <div class="decision-body">
+        <div class="decision-title">Single HTML file — no build pipeline, no npm, no framework</div>
+        <div class="decision-desc">DataBridge is one self-contained HTML file. All CSS, JavaScript, and HTML in one document. Deployable by dragging to GitHub Pages. Runnable by double-clicking a file. No dependencies to install, no bundler to configure, no build step to maintain.</div>
+        <div class="decision-why">Every additional dependency is a deployment barrier. A single file has one failure mode: the file doesn't load. That is a problem anyone can diagnose and fix.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--amber-lt);color:var(--amber)">A2</div>
+      <div class="decision-body">
+        <div class="decision-title">In-memory state — tables and pipeline in plain JavaScript objects</div>
+        <div class="decision-desc">All data is held in <code>tables</code> (a dictionary of named datasets) and <code>pipeline</code> (an array of applied operations). There is no localStorage, no IndexedDB, no hidden state. The entire application state is readable in the browser console.</div>
+        <div class="decision-why">Debuggable, auditable, and private. Data never persists beyond the session — which is both a privacy feature and a simplicity feature.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--amber-lt);color:var(--amber)">A3</div>
+      <div class="decision-body">
+        <div class="decision-title">CDN-only dependencies — PapaParse and SheetJS only</div>
+        <div class="decision-desc">DataBridge uses exactly two external libraries, both loaded from cdnjs. PapaParse for CSV parsing, SheetJS for XLSX reading. No charting library (DataBridge produces tables, not charts), no math library (operations use native JS), no UI framework.</div>
+        <div class="decision-why">Each additional CDN dependency is a network call, a version pinning decision, and a potential breaking change. Two libraries is the minimum viable set for the required functionality.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--amber-lt);color:var(--amber)">A4</div>
+      <div class="decision-body">
+        <div class="decision-title">Operations as pure functions — <code>fn: data → data</code></div>
+        <div class="decision-desc">Every operation in the pipeline is a pure function: it takes the current dataset as input and returns a transformed dataset. Operations do not modify state directly — they produce new state. This makes undo trivial (store the previous state), makes operations composable (chain any sequence), and makes the pipeline auditable (each step is an independent, reproducible transformation).</div>
+        <div class="decision-why">Pure functions are the simplest possible architecture for a pipeline system. They compose without side effects and require no coordination mechanism.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--amber-lt);color:var(--amber)">A5</div>
+      <div class="decision-body">
+        <div class="decision-title">sessionStorage handoff — the integration protocol with the Pricing Analyser</div>
+        <div class="decision-desc">When the user clicks "→ Pricing Analyser", DataBridge serialises the current dataset and schema mapping to <code>sessionStorage</code> under the key <code>pa_incoming_dataset</code>. The Pricing Analyser reads this key on load and hydrates the dataset automatically. The session storage is cleared after hydration. No server, no API, no shared state beyond the browser session.</div>
+        <div class="decision-why">sessionStorage is the simplest possible inter-tab communication mechanism in a browser. It is synchronous, reliable within a session, and requires no infrastructure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STAGE 6: BUILD V1.0 ════ -->
+<section class="stage-section" id="stage6">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">6</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 6 · Build · v1.0</div>
+      <div class="stage-title">The core workbench — 40+ operations across 7 categories</div>
+      <div class="stage-sub">What shipped in the first production version</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Live</span>
+  </div>
+
+  <p class="narrative">DataBridge v1.0 shipped as a complete, functional no-code data workbench. The operation set was designed around the 15 operations that cover 90% of commercial analytics use cases — then extended with the remaining operations that round out a complete workbench.</p>
+
+  <div class="section-label">Operation categories — v1.0</div>
+
+  <div class="module-row">
+    <div class="module-chip">
+      <span class="chip-badge" style="background:var(--blue-lt);color:var(--blue)">Join</span>
+      Inner · Left · Right · Full outer · Anti · Lookup
+    </div>
+    <div class="module-chip">
+      <span class="chip-badge" style="background:var(--teal-lt);color:var(--teal)">Filter</span>
+      Filter rows · Select columns · Dedup · Top N
+    </div>
+    <div class="module-chip">
+      <span class="chip-badge" style="background:var(--amber-lt);color:var(--amber)">Aggregate</span>
+      Group by · Pivot · Summary stats
+    </div>
+    <div class="module-chip">
+      <span class="chip-badge" style="background:var(--paper-3);color:var(--ink-2);border:1px solid var(--rule)">Transform</span>
+      Calc column · Rename · Conditional tag · Bin · Text ops
+    </div>
+    <div class="module-chip">
+      <span class="chip-badge" style="background:var(--purple-lt);color:var(--purple)">Inspect</span>
+      Null audit · Freq dist · Correlation · Pareto · Crosstab
+    </div>
+    <div class="module-chip">
+      <span class="chip-badge" style="background:var(--rust-lt);color:var(--rust)">Segment</span>
+      Conditional tag · Percentile bucket · Cluster
+    </div>
+    <div class="module-chip">
+      <span class="chip-badge" style="background:var(--teal-lt);color:var(--teal)">Time</span>
+      Date parts · Running total · Rolling avg · Lag/Lead · Period comp · Rank
+    </div>
+  </div>
+
+  <div class="section-label">Core infrastructure — v1.0</div>
+  <div class="deliv-grid">
+    <div class="deliv-card">
+      <div class="deliv-name">Pipeline architecture</div>
+      <div class="deliv-desc">Every operation is a pure function on the data. Full undo stack. Audit log records every step with parameters.</div>
+      <div class="deliv-status">✓ Shipped</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">Multi-table workspace</div>
+      <div class="deliv-desc">Load multiple tables. Name them. Switch between them. Join across them. The sidebar manages the table registry.</div>
+      <div class="deliv-status">✓ Shipped</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">CSV / XLSX ingestion</div>
+      <div class="deliv-desc">Drag-and-drop or file picker. PapaParse handles CSV/TSV; SheetJS handles XLSX. Type inference on load.</div>
+      <div class="deliv-status">✓ Shipped</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">Export</div>
+      <div class="deliv-desc">Export current result as CSV. Column headers preserved. Works from any pipeline step.</div>
+      <div class="deliv-status">✓ Shipped</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">Sample data</div>
+      <div class="deliv-desc">Inline sample dataset loads on first visit. Transaction + customer master tables allow join demo immediately.</div>
+      <div class="deliv-status">✓ Shipped</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">WALKTHROUGHS.md</div>
+      <div class="deliv-desc">Step-by-step walkthrough document for five common analytical scenarios, bundled with the repo.</div>
+      <div class="deliv-status">✓ Shipped</div>
+    </div>
+  </div>
+
+  <div class="callout callout-reality">
+    <strong>What v1.0 got wrong</strong>
+    Five operations — filter, group-by, calculated column, conditional tagging, and rename — used free-text textarea inputs for configuration. This was a deliberate first-pass shortcut that immediately violated design principle P1. Users who loaded their own data found themselves needing to remember column names exactly as they appeared in the header row, type operator syntax correctly, and construct multi-condition expressions without autocomplete or validation. The access gap had not been fully closed. v1.1 fixed this.
+  </div>
+</section>
+
+<!-- ════ STAGE 7: BUILD V1.1 ════ -->
+<section class="stage-section" id="stage7">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--teal-lt);color:var(--teal)">7</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 7 · Build · v1.1</div>
+      <div class="stage-title">Visual builders, SQL companion, and the PA handoff layer</div>
+      <div class="stage-sub">Completing the original vision and integrating with the Pricing Analyser</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Live</span>
+  </div>
+
+  <p class="narrative">v1.1 addressed the five free-text operations from v1.0, added the SQL companion panel, and shipped three backlog items (DB-01, DB-03, DB-04) that form the foundation of the DataBridge → Pricing Analyser integration workflow.</p>
+
+  <div class="section-label">Fix 1 — Visual builders replacing all free-text inputs</div>
+
+  <div class="deliv-grid">
+    <div class="deliv-card">
+      <div class="deliv-name">Filter — rule builder</div>
+      <div class="deliv-desc">Visual rule rows: column picker + 11-option operator dropdown + value input. AND/OR toggle between rules. Add/remove rows. Logic connectors shown inline.</div>
+      <div class="deliv-status">✓ v1.1</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">Group by — agg builder</div>
+      <div class="deliv-desc">Dynamic aggregation rows: column picker + SUM/COUNT/AVG/MIN/MAX/MEDIAN/COUNT DISTINCT + auto-named output column. Auto-suggests output name on column/function selection.</div>
+      <div class="deliv-status">✓ v1.1</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">Calculated column</div>
+      <div class="deliv-desc">Three modes: Arithmetic (col A op col B), IF/THEN/ELSE (visual condition builder), Constant. Live formula preview updates as user configures.</div>
+      <div class="deliv-status">✓ v1.1</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">Conditional tagging</div>
+      <div class="deliv-desc">Visual rule rows with label input. Default/else field at bottom. Evaluated top-to-bottom — first match wins. Add/remove rules freely.</div>
+      <div class="deliv-status">✓ v1.1</div>
+    </div>
+    <div class="deliv-card">
+      <div class="deliv-name">Rename columns</div>
+      <div class="deliv-desc">Auto-generated one row per column. Current name shown as read-only. Editable new name field. No format to remember — just type the new name.</div>
+      <div class="deliv-status">✓ v1.1</div>
+    </div>
+  </div>
+
+  <div class="section-label">Fix 2 — SQL companion panel</div>
+
+  <p class="narrative">A collapsed "⟨/⟩ View equivalent SQL" toggle at the bottom of every operation modal. Expanding it shows a read-only dark code block with syntax highlighting: keywords in blue, functions in green, strings in amber. The SQL is generated live from the current form state — it updates every time the user opens the panel. Covers all 40+ operations including the window function operations (RANK, ROLLING AVERAGE, RUNNING TOTAL, PERIOD COMPARISON).</p>
+
+  <div class="callout callout-insight">
+    <strong>Why the SQL companion matters beyond the immediate functionality</strong>
+    DataBridge's stated purpose includes familiarising strategy professionals with the underlying data operations that analysts and engineers use. The SQL companion is how that learning happens — not through documentation or tutorials, but through seeing the exact SQL that produces the same output as the operation they just configured. The learning is contextual, optional, and immediate.
+  </div>
+
+  <div class="section-label">DB-01 — Pricing schema mapper</div>
+  <p class="narrative">A guided column-mapping wizard accessible via the "◈ Pricing schema" button in the topbar after any data load. The wizard presents 12 standard pricing dimensions — list price, pocket price, unit cost, discount %, discount amount, quantity, sales rep, customer, customer tier, region, product, and date — and auto-suggests matches by scanning column names against regex patterns. The user confirms or corrects each mapping. The result is stored as <code>window._pricingSchemaMap</code> and included in the sessionStorage handoff payload.</p>
+
+  <div class="section-label">DB-03 — Data quality scoring</div>
+  <p class="narrative">A quality bar appears below the topbar after every data load. It shows a score from 0–100 (green ≥ 80, amber ≥ 60, red &lt; 60) derived from four checks: null rate across all columns, duplicate row detection, mixed types in numeric columns, and negative values in money-named columns. Issue summaries are shown inline. A "Full null audit ↗" shortcut links directly to the null audit operation.</p>
+
+  <div class="section-label">DB-04 — sessionStorage handoff to Pricing Analyser</div>
+  <p class="narrative">The "→ Pricing Analyser" button appears in the topbar after data is loaded. Clicking it serialises the current dataset, column list, source name, row count, schema mapping, and timestamp to <code>sessionStorage['pa_incoming_dataset']</code>, then opens the Pricing Analyser in a new tab. The Pricing Analyser reads this key on load and hydrates the data automatically, bypassing its own upload and schema mapping wizard.</p>
+
+  <div class="section-label">Sample data — v1.1</div>
+  <p class="narrative">The inline sample data was replaced with a complete five-table demo dataset: 400 transaction rows (2023–2024), a 20-customer master, a 15-product catalog with pricing policy columns, a rep targets table with quota attainment, and a pre-joined PA-ready dataset with exact Pricing Analyser schema column names. Two reps — Emily Foster and David Evans — are engineered with 20–25% average discount (vs 7–9% for compliant reps), creating a visible leakage signal across all PA modules.</p>
+
+  <div class="callout callout-gate">
+    <strong>v1.1 stage gate</strong>
+    All five free-text operations replaced with visual builders. SQL companion live on all 40+ operations. DB-01, DB-03, DB-04 shipped. Five-table sample dataset with PA-ready schema and engineered leakage structure. Theory companion built and deployed. This PM journal complete. DataBridge's 3-piece standard (Tool · Theory · Journal) fulfilled.
+  </div>
+</section>
+
+<!-- ════ BACKLOG ════ -->
+<section class="stage-section" id="backlog">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--todo-bg);color:var(--todo-tx)">→</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Backlog · DB-05 through DB-12</div>
+      <div class="stage-title">What comes next</div>
+      <div class="stage-sub">The remaining enhancement backlog, sequenced by the Pricing Analyser v2 dependency map</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--todo-bg);color:var(--todo-tx)">Planned</span>
+  </div>
+
+  <p class="narrative">DB-01 through DB-04 were the critical path items for the Pricing Analyser v2 integration. The remaining backlog items are sequenced by their dependency on that integration and by their standalone value to DataBridge users.</p>
+
+  <div class="backlog-item">
+    <span class="backlog-id">DB-05</span>
+    <div style="flex:1">
+      <div class="backlog-title">Multi-table join engine upgrade</div>
+      <div class="backlog-desc">Left/inner/outer joins on multiple key columns simultaneously. Sequential join support (join A to B, then join result to C). Match rate diagnostic shown after join.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--amber-lt);color:var(--amber)">Phase 2</span>
+  </div>
+  <div class="backlog-item">
+    <span class="backlog-id">DB-06</span>
+    <div style="flex:1">
+      <div class="backlog-title">Date intelligence</div>
+      <div class="backlog-desc">Parse and normalise date columns across common formats. Extract period dimensions. Period-on-period comparison filter UI. Required for M3 trend view in Pricing Analyser v2.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--amber-lt);color:var(--amber)">Phase 2</span>
+  </div>
+  <div class="backlog-item">
+    <span class="backlog-id">DB-07</span>
+    <div style="flex:1">
+      <div class="backlog-title">Multi-aggregate group-by</div>
+      <div class="backlog-desc">Multiple aggregation functions on the same column in one group-by operation (e.g. SUM and COUNT DISTINCT of revenue in the same step). Percentage-of-total as a native aggregation option.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--amber-lt);color:var(--amber)">Phase 2</span>
+  </div>
+  <div class="backlog-item">
+    <span class="backlog-id">DB-08</span>
+    <div style="flex:1">
+      <div class="backlog-title">Large file streaming — Web Workers</div>
+      <div class="backlog-desc">Chunked processing for datasets above 100K rows. Progressive loading with row count displayed during parse. Hard warning at 100K, hard limit at 1M. Keeps the UI responsive on large files.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--amber-lt);color:var(--amber)">Phase 2</span>
+  </div>
+  <div class="backlog-item">
+    <span class="backlog-id">DB-09</span>
+    <div style="flex:1">
+      <div class="backlog-title">Derived column builder — pricing metrics</div>
+      <div class="backlog-desc">One-click derived columns for standard pricing metrics: discount % from list and pocket price, margin % from revenue and cost, revenue per unit from revenue and quantity. Reads from the pricing schema mapping if set.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--blue-lt);color:var(--blue)">Phase 3</span>
+  </div>
+  <div class="backlog-item">
+    <span class="backlog-id">DB-10</span>
+    <div style="flex:1">
+      <div class="backlog-title">SaaS metrics schema</div>
+      <div class="backlog-desc">Second schema profile alongside the pricing schema mapper: MRR, ARR, churn, expansion, cohort, tier, contract dates. Enables the Pricing Analyser's SaaS studio module to receive pre-mapped data from DataBridge.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--blue-lt);color:var(--blue)">Phase 3</span>
+  </div>
+  <div class="backlog-item">
+    <span class="backlog-id">DB-11</span>
+    <div style="flex:1">
+      <div class="backlog-title">Outlier handling controls</div>
+      <div class="backlog-desc">Remove or winsorise rows above/below N standard deviations on any numeric column. Preview the impact (row count change, mean/median shift) before committing. Essential for clean regression inputs in M2.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--purple-lt);color:var(--purple)">Phase 4</span>
+  </div>
+  <div class="backlog-item">
+    <span class="backlog-id">DB-12</span>
+    <div style="flex:1">
+      <div class="backlog-title">Saved schema profiles</div>
+      <div class="backlog-desc">Save a completed pricing or SaaS schema mapping as a named profile in localStorage. Auto-apply on next upload of a similarly-structured file (matched by column name similarity). Enables repeatable monthly analysis without re-mapping.</div>
+    </div>
+    <span class="backlog-phase" style="background:var(--purple-lt);color:var(--purple)">Phase 4</span>
+  </div>
+
+</section>
+
+</main>
+</div>
+
+<script>
+const sections = document.querySelectorAll('.stage-section');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting && e.intersectionRatio > 0.15) {
+      const id = e.target.id;
+      navItems.forEach(n => {
+        n.classList.remove('active');
+        if(n.getAttribute('href') === '#' + id) n.classList.add('active');
+      });
+    }
+  });
+}, { threshold: 0.15 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
