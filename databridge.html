@@ -9,29 +9,74 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
+/* ── Light palette (default) ── */
 :root {
-  --bg: #f4f3ef;
-  --surface: #ffffff;
-  --surface2: #f9f8f5;
-  --border: #e4e2db;
-  --border2: #d0cdc4;
-  --text: #1c1b18;
-  --text2: #6b6860;
-  --text3: #9b9890;
-  --accent: #2563eb;
-  --accent-bg: #eff6ff;
-  --accent-border: #bfdbfe;
-  --success: #16a34a;
+  --bg: #fbfbfa;
+  --surface: #f4f4f2;
+  --surface2: #eeede9;
+  --border: #e2e1dc;
+  --border2: #d4d2cb;
+  --text: #1a1d22;
+  --text2: #3a3f48;
+  --muted: #5c6470;
+  --muted2: #7a8290;
+  --dim: #9aa1ad;
+  --dim2: #bdc3cc;
+  --accent: #0d9488;
+  --accent-on: #ffffff;
+  --accent-bg: rgba(13,148,136,0.08);
+  --accent-border: rgba(13,148,136,0.28);
+  --success: #15803d;
   --success-bg: #f0fdf4;
-  --warn: #d97706;
-  --warn-bg: #fffbeb;
+  --warn: #b45309;
+  --warn-bg: rgba(245,165,36,0.08);
+  --warn-border: rgba(176,122,26,0.3);
   --danger: #dc2626;
   --danger-bg: #fef2f2;
-  --mono: 'DM Mono', monospace;
-  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', system-ui, sans-serif;
   --radius: 8px;
   --radius-lg: 12px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.05);
+  --pill-text: #a78bfa;
+  --pill-num: #5b8ef5;
+  --pill-date: #f5a524;
+  --pill-pct: #0d9488;
+  --pill-tag: #34c759;
+  --pill-id: #f5a524;
+}
+
+/* ── Dark palette ── */
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --surface: #10151e;
+  --surface2: #161b25;
+  --border: #1c2230;
+  --border2: #2a3142;
+  --text: #e6e8ee;
+  --text2: #c0c8d8;
+  --muted: #9ba6ba;
+  --muted2: #7e8aa1;
+  --dim: #5d6679;
+  --dim2: #3a4356;
+  --accent: #22d3b8;
+  --accent-on: #0d1117;
+  --accent-bg: rgba(34,211,184,0.10);
+  --accent-border: rgba(34,211,184,0.28);
+  --success: #22c55e;
+  --success-bg: rgba(34,197,94,0.12);
+  --warn: #f5a524;
+  --warn-bg: rgba(245,165,36,0.10);
+  --warn-border: rgba(245,165,36,0.3);
+  --danger: #ef4444;
+  --danger-bg: rgba(239,68,68,0.12);
+  --pill-text: #c4b5fd;
+  --pill-num: #93b4fb;
+  --pill-date: #f5a524;
+  --pill-pct: #22d3b8;
+  --pill-tag: #34c759;
+  --pill-id: #f5a524;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,9 +108,9 @@ body {
 .logo { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
 .logo-mark { width: 28px; height: 28px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; }
 .logo-mark svg { width: 16px; height: 16px; fill: white; }
-.logo-sub { font-size: 11px; font-weight: 400; color: var(--text3); margin-left: 2px; }
+.logo-sub { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 2px; }
 
-.topbar-center { flex: 1; display: flex; align-items: center; gap: 8px; overflow-x: auto; padding: 0 8px; }
+/* topbar-center removed - pipeline moved to pipeline-row */
 
 .tab-btn {
   display: flex; align-items: center; gap: 6px;
@@ -77,8 +122,8 @@ body {
   flex-shrink: 0;
 }
 .tab-btn:hover { background: var(--surface2); border-color: var(--border); }
-.tab-btn.active { background: var(--accent-bg); border-color: var(--accent-border); color: var(--accent); }
-.tab-btn .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+.tab-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.tab-btn .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
 .tab-btn.active .dot { background: var(--accent); }
 
 .topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
@@ -100,7 +145,7 @@ body {
   border-bottom: 1px solid var(--border);
   font-size: 10px; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.07em;
-  color: var(--text3);
+  color: var(--muted);
   display: flex; align-items: center; justify-content: space-between;
 }
 
@@ -112,17 +157,17 @@ body {
   border: 1px solid transparent; margin-bottom: 2px; transition: all 0.1s;
 }
 .table-item:hover { background: var(--surface2); border-color: var(--border); }
-.table-item.active { background: var(--accent-bg); border-color: var(--accent-border); }
+.table-item.active { background: var(--accent-bg); border-color: var(--accent); }
 .table-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 .table-info { flex: 1; min-width: 0; }
 .table-name { font-weight: 500; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.table-meta { font-size: 10px; color: var(--text3); margin-top: 1px; }
+.table-meta { font-size: 10px; color: var(--muted); margin-top: 1px; }
 
 .upload-zone {
   margin: 8px; border: 1.5px dashed var(--border2);
   border-radius: var(--radius); padding: 14px 10px;
   text-align: center; cursor: pointer; transition: all 0.15s;
-  color: var(--text3); font-size: 11px;
+  color: var(--muted); font-size: 11px;
 }
 .upload-zone:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
 .upload-zone input { display: none; }
@@ -131,7 +176,7 @@ body {
   margin: 6px 8px 0;
   padding: 7px 10px;
   background: var(--warn-bg);
-  border: 1px solid #fde68a;
+  border: 1px solid var(--warn-border);
   border-radius: 6px;
   font-size: 10px;
   color: var(--warn);
@@ -154,13 +199,8 @@ body {
 .workspace { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
 /* ── Pipeline steps ── */
-.pipeline-bar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 16px;
-  display: flex; align-items: center; gap: 6px;
-  flex-shrink: 0; overflow-x: auto;
-}
+/* pipeline-bar is now rendered inside #pipeline-bar inside .pipeline-row */
+.pipeline-bar-inner { display: flex; align-items: center; gap: 6px; flex: 1; overflow-x: auto; }
 
 .step-chip {
   display: flex; align-items: center; gap: 6px;
@@ -170,14 +210,14 @@ body {
   white-space: nowrap; flex-shrink: 0; transition: all 0.1s;
 }
 .step-chip:hover { border-color: var(--border2); }
-.step-chip.active { background: var(--accent-bg); border-color: var(--accent-border); color: var(--accent); }
+.step-chip.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 500; }
 .step-chip.error { background: var(--danger-bg); border-color: #fca5a5; color: var(--danger); }
 .step-chip .remove { width: 14px; height: 14px; border-radius: 50%; background: var(--border2);
   display: flex; align-items: center; justify-content: center; font-size: 9px; cursor: pointer; }
 .step-chip .remove:hover { background: var(--danger); color: white; }
-.step-arrow { color: var(--text3); font-size: 12px; flex-shrink: 0; }
+.step-arrow { color: var(--muted); font-size: 12px; flex-shrink: 0; }
 
-.pipeline-empty { font-size: 11px; color: var(--text3); font-style: italic; }
+.pipeline-empty { font-size: 11px; color: var(--muted); font-style: italic; }
 
 /* ── Data preview ── */
 .preview-area { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
@@ -200,7 +240,7 @@ body {
   border: none; background: transparent; font-family: var(--sans);
   font-size: 12px; color: var(--text); outline: none; width: 160px;
 }
-.search-box input::placeholder { color: var(--text3); }
+.search-box input::placeholder { color: var(--muted); }
 
 .table-wrap { flex: 1; overflow: auto; }
 
@@ -217,7 +257,8 @@ table.data-table th {
   cursor: pointer; user-select: none;
 }
 table.data-table th:hover { background: var(--border); }
-table.data-table th .col-type { font-family: var(--mono); font-size: 9px; font-weight: 400; color: var(--text3); display: block; }
+table.data-table th .col-type { font-family: var(--mono); font-size: 9px; font-weight: 400; color: var(--muted); display: block; margin-top: 1px; }
+table.data-table th .col-type-pill { vertical-align: top; }
 table.data-table td {
   padding: 6px 12px; border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
@@ -225,8 +266,8 @@ table.data-table td {
   font-family: var(--mono); font-size: 11px;
 }
 table.data-table tr:hover td { background: var(--surface2); }
-table.data-table td.null-val { color: var(--text3); font-style: italic; }
-table.data-table td.num-val { color: #1d4ed8; text-align: right; }
+table.data-table td.null-val { color: var(--muted); font-style: italic; }
+table.data-table td.num-val { color: var(--accent); text-align: right; font-family: var(--mono); }
 
 /* ── Right panel: operations ── */
 .ops-panel {
@@ -250,7 +291,7 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
   cursor: pointer; transition: all 0.1s;
 }
 .cat-btn:hover { border-color: var(--border2); }
-.cat-btn.active { background: var(--text); color: white; border-color: var(--text); }
+.cat-btn.active { background: var(--accent); color: var(--accent-on); border-color: var(--accent); }
 
 .ops-list { flex: 1; overflow-y: auto; padding: 8px; }
 
@@ -262,10 +303,19 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
   display: flex; align-items: flex-start; gap: 8px;
 }
 .op-btn:hover { background: var(--surface2); border-color: var(--border); }
-.op-btn .op-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.op-btn .op-icon {
+  font-size: 13px; flex-shrink: 0;
+  font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", "Symbola",
+               "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 5px; flex-shrink: 0;
+  background: var(--accent-bg); color: var(--accent);
+  border: 1px solid var(--accent-border);
+  font-weight: 600;
+}
 .op-btn .op-text { flex: 1; }
 .op-btn .op-name { font-size: 12px; font-weight: 500; color: var(--text); display: block; }
-.op-btn .op-desc { font-size: 10px; color: var(--text3); display: block; margin-top: 1px; }
+.op-btn .op-desc { font-size: 10px; color: var(--muted); display: block; margin-top: 1px; }
 
 /* ── Modal ── */
 .modal-overlay {
@@ -291,7 +341,7 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 }
 .modal-icon { font-size: 20px; flex-shrink: 0; }
 .modal-title { font-size: 14px; font-weight: 600; }
-.modal-subtitle { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.modal-subtitle { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .modal-close { margin-left: auto; width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border);
   background: transparent; cursor: pointer; font-size: 14px; color: var(--text2);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -310,7 +360,7 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: var(--surface); }
 .field textarea { resize: vertical; min-height: 60px; font-family: var(--mono); font-size: 11px; }
-.field .hint { font-size: 10px; color: var(--text3); margin-top: 4px; }
+.field .hint { font-size: 10px; color: var(--muted); margin-top: 4px; }
 .field-row { display: flex; gap: 10px; }
 .field-row .field { flex: 1; }
 
@@ -324,8 +374,8 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
   font-family: var(--sans); font-size: 12px; font-weight: 500;
   cursor: pointer; transition: all 0.1s; display: inline-flex; align-items: center; gap: 6px;
 }
-.btn-primary { background: var(--accent); border-color: var(--accent); color: white; }
-.btn-primary:hover { background: #1d4ed8; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-on); }
+.btn-primary:hover { opacity: 0.88; }
 .btn-secondary { background: var(--surface); border-color: var(--border); color: var(--text); }
 .btn-secondary:hover { background: var(--surface2); }
 .btn-danger { background: var(--danger-bg); border-color: #fca5a5; color: var(--danger); }
@@ -345,13 +395,13 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 .audit-entry { padding: 6px 12px; border-bottom: 1px solid var(--border); font-size: 11px; }
 .audit-entry .audit-op { font-weight: 500; color: var(--accent); }
 .audit-entry .audit-detail { color: var(--text2); font-family: var(--mono); font-size: 10px; }
-.audit-entry .audit-time { color: var(--text3); font-size: 10px; float: right; }
+.audit-entry .audit-time { color: var(--muted); font-size: 10px; float: right; }
 
 /* ── Stats bar ── */
 .stats-bar {
   background: var(--surface2); border-top: 1px solid var(--border);
   padding: 5px 16px; display: flex; gap: 16px; align-items: center;
-  flex-shrink: 0; font-size: 10px; color: var(--text3);
+  flex-shrink: 0; font-size: 10px; color: var(--muted);
 }
 .stats-bar strong { color: var(--text2); }
 
@@ -363,13 +413,47 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 }
 .empty-icon { font-size: 40px; opacity: 0.4; }
 .empty-title { font-size: 14px; font-weight: 500; color: var(--text2); }
-.empty-sub { font-size: 12px; color: var(--text3); max-width: 260px; line-height: 1.6; }
+.empty-sub { font-size: 12px; color: var(--muted); max-width: 260px; line-height: 1.6; }
 
 /* ── Scrollbars ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted2); }
+
+/* ── Theme toggle ── */
+.theme-toggle {
+  width: 32px; height: 32px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border2); border-radius: var(--radius);
+  background: var(--surface2); cursor: pointer; font-size: 14px;
+  transition: all 0.12s; flex-shrink: 0; line-height: 1;
+  color: var(--text2);
+}
+.theme-toggle:hover { background: var(--border); color: var(--text); }
+
+/* ── Mode switch (Table / Canvas) ── */
+.mode-switch {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--border2); border-radius: var(--radius);
+  background: var(--surface2); overflow: hidden; flex-shrink: 0;
+}
+.mode-btn {
+  padding: 5px 12px; height: 30px;
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  cursor: pointer; border: none; background: transparent;
+  color: var(--muted); transition: all 0.12s;
+  display: inline-flex; align-items: center; gap: 5px;
+  white-space: nowrap;
+}
+.mode-btn + .mode-btn { border-left: 1px solid var(--border2); }
+.mode-btn:hover { background: var(--border); color: var(--text2); }
+.mode-btn.active { background: var(--accent-bg); color: var(--accent); font-weight: 600; }
+.new-badge {
+  font-size: 8px; padding: 1px 5px; border-radius: 3px;
+  background: var(--accent); color: var(--accent-on);
+  font-weight: 700; letter-spacing: 0.03em; line-height: 1.4;
+}
 
 /* ── Toast ── */
 .toast {
@@ -389,24 +473,24 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 .tag-warn { background: var(--warn-bg); color: var(--warn); border: 1px solid #fde68a; }
 
 .sidebar-section { padding: 6px 8px 2px; font-size: 10px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted);
   display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
 .table-item.result { border-left: 2px solid var(--accent); }
 .table-item.result .table-icon-wrap { position: relative; }
 .result-badge { font-size: 9px; padding: 1px 5px; border-radius: 3px;
   background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-border);
   margin-top: 2px; display: inline-block; }
-.table-item .del-btn { opacity: 0; font-size: 11px; color: var(--text3);
+.table-item .del-btn { opacity: 0; font-size: 11px; color: var(--muted);
   background: none; border: none; cursor: pointer; padding: 2px 4px; border-radius: 3px;
   transition: all 0.1s; flex-shrink: 0; }
 .table-item:hover .del-btn { opacity: 1; }
 .table-item .del-btn:hover { background: var(--danger-bg); color: var(--danger); }
 
 .divider { height: 1px; background: var(--border); margin: 10px 0; }
-.section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); margin-bottom: 6px; padding: 0 4px; }
+.section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 6px; padding: 0 4px; }
 
 /* ── SQL panel ── */
-.sql-toggle{display:flex;align-items:center;gap:6px;margin-top:16px;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:11px;color:var(--text3);font-family:var(--sans);width:100%;transition:all .15s;text-align:left}
+.sql-toggle{display:flex;align-items:center;gap:6px;margin-top:16px;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:11px;color:var(--muted);font-family:var(--sans);width:100%;transition:all .15s;text-align:left}
 .sql-toggle:hover{border-color:var(--border2);color:var(--text2)}
 .sql-toggle .sql-arrow{margin-left:auto;transition:transform .15s;font-size:9px}
 .sql-toggle.open .sql-arrow{transform:rotate(180deg)}
@@ -419,7 +503,7 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 .quality-bar.show{display:flex}
 .q-score{font-weight:600;padding:2px 8px;border-radius:10px;font-size:10px}
 .q-good{background:var(--success-bg);color:var(--success)}.q-warn{background:var(--warn-bg);color:var(--warn)}.q-bad{background:var(--danger-bg);color:var(--danger)}
-.q-issue{color:var(--warn);font-size:11px}.q-label{color:var(--text3);font-size:11px}
+.q-issue{color:var(--warn);font-size:11px}.q-label{color:var(--muted);font-size:11px}
 
 /* ── Schema wizard ── */
 .schema-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;opacity:0;pointer-events:none;transition:opacity .15s}
@@ -429,7 +513,7 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 .schema-badge{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
 .schema-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px}
 .schema-field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
-.schema-field .sf-sub{font-size:10px;color:var(--text3);margin-bottom:5px}
+.schema-field .sf-sub{font-size:10px;color:var(--muted);margin-bottom:5px}
 .schema-field select{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface2);font-family:var(--sans);font-size:12px;color:var(--text);outline:none}
 .schema-field select:focus{border-color:var(--accent)}
 
@@ -438,9 +522,9 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 .rule-row,.agg-row{display:flex;gap:6px;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 10px}
 .rule-row select,.rule-row input,.agg-row select,.agg-row input{border:1px solid var(--border);border-radius:5px;background:var(--surface);font-family:var(--sans);font-size:11px;color:var(--text);padding:4px 7px;outline:none}
 .rule-row select:focus,.rule-row input:focus,.agg-row select:focus,.agg-row input:focus{border-color:var(--accent)}
-.rm-rule{width:22px;height:22px;border:1px solid var(--border);border-radius:4px;background:transparent;cursor:pointer;font-size:12px;color:var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rm-rule{width:22px;height:22px;border:1px solid var(--border);border-radius:4px;background:transparent;cursor:pointer;font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .rm-rule:hover{background:var(--danger-bg);color:var(--danger);border-color:#fca5a5}
-.add-rule-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border:1px dashed var(--border2);border-radius:6px;background:transparent;font-family:var(--sans);font-size:11px;color:var(--text3);cursor:pointer;transition:all .12s}
+.add-rule-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border:1px dashed var(--border2);border-radius:6px;background:transparent;font-family:var(--sans);font-size:11px;color:var(--muted);cursor:pointer;transition:all .12s}
 .add-rule-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 .logic-connector{font-size:10px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:4px;background:var(--accent-bg);border:1px solid var(--accent-border);align-self:center;flex-shrink:0}
 
@@ -454,10 +538,94 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
 .rename-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
 .rename-row:last-child{border:none}
 .rename-old{flex:1;color:var(--text2);font-family:var(--mono);font-size:11px}
-.rename-arrow{color:var(--text3);flex-shrink:0}
+.rename-arrow{color:var(--muted);flex-shrink:0}
 .rename-new{flex:1;border:1px solid var(--border);border-radius:5px;padding:4px 8px;background:var(--surface2);font-family:var(--mono);font-size:11px;color:var(--text);outline:none}
 .rename-new:focus{border-color:var(--accent)}
 
+
+/* ═══════════════════════════════════════
+   CANVAS MODE
+═══════════════════════════════════════ */
+.canvas-workspace { flex: 1; position: relative; overflow: hidden; background: var(--bg); }
+.canvas-workspace .dot-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, var(--border2) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.canvas-viewport { position: absolute; inset: 0; overflow: hidden; }
+.canvas-transform { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+
+/* Canvas nodes */
+.cn-node {
+  position: absolute; width: 180px;
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: var(--radius); cursor: grab; user-select: none;
+  transition: border-color 0.12s, box-shadow 0.12s;
+  box-shadow: var(--shadow);
+}
+.cn-node:hover { border-color: var(--border2); box-shadow: var(--shadow-md); }
+.cn-node.cn-selected { border-color: var(--accent) !important; box-shadow: 0 0 0 2px var(--accent-bg), var(--shadow-md); }
+.cn-node.cn-dragging { cursor: grabbing; opacity: 0.9; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.cn-head { padding: 8px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 7px; border-radius: var(--radius) var(--radius) 0 0; }
+.cn-head-icon { width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+.cn-head-label { font-size: 10px; font-weight: 600; color: var(--text); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn-body { padding: 7px 10px; }
+.cn-summary { font-size: 10px; color: var(--muted); line-height: 1.5; }
+.cn-foot { padding: 5px 10px 8px; display: flex; align-items: center; justify-content: space-between; }
+.cn-rowcount { font-family: var(--mono); font-size: 9px; color: var(--muted2); }
+.cn-port-out { position: absolute; right: -6px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--border2); cursor: crosshair; z-index: 2; transition: border-color 0.1s, background 0.1s; }
+.cn-port-in  { position: absolute; left: -6px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--border2); z-index: 2; }
+.cn-selected .cn-port-out,
+.cn-selected .cn-port-in { border-color: var(--accent); }
+.cn-port-out:hover { border-color: var(--accent); background: var(--accent-bg); }
+
+/* Canvas SVG connectors */
+.canvas-svg { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.cn-connector { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0.7; }
+.cn-connector.cn-conn-secondary { opacity: 0.4; }
+
+/* Canvas zoom controls */
+.canvas-zoom-ctrl {
+  position: absolute; top: 12px; right: 12px; z-index: 20;
+  display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+}
+.canvas-zoom-btn { padding: 5px 10px; background: transparent; border: none; cursor: pointer; font-family: var(--sans); font-size: 11px; font-weight: 500; color: var(--text2); transition: background 0.1s; display: flex; align-items: center; }
+.canvas-zoom-btn:hover { background: var(--surface2); }
+.canvas-zoom-btn.divider { border-left: 1px solid var(--border); }
+.canvas-zoom-label { font-family: var(--mono); font-size: 10px; padding: 0 4px; color: var(--muted); min-width: 40px; text-align: center; align-self: center; }
+
+/* Canvas node preview panel */
+.canvas-preview {
+  position: absolute; bottom: 12px; right: 12px; z-index: 20;
+  width: 280px; max-height: 200px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md); display: none; flex-direction: column;
+}
+.canvas-preview.show { display: flex; }
+.cp-head { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; color: var(--text); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.cp-close { background: none; border: none; cursor: pointer; font-size: 14px; color: var(--muted); line-height: 1; }
+.cp-close:hover { color: var(--text); }
+.cp-table-wrap { overflow: auto; flex: 1; }
+.cp-table { border-collapse: collapse; width: 100%; font-size: 10px; font-family: var(--mono); }
+.cp-table th { padding: 4px 8px; background: var(--surface2); border-bottom: 1px solid var(--border); color: var(--muted); font-weight: 500; white-space: nowrap; }
+.cp-table td { padding: 3px 8px; border-bottom: 1px solid var(--border); color: var(--text2); white-space: nowrap; overflow: hidden; max-width: 100px; text-overflow: ellipsis; }
+
+/* Canvas empty state */
+.canvas-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.canvas-empty .ce-icon { font-size: 32px; opacity: 0.15; }
+.canvas-empty .ce-title { font-size: 13px; font-weight: 500; color: var(--dim); }
+.canvas-empty .ce-sub { font-size: 11px; color: var(--dim2); max-width: 240px; text-align: center; line-height: 1.6; }
+
+
+/* ── Op icon category colours ── */
+.op-icon-join      { background: rgba(91,142,245,0.14);  color: #5b8ef5;  border-color: rgba(91,142,245,0.28); }
+.op-icon-filter    { background: rgba(245,165,36,0.14);  color: #f5a524;  border-color: rgba(245,165,36,0.28); }
+.op-icon-aggregate { background: rgba(13,148,136,0.14);  color: var(--accent); border-color: var(--accent-border); }
+.op-icon-transform { background: rgba(124,92,208,0.14);  color: #a78bfa;  border-color: rgba(124,92,208,0.28); }
+.op-icon-inspect   { background: rgba(52,199,89,0.14);   color: #34c759;  border-color: rgba(52,199,89,0.28); }
+.op-icon-segment   { background: rgba(239,68,68,0.14);   color: #f87171;  border-color: rgba(239,68,68,0.28); }
+.op-icon-time      { background: rgba(251,191,36,0.14);  color: #fbbf24;  border-color: rgba(251,191,36,0.28); }
 </style>
 </head>
 <body>
@@ -473,14 +641,26 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
     <span class="logo-sub">No-code data workbench</span>
   </div>
 
-  <div class="topbar-center" id="pipeline-bar">
-    <div class="pipeline-empty">Load a dataset to begin — then add operations from the right panel</div>
-  </div>
+  <div style="flex:1"></div>
 
   <div class="topbar-right">
-    <button class="btn btn-secondary btn-sm" onclick="toggleAudit()">📋 Audit log</button>
+    <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+    <div class="mode-switch">
+      <button class="mode-btn active" id="mode-table-btn" onclick="setMode('table')">▦ Table</button>
+      <button class="mode-btn" id="mode-canvas-btn" onclick="setMode('canvas')">◇ Canvas <span class="new-badge">NEW</span></button>
+    </div>
+    <button class="btn btn-secondary btn-sm" onclick="toggleAudit()">📋 Audit</button>
     <button class="btn btn-secondary btn-sm" onclick="undoStep()" id="undo-btn" disabled>↩ Undo</button>
-    <button class="btn btn-secondary btn-sm" onclick="sendToPricingAnalyser()" id="pa-send-btn" style="display:none">→ Pricing Analyser</button><button class="btn btn-primary btn-sm" onclick="exportData()">⬇ Export</button>
+    <button class="btn btn-secondary btn-sm" onclick="sendToPricingAnalyser()" id="pa-send-btn" style="display:none">→ Pricing Analyser</button>
+    <button class="btn btn-primary btn-sm" onclick="exportData()">⬇ Export</button>
+  </div>
+</div>
+
+<!-- Pipeline row (standalone, below topbar) -->
+<div class="pipeline-row" id="pipeline-row">
+  <span class="pipeline-row-label">Pipeline</span>
+  <div id="pipeline-bar" style="display:flex;align-items:center;gap:6px;flex:1;overflow-x:auto;">
+    <div class="pipeline-empty">Load a dataset to begin — then add operations from the right panel</div>
   </div>
 </div>
 
@@ -498,7 +678,7 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
   <div class="sidebar">
     <div class="sidebar-header">
       Tables
-      <span id="table-count" class="tag tag-blue">0</span>
+      <span id="table-count" class="sidebar-count-badge">0</span>
     </div>
     <div class="table-list" id="table-list"></div>
     <label class="upload-zone" id="upload-zone">
@@ -509,20 +689,61 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
     </label>
   </div>
 
-  <!-- Workspace -->
+  <!-- Workspace: Table mode + Canvas mode -->
   <div class="workspace">
-    <div class="preview-area" id="preview-area">
-      <div class="empty-state" id="empty-state">
-        <div class="empty-icon">⬡</div>
-        <div class="empty-title">No data loaded yet</div>
-        <div class="empty-sub">Load a CSV, TSV, or Excel file from the left panel to get started. Large files (1M+ rows) are supported.</div>
+    <!-- TABLE MODE -->
+    <div id="table-mode-view" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="preview-area" id="preview-area">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">⬡</div>
+          <div class="empty-title">No data loaded yet</div>
+          <div class="empty-sub">Load a CSV, TSV, or Excel file from the left panel to get started. Large files (1M+ rows) are supported.</div>
+        </div>
+      </div>
+      <div class="stats-bar" id="stats-bar" style="display:none">
+        <span>Rows: <strong id="stat-rows">—</strong> of <strong id="stat-total">—</strong></span>
+        <span style="color:var(--border2)">|</span>
+        <span>Cols: <strong id="stat-cols">—</strong></span>
+        <span style="color:var(--border2)">|</span>
+        <span id="stat-aggregates" style="display:flex;gap:14px;align-items:center"></span>
+        <span style="margin-left:auto;display:flex;align-items:center;gap:6px">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--success);display:inline-block"></span>
+          <span id="stat-status" style="color:var(--muted);font-size:10px">Live · 0 errors</span>
+        </span>
       </div>
     </div>
-    <div class="stats-bar" id="stats-bar" style="display:none">
-      <span>Rows: <strong id="stat-rows">—</strong></span>
-      <span>Columns: <strong id="stat-cols">—</strong></span>
-      <span>Showing: <strong id="stat-showing">—</strong></span>
-      <span>Source: <strong id="stat-source">—</strong></span>
+
+    <!-- CANVAS MODE -->
+    <div id="canvas-mode-view" class="canvas-workspace" style="display:none;">
+      <div class="dot-grid"></div>
+      <div class="canvas-viewport" id="canvas-viewport"
+           onmousedown="canvasMouseDown(event)"
+           onmousemove="canvasMouseMove(event)"
+           onmouseup="canvasMouseUp(event)"
+           onwheel="canvasWheel(event)">
+        <div class="canvas-transform" id="canvas-transform">
+          <svg class="canvas-svg" id="canvas-svg"></svg>
+          <div id="canvas-nodes"></div>
+        </div>
+      </div>
+      <div class="canvas-empty" id="canvas-empty">
+        <div class="ce-icon">◇</div>
+        <div class="ce-title">Pipeline canvas</div>
+        <div class="ce-sub">Load a dataset and add pipeline steps — they'll appear as connected nodes here</div>
+      </div>
+      <div class="canvas-zoom-ctrl">
+        <button class="canvas-zoom-btn" onclick="canvasZoom(-0.1)">−</button>
+        <span class="canvas-zoom-label" id="canvas-zoom-label">100%</span>
+        <button class="canvas-zoom-btn divider" onclick="canvasZoom(0.1)">+</button>
+        <button class="canvas-zoom-btn divider" onclick="canvasFit()">Fit</button>
+      </div>
+      <div class="canvas-preview" id="canvas-preview">
+        <div class="cp-head">
+          <span id="cp-title">Node preview</span>
+          <button class="cp-close" onclick="closeCanvasPreview()">✕</button>
+        </div>
+        <div class="cp-table-wrap" id="cp-table-wrap"></div>
+      </div>
     </div>
   </div>
 
@@ -556,12 +777,12 @@ table.data-table td.num-val { color: #1d4ed8; text-align: right; }
       <span style="font-size:20px">◈</span>
       <div style="flex:1">
         <div style="font-size:14px;font-weight:600">Pricing schema mapper</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:2px">Map your columns to pricing dimensions for Pricing Analyser handoff</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">Map your columns to pricing dimensions for Pricing Analyser handoff</div>
       </div>
       <span class="schema-badge">DB-01</span>
       <button class="modal-close" onclick="closeSchemaWizard()" style="margin-left:8px">✕</button>
     </div>
-    <div style="padding:14px 20px 4px;font-size:11px;color:var(--text3);background:var(--surface2);border-bottom:1px solid var(--border)">
+    <div style="padding:14px 20px 4px;font-size:11px;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border)">
       Columns auto-suggested by name. Adjust using dropdowns. Unmapped dimensions are skipped.
     </div>
     <div class="schema-grid" id="schema-grid"></div>
@@ -1405,6 +1626,9 @@ function showDemoBanner(show) {
 let tables = {};          // name → [{col: val}, ...]
 let tablesMeta = {};      // name → {rows, cols, types}
 let activeTable = null;
+let currentMode = 'table'; // 'table' | 'canvas'
+let isDark = false;
+let _lastRunTs = Date.now();
 let currentData = [];
 let displayData = [];
 let pipeline = [];        // [{op, params, label, icon}]
@@ -1490,7 +1714,7 @@ function renderOps(cat='all') {
 
 function opBtnHtml(op) {
   return `<button class="op-btn" onclick="openOp('${op.id}')">
-    <span class="op-icon">${op.icon}</span>
+    <span class="op-icon op-icon-${op.cat}">${op.icon}</span>
     <span class="op-text">
       <span class="op-name">${op.name}</span>
       <span class="op-desc">${op.desc}</span>
@@ -1604,7 +1828,7 @@ function renderTableList() {
     html += sourceNames.map(makeItem).join('');
   }
   if(resultNames.length) {
-    html += `<div class="sidebar-section">Results <button onclick="clearAllResults()" style="font-size:9px;background:none;border:none;color:var(--text3);cursor:pointer;text-transform:none;letter-spacing:0;font-weight:400;padding:0 2px">clear all</button></div>`;
+    html += `<div class="sidebar-section">Results <button onclick="clearAllResults()" style="font-size:9px;background:none;border:none;color:var(--muted);cursor:pointer;text-transform:none;letter-spacing:0;font-weight:400;padding:0 2px">clear all</button></div>`;
     html += resultNames.map(makeItem).join('');
   }
   list.innerHTML = html;
@@ -1684,11 +1908,42 @@ function renderPreview(data=null) {
 
   const types = meta.types || {};
 
+  // Status/Won/Lost/Pending tag detection
+  const STATUS_VALS = new Set(['won','lost','pending']);
+  const TIER_VALS   = new Set(['enterprise','smb','mid-market','mid market']);
+  function tagClass(v) {
+    const lv = String(v).toLowerCase().trim();
+    if (lv === 'won')      return 'tag-won';
+    if (lv === 'lost')     return 'tag-lost';
+    if (lv === 'pending')  return 'tag-pend';
+    if (lv === 'enterprise') return 'tag-ent';
+    if (lv === 'smb')        return 'tag-smb';
+    if (lv.includes('mid'))  return 'tag-mid';
+    return 'tag-gen';
+  }
+  function isTagCol(col) {
+    return /status|tier|segment|region|category|type|industry/i.test(col);
+  }
+  function renderCell(c, v, types) {
+    if (v == null || v === '') return `<td class="null-val">null</td>`;
+    const isNum = typeof v === 'number' || (types[c]==='num' && !isNaN(+v));
+    if (isNum) return `<td class="num-val">${(+v).toLocaleString()}</td>`;
+    const sv = String(v);
+    if (isTagCol(c) && sv.length < 20) {
+      const tc = tagClass(sv);
+      return `<td><span class="tag-cell ${tc}">${sv}</span></td>`;
+    }
+    return `<td>${sv.slice(0,120)}</td>`;
+  }
+
   let html = `
     <div class="preview-toolbar">
-      <div class="preview-info"><strong>${filtered.length.toLocaleString()}</strong> rows · <strong>${cols.length}</strong> columns</div>
+      <div class="preview-info" style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">
+        <strong>${filtered.length.toLocaleString()}</strong> rows · <strong>${cols.length}</strong> cols
+        ${activeTable ? `· <span style="color:var(--muted);font-family:var(--mono);font-size:10px">${activeTable}</span>` : ''}
+      </div>
       <div class="search-box">
-        🔍 <input type="text" placeholder="Search all columns..." value="${searchQuery}"
+        🔍 <input type="text" placeholder="Search..." value="${searchQuery}"
           oninput="searchQuery=this.value;renderPreview()" />
       </div>
       ${filtered.length > PAGE*(displayPage+1) ? `<button class="btn btn-secondary btn-xs" onclick="displayPage++;renderPreview()">Load more</button>` : ''}
@@ -1698,18 +1953,11 @@ function renderPreview(data=null) {
         <thead><tr>
           ${cols.map(c => `<th onclick="toggleSort('${c}')" title="Click to sort">
             ${c} ${sortCol===c?(sortDir===1?'↑':'↓'):''}
-            <span class="col-type">${types[c]||'str'}</span>
+            ${getTypePill(types[c])}
           </th>`).join('')}
         </tr></thead>
         <tbody>
-          ${pageData.map(row => `<tr>${cols.map(c => {
-            const v = row[c];
-            const isNull = v == null || v === '';
-            const isNum = !isNull && (typeof v === 'number' || (types[c]==='num' && !isNaN(+v)));
-            return `<td class="${isNull?'null-val':isNum?'num-val':''}">${
-              isNull ? 'null' : isNum ? (+v).toLocaleString() : String(v).slice(0,120)
-            }</td>`;
-          }).join('')}</tr>`).join('')}
+          ${pageData.map(row => `<tr>${cols.map(c => renderCell(c, row[c], types)).join('')}</tr>`).join('')}
         </tbody>
       </table>
     </div>`;
@@ -1718,10 +1966,48 @@ function renderPreview(data=null) {
 
   // stats
   document.getElementById('stats-bar').style.display = 'flex';
-  document.getElementById('stat-rows').textContent = currentData.length.toLocaleString();
+  document.getElementById('stat-rows').textContent = Math.min(filtered.length, PAGE*(displayPage+1)).toLocaleString();
+  document.getElementById('stat-total').textContent = currentData.length.toLocaleString();
   document.getElementById('stat-cols').textContent = cols.length;
-  document.getElementById('stat-showing').textContent = Math.min(filtered.length, PAGE*(displayPage+1)).toLocaleString();
-  document.getElementById('stat-source').textContent = activeTable || '—';
+
+  // Smart numeric aggregates — pick up to 3 interesting numeric columns
+  const aggEl = document.getElementById('stat-aggregates');
+  if(aggEl) {
+    const meta = activeTable ? tablesMeta[activeTable] : buildMeta(currentData);
+    const numColNames = cols.filter(c => meta.types && meta.types[c] === 'num');
+    // Prefer revenue/sales/amount/margin/price cols first
+    const priorityPat = /revenue|sales|amount|total|price|margin|cost|profit|value/i;
+    const prioritised = [...numColNames.filter(c => priorityPat.test(c)), ...numColNames.filter(c => !priorityPat.test(c))];
+    const toShow = prioritised.slice(0, 3);
+    const aggParts = toShow.map(c => {
+      const vals = currentData.map(r => +r[c]).filter(v => !isNaN(v));
+      if(!vals.length) return null;
+      const sum = vals.reduce((s,v) => s+v, 0);
+      const mean = sum / vals.length;
+      // Decide: show sum for revenue/totals, mean for rates/margins/pcts
+      const showMean = /margin|pct|rate|ratio|%/i.test(c);
+      const val = showMean ? mean : sum;
+      const sym = showMean ? 'μ' : 'Σ';
+      // Format
+      let formatted;
+      if(Math.abs(val) >= 1e6) formatted = '$' + (val/1e6).toFixed(1) + 'M';
+      else if(Math.abs(val) >= 1e3) formatted = '$' + (val/1e3).toFixed(1) + 'K';
+      else if(showMean) formatted = val.toFixed(1) + '%';
+      else formatted = val.toLocaleString(undefined, {maximumFractionDigits:0});
+      const label = c.replace(/_/g,' ').toLowerCase().replace(/\w/g,l=>l.toUpperCase());
+      return `<span style="font-size:10px;color:var(--muted)">${sym} <span style="font-weight:500;color:var(--text2);font-family:var(--mono)">${label}: <strong style="color:var(--text)">${formatted}</strong></span></span>`;
+    }).filter(Boolean);
+    aggEl.innerHTML = aggParts.join('<span style="color:var(--border2)">|</span>');
+  }
+
+  // Runtime info
+  const statusEl = document.getElementById('stat-status');
+  if(statusEl) {
+    const elapsed = Math.round((Date.now() - (_lastRunTs||Date.now())) / 1000);
+    statusEl.textContent = 'Live · 0 errors' + (pipeline.length ? ' · last run ' + (elapsed < 5 ? 'just now' : elapsed + 's ago') : '');
+  }
+  _lastRunTs = Date.now();
+  if(currentMode === 'canvas') renderCanvas();
 }
 
 function showEmptyPreview() {
@@ -1745,6 +2031,7 @@ function renderPipeline() {
   const bar = document.getElementById('pipeline-bar');
   if(!pipeline.length) {
     bar.innerHTML = `<div class="pipeline-empty">No operations applied yet — add from the right panel</div>`;
+    if(currentMode === 'canvas') renderCanvas();
     return;
   }
   bar.innerHTML = pipeline.map((s,i) =>
@@ -1753,6 +2040,7 @@ function renderPipeline() {
       <span class="remove" onclick="removeStep(${i})">✕</span>
     </div>${i<pipeline.length-1?'<span class="step-arrow">›</span>':''}`
   ).join('');
+  if(currentMode === 'canvas') renderCanvas();
 }
 
 function removeStep(idx) {
@@ -2022,7 +2310,7 @@ function buildModalBody(opId) {
       </div>
       <div id="cc-if-builder" style="display:none">
         <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
-          <span style="font-size:11px;font-weight:600;color:var(--text3)">IF</span>
+          <span style="font-size:11px;font-weight:600;color:var(--muted)">IF</span>
           <select id="cc-if-col" style="flex:2;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px">${c.map(x=>'<option>'+x+'</option>').join('')}</select>
           <select id="cc-if-op" style="flex:1;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"><option>==</option><option>!=</option><option>&gt;</option><option>&gt;=</option><option>&lt;</option><option>&lt;=</option></select>
           <input id="cc-if-val" placeholder="value" style="flex:1.5;border:1px solid var(--border);border-radius:5px;padding:5px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"/>
@@ -2038,7 +2326,7 @@ function buildModalBody(opId) {
         <input id="cc-const-only" placeholder="Constant value for all rows" style="width:100%;padding:6px 9px;border:1px solid var(--border);border-radius:5px;background:var(--surface2);font-family:var(--sans);font-size:12px"/>
       </div>
       <div style="margin-top:8px">
-        <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Formula preview</div>
+        <div style="font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Formula preview</div>
         <div class="calc-preview" id="cc-preview">—</div>
       </div>`;
 
@@ -2139,7 +2427,7 @@ function buildModalBody(opId) {
 
     case 'rename': return `
       <div class="field">
-        <label>Rename columns <span style="font-weight:400;font-size:10px;color:var(--text3)">(edit new name — leave unchanged to keep)</span></label>
+        <label>Rename columns <span style="font-weight:400;font-size:10px;color:var(--muted)">(edit new name — leave unchanged to keep)</span></label>
         <div class="rename-grid">
           ${c.map(col=>`<div class="rename-row"><div class="rename-old">${col}</div><div class="rename-arrow">→</div><input class="rename-new" data-old="${col}" value="${col}"/></div>`).join('')}
         </div>
@@ -2190,11 +2478,11 @@ function buildModalBody(opId) {
     case 'condtag': return (()=>{
       setTimeout(()=>{ const cr=document.getElementById('ctag-rules-ui'); if(cr&&!cr.children.length){addTagRule();addTagRule();addTagRule();} },0);
       return `<div class="field"><label>New tag column name</label><input id="ctag-name" value="Segment"/></div>
-      <div class="field"><label>Tagging rules <span style="font-weight:400;font-size:10px;color:var(--text3)">(top to bottom — first match wins)</span></label>
+      <div class="field"><label>Tagging rules <span style="font-weight:400;font-size:10px;color:var(--muted)">(top to bottom — first match wins)</span></label>
         <div class="rule-builder" id="ctag-rules-ui"></div>
         <button class="add-rule-btn" onclick="addTagRule()">+ Add rule</button>
         <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
-          <span style="font-size:11px;color:var(--text3)">Default (no match):</span>
+          <span style="font-size:11px;color:var(--muted)">Default (no match):</span>
           <input id="ctag-default" placeholder="Other" style="flex:1;border:1px solid var(--border);border-radius:5px;padding:4px 8px;background:var(--surface2);font-family:var(--sans);font-size:11px"/>
         </div>
       </div>`;
@@ -3050,6 +3338,365 @@ renderOps();
 // Load sample data so the tool opens ready to use
 loadSampleData();
 
+// ═══════════════════════════════════════════════════
+// THEME SYSTEM
+// ═══════════════════════════════════════════════════
+
+function toggleTheme() {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
+  document.getElementById('theme-toggle-btn').textContent = isDark ? '☾' : '☀';
+}
+
+// ═══════════════════════════════════════════════════
+// MODE SWITCH (Table / Canvas)
+// ═══════════════════════════════════════════════════
+
+function setMode(mode) {
+  currentMode = mode;
+  const tableView  = document.getElementById('table-mode-view');
+  const canvasView = document.getElementById('canvas-mode-view');
+  const tableBtn   = document.getElementById('mode-table-btn');
+  const canvasBtn  = document.getElementById('mode-canvas-btn');
+
+  if (mode === 'table') {
+    tableView.style.display  = 'flex';
+    canvasView.style.display = 'none';
+    tableBtn.classList.add('active');
+    canvasBtn.classList.remove('active');
+  } else {
+    tableView.style.display  = 'none';
+    canvasView.style.display = 'flex';
+    canvasBtn.classList.add('active');
+    tableBtn.classList.remove('active');
+    renderCanvas();
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// CANVAS ENGINE
+// ═══════════════════════════════════════════════════
+let canvasState = {
+  zoom: 1,
+  panX: 40,
+  panY: 40,
+  nodes: [],         // [{id, x, y, label, icon, summary, rowCount, color}]
+  selectedId: null,
+  dragging: null,    // {nodeId, startX, startY, origX, origY}
+  panning: false,
+  panStart: null,
+};
+
+const CANVAS_NODE_W = 180;
+const CANVAS_NODE_H = 88;
+const CANVAS_GRID   = 20;
+
+function snapToGrid(v) { return Math.round(v / CANVAS_GRID) * CANVAS_GRID; }
+
+function buildCanvasNodes() {
+  // Build nodes from pipeline steps + source table
+  const nodes = [];
+  if (!activeTable) return nodes;
+
+  // Source node
+  const sourceRows = tables[activeTable]?.length || 0;
+  nodes.push({
+    id: '__source__',
+    x: 40, y: 40,
+    label: activeTable,
+    icon: '📋',
+    iconColor: '#5b8ef5',
+    summary: 'Source dataset',
+    rowCount: sourceRows,
+  });
+
+  const opColors = {
+    filter:    '#f5a524',
+    groupby:   '#22d3b8',
+    join:      '#a78bfa',
+    sort:      '#5b8ef5',
+    calcol:    '#34c759',
+    selectcols:'#f5a524',
+    dedup:     '#fb923c',
+    topn:      '#5b8ef5',
+    pivot:     '#a78bfa',
+    unpivot:   '#a78bfa',
+    rename:    '#94a3b8',
+    summary:   '#22d3b8',
+    nullaudit: '#fb923c',
+    default:   '#22d3b8',
+  };
+
+  let prevData = [...(tables[activeTable] || [])];
+  pipeline.forEach((step, i) => {
+    // Apply step to get row count
+    let outData = prevData;
+    try { outData = step.fn(prevData); } catch(e) {}
+    const inCount  = prevData.length;
+    const outCount = outData?.length ?? 0;
+
+    nodes.push({
+      id: 'step_' + i,
+      x: snapToGrid(40 + (i + 1) * 220),
+      y: 40,
+      label: step.label,
+      icon: step.icon || '⚙',
+      iconColor: opColors[step.id] || opColors.default,
+      summary: step.label,
+      rowCount: outCount,
+      rowIn: inCount,
+    });
+    prevData = outData || prevData;
+  });
+
+  // Restore any user-moved positions
+  nodes.forEach(n => {
+    const saved = canvasState.nodes.find(s => s.id === n.id);
+    if (saved) { n.x = saved.x; n.y = saved.y; }
+  });
+
+  return nodes;
+}
+
+function renderCanvas() {
+  canvasState.nodes = buildCanvasNodes();
+  if (!canvasState.nodes.length) {
+    document.getElementById('canvas-empty').style.display = 'flex';
+    document.getElementById('canvas-nodes').innerHTML = '';
+    document.getElementById('canvas-svg').innerHTML = '';
+    return;
+  }
+  document.getElementById('canvas-empty').style.display = 'none';
+  applyCanvasTransform();
+  renderCanvasNodes();
+  renderCanvasConnectors();
+}
+
+function applyCanvasTransform() {
+  const t = document.getElementById('canvas-transform');
+  if (t) t.style.transform = `translate(${canvasState.panX}px,${canvasState.panY}px) scale(${canvasState.zoom})`;
+  const label = document.getElementById('canvas-zoom-label');
+  if (label) label.textContent = Math.round(canvasState.zoom * 100) + '%';
+}
+
+function renderCanvasNodes() {
+  const container = document.getElementById('canvas-nodes');
+  if (!container) return;
+  container.innerHTML = canvasState.nodes.map(n => {
+    const isSel = n.id === canvasState.selectedId;
+    return `<div class="cn-node${isSel ? ' cn-selected' : ''}"
+      id="cn-${n.id}"
+      style="left:${n.x}px;top:${n.y}px;"
+      onmousedown="nodeMouseDown(event,'${n.id}')"
+      onclick="selectNode('${n.id}')">
+      <div class="cn-port-in"></div>
+      <div class="cn-head">
+        <div class="cn-head-icon" style="background:${n.iconColor}22;color:${n.iconColor}">${n.icon}</div>
+        <div class="cn-head-label" title="${n.label}">${n.label}</div>
+      </div>
+      <div class="cn-body">
+        <div class="cn-summary">${n.summary || '—'}</div>
+      </div>
+      <div class="cn-foot">
+        <div class="cn-rowcount">${n.rowIn != null ? n.rowIn.toLocaleString() + ' → ' : ''}${n.rowCount.toLocaleString()} rows</div>
+      </div>
+      <div class="cn-port-out"></div>
+    </div>`;
+  }).join('');
+}
+
+function renderCanvasConnectors() {
+  const svg = document.getElementById('canvas-svg');
+  if (!svg || canvasState.nodes.length < 2) { if(svg) svg.innerHTML=''; return; }
+
+  // Compute SVG size to cover all nodes
+  const maxX = Math.max(...canvasState.nodes.map(n => n.x + CANVAS_NODE_W)) + 100;
+  const maxY = Math.max(...canvasState.nodes.map(n => n.y + CANVAS_NODE_H)) + 100;
+  svg.setAttribute('width', maxX);
+  svg.setAttribute('height', maxY);
+
+  let paths = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="var(--accent)" opacity="0.7"/>
+  </marker></defs>`;
+
+  for (let i = 0; i < canvasState.nodes.length - 1; i++) {
+    const a = canvasState.nodes[i];
+    const b = canvasState.nodes[i + 1];
+    const x1 = a.x + CANVAS_NODE_W;
+    const y1 = a.y + CANVAS_NODE_H / 2;
+    const x2 = b.x;
+    const y2 = b.y + CANVAS_NODE_H / 2;
+    const cx1 = x1 + 60;
+    const cx2 = x2 - 60;
+    paths += `<path class="cn-connector" d="M${x1},${y1} C${cx1},${y1} ${cx2},${y2} ${x2},${y2}" marker-end="url(#arrow)"/>`;
+  }
+  svg.innerHTML = paths;
+}
+
+function selectNode(id) {
+  canvasState.selectedId = id;
+  renderCanvasNodes();
+  renderCanvasConnectors();
+  showNodePreview(id);
+}
+
+function showNodePreview(id) {
+  const panel = document.getElementById('canvas-preview');
+  const wrap  = document.getElementById('cp-table-wrap');
+  const title = document.getElementById('cp-title');
+  if (!panel || !wrap) return;
+
+  const node = canvasState.nodes.find(n => n.id === id);
+  if (!node) { panel.classList.remove('show'); return; }
+
+  // Get data for this node's step
+  let data = [];
+  if (id === '__source__') {
+    data = (tables[activeTable] || []).slice(0, 5);
+  } else {
+    const stepIdx = parseInt(id.replace('step_', ''));
+    let d = [...(tables[activeTable] || [])];
+    for (let i = 0; i <= stepIdx && i < pipeline.length; i++) {
+      try { d = pipeline[i].fn(d); } catch(e) {}
+    }
+    data = (d || []).slice(0, 5);
+  }
+
+  if (!data.length) { panel.classList.remove('show'); return; }
+
+  title.textContent = node.label;
+  const cols = Object.keys(data[0]);
+  const colsShown = cols.slice(0, 5);
+
+  wrap.innerHTML = `<table class="cp-table"><thead><tr>${colsShown.map(c => `<th>${c}</th>`).join('')}${cols.length > 5 ? '<th>…</th>' : ''}</tr></thead><tbody>${data.map(row => `<tr>${colsShown.map(c => `<td>${row[c] ?? 'null'}</td>`).join('')}${cols.length > 5 ? '<td>…</td>' : ''}</tr>`).join('')}</tbody></table>`;
+  panel.classList.add('show');
+}
+
+function closeCanvasPreview() {
+  document.getElementById('canvas-preview')?.classList.remove('show');
+  canvasState.selectedId = null;
+  renderCanvasNodes();
+}
+
+// ─── Drag nodes ────────────────────────────────────────────────────────────
+function nodeMouseDown(e, id) {
+  e.stopPropagation();
+  const node = canvasState.nodes.find(n => n.id === id);
+  if (!node) return;
+  canvasState.dragging = {
+    nodeId: id,
+    startX: e.clientX,
+    startY: e.clientY,
+    origX: node.x,
+    origY: node.y,
+  };
+}
+
+// ─── Canvas pan / zoom ──────────────────────────────────────────────────────
+function canvasMouseDown(e) {
+  if (canvasState.dragging) return;
+  canvasState.panning = true;
+  canvasState.panStart = { x: e.clientX - canvasState.panX, y: e.clientY - canvasState.panY };
+}
+
+function canvasMouseMove(e) {
+  if (canvasState.dragging) {
+    const { nodeId, startX, startY, origX, origY } = canvasState.dragging;
+    const dx = (e.clientX - startX) / canvasState.zoom;
+    const dy = (e.clientY - startY) / canvasState.zoom;
+    const node = canvasState.nodes.find(n => n.id === nodeId);
+    if (node) {
+      node.x = snapToGrid(origX + dx);
+      node.y = snapToGrid(origY + dy);
+      const el = document.getElementById('cn-' + nodeId);
+      if (el) { el.style.left = node.x + 'px'; el.style.top = node.y + 'px'; el.classList.add('cn-dragging'); }
+      renderCanvasConnectors();
+    }
+  } else if (canvasState.panning && canvasState.panStart) {
+    canvasState.panX = e.clientX - canvasState.panStart.x;
+    canvasState.panY = e.clientY - canvasState.panStart.y;
+    applyCanvasTransform();
+  }
+}
+
+function canvasMouseUp(e) {
+  if (canvasState.dragging) {
+    const el = document.getElementById('cn-' + canvasState.dragging.nodeId);
+    if (el) el.classList.remove('cn-dragging');
+    canvasState.dragging = null;
+  }
+  canvasState.panning = false;
+  canvasState.panStart = null;
+}
+
+function canvasWheel(e) {
+  e.preventDefault();
+  if (e.ctrlKey || e.metaKey) {
+    const delta = e.deltaY > 0 ? -0.08 : 0.08;
+    canvasZoom(delta, e.clientX, e.clientY);
+  } else {
+    canvasState.panX -= e.deltaX;
+    canvasState.panY -= e.deltaY;
+    applyCanvasTransform();
+  }
+}
+
+function canvasZoom(delta, cx, cy) {
+  const prev = canvasState.zoom;
+  canvasState.zoom = Math.max(0.2, Math.min(3, canvasState.zoom + delta));
+  if (cx != null && cy != null) {
+    // Zoom toward cursor
+    const vp = document.getElementById('canvas-viewport').getBoundingClientRect();
+    const mx = cx - vp.left;
+    const my = cy - vp.top;
+    canvasState.panX = mx - (mx - canvasState.panX) * (canvasState.zoom / prev);
+    canvasState.panY = my - (my - canvasState.panY) * (canvasState.zoom / prev);
+  }
+  applyCanvasTransform();
+}
+
+function canvasFit() {
+  if (!canvasState.nodes.length) return;
+  const vp = document.getElementById('canvas-viewport');
+  const vpW = vp.clientWidth;
+  const vpH = vp.clientHeight;
+  const minX = Math.min(...canvasState.nodes.map(n => n.x));
+  const minY = Math.min(...canvasState.nodes.map(n => n.y));
+  const maxX = Math.max(...canvasState.nodes.map(n => n.x + CANVAS_NODE_W));
+  const maxY = Math.max(...canvasState.nodes.map(n => n.y + CANVAS_NODE_H));
+  const contentW = maxX - minX + 80;
+  const contentH = maxY - minY + 80;
+  const newZoom = Math.min(1, vpW / contentW, vpH / contentH);
+  canvasState.zoom = newZoom;
+  canvasState.panX = (vpW - contentW * newZoom) / 2 + 40 * newZoom;
+  canvasState.panY = (vpH - contentH * newZoom) / 2 + 40 * newZoom;
+  applyCanvasTransform();
+}
+
+// Canvas sync is handled inline in renderPipeline and renderPreview
+
+// ═══════════════════════════════════════════════════
+// ENHANCED COLUMN TYPE PILLS IN TABLE HEADER
+// ═══════════════════════════════════════════════════
+function typeToLabel(t) {
+  switch(t) {
+    case 'num':  return { sym: '#',  cls: 't-num'  };
+    case 'date': return { sym: '☷', cls: 't-date' };
+    case 'pct':  return { sym: '%',  cls: 't-pct'  };
+    case 'tag':  return { sym: '◇', cls: 't-tag'  };
+    case 'id':   return { sym: '🔑', cls: 't-id'   };
+    default:     return { sym: 'Aa', cls: 't-str'  };
+  }
+}
+
+// Override col type rendering in renderPreview
+// Patch to use typed pills in headers and colored cells
+function getTypePill(type) {
+  const { sym, cls } = typeToLabel(type || 'str');
+  return `<span class="col-type-pill ${cls}">${sym}</span>`;
+}
+
+
 
 // ════════════════════════════════════════════════
 // SQL TOGGLE + MODAL WRAPPER
@@ -3191,7 +3838,7 @@ function addTagRule() {
   row.innerHTML = `<select class="r-col"><option value="">— column —</option>${c.map(x=>`<option>${x}</option>`).join('')}</select>
     <select class="r-op"><option value="==">=  equals</option><option value="!=">≠</option><option value=">">›</option><option value=">=">≥</option><option value="<">‹</option><option value="<=">≤</option><option value="contains">contains</option><option value="is empty">is empty</option><option value="is not empty">is not empty</option></select>
     <input class="r-val" placeholder="value" style="flex:1.5"/>
-    <span style="font-size:11px;color:var(--text3);flex-shrink:0">→</span>
+    <span style="font-size:11px;color:var(--muted);flex-shrink:0">→</span>
     <input class="lbl-inp" placeholder="Label" style="flex:1.5;border:1px solid var(--border);border-radius:5px;padding:4px 7px;background:var(--surface);font-family:var(--sans);font-size:11px;color:var(--text)"/>
     <button class="rm-rule" onclick="this.closest('.rule-row').remove()">✕</button>`;
   container.appendChild(row);
@@ -3272,7 +3919,7 @@ function runQualityCheck(data, meta) {
   const issueEl=document.getElementById('q-issues');
   const bar=document.getElementById('quality-bar');
   if(badge){badge.textContent=score+'/100';badge.className='q-score '+(score>=80?'q-good':score>=60?'q-warn':'q-bad');}
-  if(issueEl)issueEl.innerHTML=issues.length?issues.map(i=>`<span class="q-issue">⚠ ${i}</span>`).join(' &nbsp;'):`<span style="color:var(--success);font-size:11px">✓ No issues detected</span>`;
+  if(issueEl)issueEl.innerHTML=issues.length?issues.map(i=>`<span class="q-issue">⚠ ${i}</span>`).join(' &nbsp;'):`<span style="color:var(--success);font-size:11px">✓ Clean</span>`;
   if(bar)bar.classList.add('show');
   const paBtn=document.getElementById('pa-send-btn');
   if(paBtn)paBtn.style.display='';

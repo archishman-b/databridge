@@ -824,6 +824,80 @@ body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(
   </div>
 </section>
 
+
+<!-- ════ STAGE 7: V2 UPDATE ════ -->
+<section class="stage-section" id="stage7">
+  <div class="stage-header">
+    <div class="stage-num-large" style="background:var(--purple-lt);color:var(--purple)">7</div>
+    <div class="stage-hdr-body">
+      <div class="stage-eyebrow">Stage 7 · v2.0 Update</div>
+      <div class="stage-title">Theme system, Canvas mode, and visual redesign</div>
+      <div class="stage-sub">Three additions that changed the character of the tool</div>
+    </div>
+    <span class="stage-status-pill" style="background:var(--done-bg);color:var(--done-tx)">Live</span>
+  </div>
+
+  <p class="narrative">DataBridge v2.0 is not a feature release in the conventional sense. Nothing in the analytical capability changed — the 40+ operations, the pipeline model, the export layer, the Pricing Analyser handoff — all of it remained exactly as it was. What changed was the tool's ability to adapt to the environment it is actually used in, and its ability to represent analytical work in a form that is more naturally communicable to strategy audiences.</p>
+
+  <p class="narrative">Three additions drove the update. Each came from a specific observation about how the tool was being used in practice.</p>
+
+  <div class="section-label">The design principle that got updated</div>
+
+  <p class="narrative">Design principle P5 in v1.0 was "warm, legible, anti-intimidating." The light paper aesthetic was a deliberate choice — the audience is strategy professionals, not engineers, and the tool should feel familiar. That principle was right. But it was incomplete. In practice, the tool is also used in dark-mode environments — late evenings, low-light offices, presentations where a white interface bleeds into the slide. The v2 update does not abandon P5. It extends it: the tool should be legible and contextually comfortable in both the light environment of a morning review and the dark environment of a QBR prep session.</p>
+
+  <div class="decision-list">
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--purple-lt);color:var(--purple)">7.1</div>
+      <div class="decision-body">
+        <div class="decision-title">Theme system — dark/light with a single toggle</div>
+        <div class="decision-desc">Two complete colour palettes defined as CSS custom property sets. Light: warm paper aesthetic from v1.0, teal accent deepened to #0d9488 for readability on white. Dark: #0d1117 background, #22d3b8 brand teal, surface layers with distinct depth. Typeface updated to Inter (UI) + JetBrains Mono (data cells, type pills, row counts) — a more information-dense pairing for a data tool.</div>
+        <div class="decision-why">The toggle is a single button (☀ / ☾) in the topbar. Switching it applies <code>data-theme="dark"</code> to the document root — every colour in the tool responds instantly without a page reload. The palette switch is complete: backgrounds, surfaces, borders, text layers, accent colours, tag chips, badge backgrounds, and the quality bar all respond.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--purple-lt);color:var(--purple)">7.2</div>
+      <div class="decision-body">
+        <div class="decision-title">Canvas mode — the pipeline as a node graph</div>
+        <div class="decision-desc">A second view mode alongside the data table. When selected, the centre workspace replaces the table with a pannable, zoomable node graph. Each pipeline step — source table, each applied operation — renders as a positioned node showing the op type, a one-line summary, and the row count after that step (e.g. 420 → 47 rows). Nodes are connected by Bézier SVG curves with arrowhead markers. Clicking a node shows a 5-row data preview panel. Nodes are draggable with 20px grid snap.</div>
+        <div class="decision-why">The pipeline bar is always visible as a linear sequence of step chips. But a linear sequence hides the shape of the analysis — the branching, the data reduction, the point at which a filter removes 80% of rows. The canvas makes the shape visible. A strategy audience — a client, a senior stakeholder, a peer — can read a node graph without knowing what any of the operations mean. The data story is in the structure: source → filter → group → result.</div>
+      </div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num" style="background:var(--purple-lt);color:var(--purple)">7.3</div>
+      <div class="decision-body">
+        <div class="decision-title">Smart stats bar — live numeric summaries</div>
+        <div class="decision-desc">The footer stats bar in v1.0 showed row count, column count, and source table name. Useful metadata, but not insight. The v2 stats bar detects numeric columns, prioritises revenue/sales/margin/cost columns by name, and displays up to three live aggregates: Σ (sum) for revenue-type columns, μ (mean) for rate/margin/percentage columns. Auto-formatted as $1.8M, $420K, or plain numbers. A status indicator shows whether the pipeline is live and when it last ran.</div>
+        <div class="decision-why">The stats bar answers the question that is always in the room during a commercial analytics session: "what is the total revenue in this filtered dataset?" and "what is the average margin?" Those two numbers are typically the sanity check before any further analysis. Surfacing them automatically — without an explicit aggregate step — saves a round trip through the pipeline modal.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Two additional visual upgrades</div>
+
+  <div class="two-col">
+    <div class="col-block" style="background:var(--blue-lt);border-color:rgba(24,95,165,0.15)">
+      <div class="col-block-label" style="color:var(--blue)">Column type pills</div>
+      <div class="col-item"><span>→</span>Each column header now carries a typed pill: <code>Aa</code> text (purple) · <code>#</code> numeric (blue) · <code>☷</code> date (amber) · <code>%</code> percentage (teal) · <code>◇</code> categorical (green)</div>
+      <div class="col-item"><span>→</span>Numeric and percentage cells right-align in teal accent with JetBrains Mono — visually distinguishing data from labels at a glance</div>
+      <div class="col-item"><span>→</span>Tag cells (Status, Tier, Region, Category) render as coloured chips: Won (green) · Lost (red) · Pending (amber) · Enterprise/SMB/Mid-Market each with distinct palette</div>
+    </div>
+    <div class="col-block" style="background:var(--teal-lt);border-color:rgba(15,110,86,0.15)">
+      <div class="col-block-label" style="color:var(--teal)">Category op icons</div>
+      <div class="col-item"><span>→</span>Each operation in the right panel now has a coloured icon chip — background and foreground matched to its category: blue (join), amber (filter), teal (aggregate), purple (transform), green (inspect), red (segment), yellow (time)</div>
+      <div class="col-item"><span>→</span>Explicit Unicode symbol font stack (<code>Segoe UI Symbol</code>, <code>Apple Symbols</code>, <code>Noto Sans Symbols</code>) ensures the mathematical symbols render correctly across all browsers and operating systems</div>
+      <div class="col-item"><span>→</span>The coloured chip makes category visible at a glance — no need to read the category label above each section to understand which type of operation you are looking at</div>
+    </div>
+  </div>
+
+  <div class="section-label">Pipeline row</div>
+  <p class="narrative">The pipeline step chips were moved from the topbar (where they competed visually with the action buttons) to a dedicated 38px row below the topbar. This gives the pipeline its own visual lane — the linear sequence of applied operations reads cleanly at full width without being compressed into a scrollable topbar region. The pipeline label ("PIPELINE") makes the row self-explanatory at a glance.</p>
+
+  <div class="callout callout-gate">
+    <strong>v2.0 stage gate</strong>
+    Dark/light theme system with full CSS custom property palette. Canvas mode with pannable node graph, Bézier connectors, drag-and-drop nodes, zoom controls, and node preview panel. Smart stats bar with live numeric aggregates. Typed column header pills and coloured tag cells. Category-coloured op icon chips with correct Unicode symbol font stack. Pipeline row moved to standalone lane. Typeface updated to Inter + JetBrains Mono.
+  </div>
+</section>
+
 <!-- ════ BACKLOG ════ -->
 <section class="stage-section" id="backlog">
   <div class="stage-header">
